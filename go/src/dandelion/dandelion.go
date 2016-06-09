@@ -13,10 +13,12 @@ type DandelionCode struct {
 
 	// L is the label vector.
 	L []int
+
+	// TODO: Use Compact Representation from Section 7 of Caminiti et al.
 }
 
 const r = 0
-const x = 1
+const x = 1 // XXX: We may need to change this in the future.
 
 const notProcessed = 0
 const inProgress = 1
@@ -74,6 +76,7 @@ func Decode(s *DandelionCode) characteristic.Tree {
 	return characteristic.Tree{p, l}
 }
 
+// analyze is implemented as seen in Program 3 of Caminiti et al.
 func analyze(v int, status, p, m *[]int) {
 	if (*status)[v] == processed || v == 0 {
 		return

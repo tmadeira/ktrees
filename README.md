@@ -1,10 +1,12 @@
 Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso.
 
+**Build Status:** [![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
+
 ## Informações ##
 
-- **Tema:** geração uniforme de *k-trees* para aprendizado de redes bayesianas
-- **Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)
-- **Mais:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
+**Tema:** geração uniforme de *k-trees* para aprendizado de redes bayesianas  
+**Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
+**Mais:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
 
 ## Uso ##
 

@@ -64,7 +64,7 @@ func Decode(s *DandelionCode) characteristic.Tree {
 	m := make([]int, 0) // m is the vector of maximal nodes.
 	status := make([]int, n)
 	for v := 2; v < n; v++ {
-		analyze(v, &status, &p, &m)
+		analyze(v, p, &status, &m)
 	}
 
 	// Make swaps.
@@ -78,23 +78,23 @@ func Decode(s *DandelionCode) characteristic.Tree {
 }
 
 // analyze is implemented as seen in Program 3 of Caminiti et al.
-func analyze(v int, status, p, m *[]int) {
+func analyze(v int, p []int, status, m *[]int) {
 	if (*status)[v] == processed || v == 0 {
 		return
 	}
 
 	(*status)[v] = inProgress
-	if (*status)[(*p)[v]] == inProgress {
+	if (*status)[p[v]] == inProgress {
 		// A cycle has been identified.
 		maximal_node := v
-		for u := (*p)[v]; u != v; u = (*p)[u] {
+		for u := p[v]; u != v; u = p[u] {
 			if u > maximal_node {
 				maximal_node = u
 			}
 		}
 		*m = append(*m, maximal_node)
 	} else {
-		analyze((*p)[v], status, p, m)
+		analyze(p[v], p, status, m)
 	}
 	(*status)[v] = processed
 }

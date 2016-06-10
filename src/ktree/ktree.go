@@ -43,7 +43,7 @@ func ComputePhi(n, k int, Q []int) []int {
 		phi[Q[i]] = n - k + i
 	}
 
-	for i := 1; i <= n-k; i++ {
+	for i := 0; i < n-k; i++ {
 		j := i
 		for phi[j] != unassigned {
 			j = phi[j]
@@ -63,6 +63,7 @@ func Relabel(old *Ktree, phi []int) *Ktree {
 			v := old.Adj[u][i]
 			new.Adj[phi[u]] = append(new.Adj[phi[u]], phi[v])
 		}
+		sort.Ints(new.Adj[phi[u]])
 	}
 
 	return new

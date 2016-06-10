@@ -5,8 +5,6 @@ import (
 	"ktree"
 )
 
-// TODO: Implement Step 4 from Decoding Algorithm (R_k -> k-tree).
-
 type RenyiKtree struct {
 	Ktree *ktree.Ktree
 	Q     []int
@@ -24,3 +22,5 @@ func FromTk(t *ktree.Ktree) (*RenyiKtree, error) {
 
 	return &RenyiKtree{ktree.Relabel(t, phi), Q}, nil
 }
+
+// TODO: Implement Step 4 from Decoding Algorithm (R_k -> k-tree).

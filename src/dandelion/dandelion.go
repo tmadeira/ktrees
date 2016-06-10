@@ -2,8 +2,9 @@
 package dandelion
 
 import (
-	"characteristic"
 	"sort"
+
+	"characteristic"
 )
 
 // DandelionCode represents a coded tree (see Section 4 of Caminiti et al).

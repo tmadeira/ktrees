@@ -33,6 +33,26 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	T := characteristic.TreeFrom(Rk)
 	fmt.Println("T = %v\n", T)
 
+	// Identify q = min(v not in Q).
+	q := Rk.Q[len(Rk.Q)-1] + 1
+	if Rk.Q[0] != 1 {
+		q = 1
+	} else {
+		for i := 0; i+1 < len(Rk.Q); i++ {
+			if Rk.Q[i+1] > Rk.Q[i]+1 {
+				q = Rk.Q[i] + 1
+				break
+			}
+		}
+	}
+
+	// Make x = phi[q].
+	phi := ktree.ComputePhi(len(Tk.Adj), Tk.K, Rk.Q)
+	x := phi[q]
+
+	// We increased the indices in Step 2. Increase x accordingly.
+	x++
+
 	// Step 3: Compute the Generalized Dandelion Code for T. TODO.
 
 	// Step 4: Return the code (Q, S). TODO.

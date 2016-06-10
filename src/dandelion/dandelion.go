@@ -51,10 +51,10 @@ func Decode(s *DandelionCode) characteristic.Tree {
 	// Construct graph from code.
 	n := len(s.P) + 2
 	p, l := make([]int, n), make([]int, n)
-	p[0] = characteristic.Epsilon
-	l[0] = characteristic.Epsilon
+	p[0] = characteristic.E
+	l[0] = characteristic.E
 	p[1] = r
-	l[1] = characteristic.Epsilon
+	l[1] = characteristic.E
 	for v := 2; v < n; v++ {
 		p[v] = s.P[v-2]
 		l[v] = s.L[v-2]

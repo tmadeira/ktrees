@@ -7,7 +7,7 @@ import (
 )
 
 func TestCodeFig2C(t *testing.T) {
-	e := characteristic.Epsilon
+	e := characteristic.E
 
 	// This is the tree shown in Fig. 2(c) of Caminiti et al.
 	characteristic := &characteristic.Tree{
@@ -27,7 +27,7 @@ func TestCodeFig2C(t *testing.T) {
 }
 
 func TestDecodeFig2C(t *testing.T) {
-	e := characteristic.Epsilon
+	e := characteristic.E
 
 	// This is the code shown in Fig. 2(c) of Caminiti et al.
 	code := &DandelionCode{
@@ -47,7 +47,7 @@ func TestDecodeFig2C(t *testing.T) {
 }
 
 func CodeFig3(t *testing.T) {
-	e := characteristic.Epsilon
+	e := characteristic.E
 
 	// This is the tree shown in Fig. 2(c) of Caminiti et al.
 	characteristic := &characteristic.Tree{
@@ -67,7 +67,7 @@ func CodeFig3(t *testing.T) {
 }
 
 func TestDecodeFig3(t *testing.T) {
-	e := characteristic.Epsilon
+	e := characteristic.E
 
 	// This is the code shown in Fig. 3 of Caminiti et al.
 	code := &DandelionCode{

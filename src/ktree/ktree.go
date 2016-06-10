@@ -7,6 +7,7 @@ import (
 )
 
 type Ktree struct {
+	// Keep the adjacency lists sorted.
 	Adj [][]int
 	K   int
 }

@@ -19,7 +19,6 @@ type DandelionCode struct {
 }
 
 const r = 0
-const x = 1 // XXX: We may need to change this in the future.
 
 const notProcessed = 0
 const inProgress = 1
@@ -27,7 +26,7 @@ const processed = 2
 
 // Code receives a characteristic tree and returns its Dandelion code.
 // See Program 1: Generalized Dandelion Coding (in Caminiti et al).
-func Code(t *characteristic.Tree) DandelionCode {
+func Code(t *characteristic.Tree, x int) *DandelionCode {
 	p, l := t.P, t.L
 
 	// Make swaps while p[x] != r.
@@ -42,29 +41,45 @@ func Code(t *characteristic.Tree) DandelionCode {
 		p[x], p[w] = p[w], p[x]
 	}
 
-	return DandelionCode{p[2:], l[2:]}
+	// Remove r and x from vectors p and l.
+	s := &DandelionCode{make([]int, 0), make([]int, 0)}
+	for i := 0; i < len(p); i++ {
+		if i != r && i != x {
+			s.P = append(s.P, p[i])
+			s.L = append(s.L, l[i])
+		}
+	}
+
+	return s
 }
 
 // Decode receives a Dandelion code and returns its characteristic tree.
 // See Program 2: Generalized Dandelion Decoding (in Caminiti et al).
-func Decode(s *DandelionCode) characteristic.Tree {
+func Decode(s *DandelionCode, x int) *characteristic.Tree {
 	// Construct graph from code.
 	n := len(s.P) + 2
 	p, l := make([]int, n), make([]int, n)
-	p[0] = characteristic.E
-	l[0] = characteristic.E
-	p[1] = r
-	l[1] = characteristic.E
-	for v := 2; v < n; v++ {
-		p[v] = s.P[v-2]
-		l[v] = s.L[v-2]
+	p[r] = characteristic.E
+	l[r] = characteristic.E
+	p[x] = r
+	l[x] = characteristic.E
+	jump := 0
+	for v := 0; v < n; v++ {
+		if v == r || v == x {
+			jump++
+		} else {
+			p[v] = s.P[v-jump]
+			l[v] = s.L[v-jump]
+		}
 	}
 
 	// Identify all cycles.
 	m := make([]int, 0) // m is the vector of maximal nodes.
 	status := make([]int, n)
-	for v := 2; v < n; v++ {
-		analyze(v, p, &status, &m)
+	for v := 0; v < n; v++ {
+		if v != r && v != x {
+			analyze(v, p, &status, &m)
+		}
 	}
 
 	// Make swaps.
@@ -74,12 +89,12 @@ func Decode(s *DandelionCode) characteristic.Tree {
 		p[x], p[m[i]] = p[m[i]], p[x]
 	}
 
-	return characteristic.Tree{p, l}
+	return &characteristic.Tree{p, l}
 }
 
 // analyze is implemented as seen in Program 3 of Caminiti et al.
 func analyze(v int, p []int, status, m *[]int) {
-	if (*status)[v] == processed || v == 0 {
+	if (*status)[v] == processed || p[v] < 0 {
 		return
 	}
 

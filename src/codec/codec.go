@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"characteristic"
 	"dandelion"
 	"ktree"
 )
@@ -27,7 +28,10 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	}
 	fmt.Println("Rk = %v\n", Rk)
 
-	// Step 2: Generate the characteristic tree T for Rk. TODO.
+	// Step 2: Generate the characteristic tree T for Rk.
+	fmt.Println("Step 2...")
+	T := characteristic.TreeFrom(Rk)
+	fmt.Println("T = %v\n", T)
 
 	// Step 3: Compute the Generalized Dandelion Code for T. TODO.
 

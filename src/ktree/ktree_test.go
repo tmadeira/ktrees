@@ -23,7 +23,7 @@ var fig1A Ktree = Ktree{
 	3,
 }
 
-var relabedFig1A Ktree = Ktree{
+var relabeledFig1A Ktree = Ktree{
 	[][]int{
 		{4, 6, 7, 8},
 		{3, 8, 9, 10},
@@ -88,7 +88,7 @@ func TestComputePhi(t *testing.T) {
 
 func TestRelabel(t *testing.T) {
 	phi := []int{0, 8, 9, 3, 4, 5, 6, 7, 10, 2, 1}
-	want := &relabedFig1A
+	want := &relabeledFig1A
 
 	got := Relabel(&fig1A, phi)
 	if !reflect.DeepEqual(got, want) {
@@ -98,7 +98,7 @@ func TestRelabel(t *testing.T) {
 
 func TestRkFrom(t *testing.T) {
 	wantRenyi := RenyiKtree{
-		&relabedFig1A,
+		&relabeledFig1A,
 		[]int{1, 2, 8},
 	}
 
@@ -126,7 +126,7 @@ func TestRkFrom(t *testing.T) {
 }
 
 func TestTkFrom(t *testing.T) {
-	r := &RenyiKtree{&relabedFig1A, []int{1, 2, 8}}
+	r := &RenyiKtree{&relabeledFig1A, []int{1, 2, 8}}
 	want := &fig1A
 
 	got := TkFrom(r)

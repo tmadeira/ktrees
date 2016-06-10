@@ -11,6 +11,11 @@ type Ktree struct {
 	K   int
 }
 
+type RenyiKtree struct {
+	Ktree *Ktree
+	Q     []int
+}
+
 // GetQ returns Q, the k-clique adjacent to the maximum labeled leaf of T_k.
 func GetQ(t *Ktree) ([]int, error) {
 	// Compute degree of each node v and find lm: maximum v such that d(v) = k.
@@ -68,3 +73,18 @@ func Relabel(old *Ktree, phi []int) *Ktree {
 
 	return new
 }
+
+// RkFrom returns a Renyi k-Tree from a given k-Tree.
+// See Step 1 from Coding Algorithm in Section 5 of Caminiti et al.
+func RkFrom(t *Ktree) (*RenyiKtree, error) {
+	Q, err := GetQ(t)
+	if err != nil {
+		return nil, err
+	}
+
+	phi := ComputePhi(len(t.Adj), t.K, Q)
+
+	return &RenyiKtree{Relabel(t, phi), Q}, nil
+}
+
+// TODO: Implement Step 4 from Decoding Algorithm (R_k -> k-tree).

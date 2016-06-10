@@ -50,13 +50,19 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	phi := ktree.ComputePhi(len(Tk.Adj), Tk.K, Rk.Q)
 	x := phi[q]
 
-	// We increased the indices in Step 2. Increase x accordingly.
+	// We increased the indices in Step 2. Increase x and Q accordingly.
 	x++
+	Q := Rk.Q
+	for i := 0; i < len(Q); i++ {
+		Q[i]++
+	}
 
 	// Step 3: Compute the Generalized Dandelion Code for T. TODO.
+	S := dandelion.Code(T, x)
+	// TODO: Remove from the obtained code the pair corresponding to phi[lm].
 
-	// Step 4: Return the code (Q, S). TODO.
-	return nil, errors.New("Not implemented.")
+	// Step 4: Return the code (Q, S).
+	return &Code{Q, S}, errors.New("Not implemented.")
 }
 
 // DecodingAlgorithm receives a code (Q, S) and returns a k-tree Tk.

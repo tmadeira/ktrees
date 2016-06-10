@@ -88,4 +88,17 @@ func RkFrom(t *Ktree) (*RenyiKtree, error) {
 	return &RenyiKtree{Relabel(t, phi), Q}, nil
 }
 
-// TODO: Implement Step 4 from Decoding Algorithm (R_k -> k-tree).
+// TkFrom returns a k-Tree from a given Renyi k-Tree.
+// See Step 4 from Decoding Algorithm in Section 6 of Caminiti et al.
+func TkFrom(r *RenyiKtree) *Ktree {
+	n, k := len(r.Ktree.Adj), r.Ktree.K
+	phi := ComputePhi(n, k, r.Q)
+
+	// Construct phi^(-1).
+	inv := make([]int, n)
+	for i := 0; i < n; i++ {
+		inv[phi[i]] = i
+	}
+
+	return Relabel(r.Ktree, inv)
+}

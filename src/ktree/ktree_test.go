@@ -124,3 +124,13 @@ func TestRkFrom(t *testing.T) {
 		}
 	}
 }
+
+func TestTkFrom(t *testing.T) {
+	r := &RenyiKtree{&relabedFig1A, []int{1, 2, 8}}
+	want := &fig1A
+
+	got := TkFrom(r)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("TkFrom(%v) = %v; want %v", r, got, want)
+	}
+}

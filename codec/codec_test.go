@@ -70,7 +70,6 @@ func TestCodingAlgorithm(t *testing.T) {
 	}
 }
 
-/*
 func TestDecodingAlgorithm(t *testing.T) {
 	got, err := DecodingAlgorithm(&codedFig1A)
 	want := &fig1A
@@ -81,4 +80,3 @@ func TestDecodingAlgorithm(t *testing.T) {
 		t.Errorf("Decoding(%v) = %v, _; want %v, <nil>", codedFig1A, got, want)
 	}
 }
-*/

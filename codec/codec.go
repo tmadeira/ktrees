@@ -102,12 +102,13 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	T := dandelion.Decode(S, x+1)
 	fmt.Printf("T = %v\n", T)
 
-	// Step 3: Rebuild Rk by visiting T. TODO.
+	// Step 3: Rebuild Rk by visiting T.
+	Rk := characteristic.RenyiKtreeFrom(n, k, Q, T)
 
-	// Step 4: Apply phi^(-1) to Rk to obtain Tk. TODO.
+	// Step 4: Apply phi^(-1) to Rk to obtain Tk.
+	Tk := ktree.TkFrom(Rk)
 
-	// Step 5: Return Tk. TODO.
-	return nil, errors.New("Not implemented.")
+	return Tk, nil
 }
 
 // getMinVNotIn receives a vector Q and returns q = min(v not in Q).

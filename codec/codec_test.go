@@ -29,7 +29,7 @@ var fig1A ktree.Ktree = ktree.Ktree{
 }
 
 var codedFig1A Code = Code{
-	[]int{2, 3, 9},
+	[]int{1, 2, 8},
 	&dandelion.DandelionCode{
 		[]int{0, 2, 8, 8, 1, 5},
 		[]int{e, 0, 2, 1, 2, 2},
@@ -69,3 +69,16 @@ func TestCodingAlgorithm(t *testing.T) {
 		}
 	}
 }
+
+/*
+func TestDecodingAlgorithm(t *testing.T) {
+	got, err := DecodingAlgorithm(&codedFig1A)
+	want := &fig1A
+
+	if err != nil {
+		t.Errorf("Decoding(%v) = _, %v; want %v, <nil>", codedFig1A, err, want)
+	} else if !reflect.DeepEqual(got, want) {
+		t.Errorf("Decoding(%v) = %v, _; want %v, <nil>", codedFig1A, got, want)
+	}
+}
+*/

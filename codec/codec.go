@@ -34,17 +34,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	fmt.Printf("T = %v\n", T)
 
 	// Identify q = min(v not in Q).
-	q := Rk.Q[len(Rk.Q)-1] + 1
-	if Rk.Q[0] != 0 {
-		q = 0
-	} else {
-		for i := 0; i+1 < len(Rk.Q); i++ {
-			if Rk.Q[i+1] > Rk.Q[i]+1 {
-				q = Rk.Q[i] + 1
-				break
-			}
-		}
-	}
+	q := getMinVNotIn(Rk.Q)
 	fmt.Printf("q = %v\n", q)
 
 	// Make x = phi[q].
@@ -53,14 +43,11 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	x := phi[q]
 	fmt.Printf("x = %v\n", x)
 
-	// We increased the indices in Step 2. Increase x and Q accordingly.
+	// We increased the indices in Step 2. Increase x accordingly.
 	x++
-	Q := Rk.Q
-	for i := 0; i < len(Q); i++ {
-		Q[i]++
-	}
 
 	// Step 3: Compute the Generalized Dandelion Code for T.
+	fmt.Println("Step 3...")
 	S := dandelion.Code(T, x)
 	fmt.Printf("S (with lm) = %v\n", S)
 
@@ -81,7 +68,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	fmt.Printf("Final S = %v\n", S)
 
 	// Step 4: Return the code (Q, S).
-	return &Code{Q, S}, nil
+	return &Code{Rk.Q, S}, nil
 }
 
 // DecodingAlgorithm receives a code (Q, S) and returns a k-tree Tk.
@@ -89,13 +76,17 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	fmt.Printf("Decoding Algorithm received input %v\n", code)
 
-	// Step 1: Compute phi starting from Q; find lm and q.
+	// Step 1: Compute phi, q, lm.
 	fmt.Println("Step 1...")
+	q := getMinVNotIn(code.Q)
 	k := len(code.Q)
-	n := len(code.S.P) + k + 1
+	n := len(code.S.P) + k + 2
 	phi := ktree.ComputePhi(n, k, code.Q)
-	fmt.Printf("phi = %v\n", phi)
-	// TODO: Find lm and q.
+	lm := findLm(n, phi, code.S.P)
+	if lm == -1 {
+		return nil, errors.New("Can't find lm. This should never happen.")
+	}
+	fmt.Printf("phi = %v\nq = %v\nlm = %v\n", phi, q, lm)
 
 	// Step 2: Insert the pair (0, e) and decode S to obtain T. TODO.
 
@@ -105,4 +96,41 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 
 	// Step 5: Return Tk. TODO.
 	return nil, errors.New("Not implemented.")
+}
+
+// getMinVNotIn receives a vector Q and returns q = min(v not in Q).
+func getMinVNotIn(Q []int) int {
+	q := Q[len(Q)-1] + 1
+	if Q[0] != 0 {
+		q = 0
+	} else {
+		for i := 0; i+1 < len(Q); i++ {
+			if Q[i+1] > Q[i]+1 {
+				q = Q[i] + 1
+				break
+			}
+		}
+	}
+	return q
+}
+
+// findLm receives n, phi and p (parent vector) and returns lm, i.e.,
+// the maximum v such that d(v) = k.
+func findLm(n int, phi, p []int) int {
+	internal := make([]bool, n)
+
+	inv := ktree.GetInverse(phi)
+	for i := 0; i < len(p); i++ {
+		if p[i] != 0 {
+			internal[inv[p[i]-1]] = true
+		}
+	}
+
+	for i := n - 1; i >= 0; i-- {
+		if !internal[i] {
+			return i
+		}
+	}
+
+	return -1
 }

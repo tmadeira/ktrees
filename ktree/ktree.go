@@ -111,10 +111,17 @@ func TkFrom(r *RenyiKtree) *Ktree {
 	phi := ComputePhi(n, k, r.Q)
 
 	// Construct phi^(-1).
+	inv := GetInverse(phi)
+
+	return Relabel(r.Ktree, inv)
+}
+
+// GetInverse receives a permutation vector phi and returns its inverse.
+func GetInverse(phi []int) []int {
+	n := len(phi)
 	inv := make([]int, n)
 	for i := 0; i < n; i++ {
 		inv[phi[i]] = i
 	}
-
-	return Relabel(r.Ktree, inv)
+	return inv
 }

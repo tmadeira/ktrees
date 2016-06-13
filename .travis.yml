@@ -1,14 +1,12 @@
 language: go
 go:
   - tip
-env:
-  global:
-    - GOPATH=$HOME/gopath:$HOME/gopath/src/github.com/tmadeira/tcc
 before_install:
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
   - go get github.com/modocache/gover
 script:
+  - export GOPATH=$HOME/gopath:$HOME/gopath/src/github.com/tmadeira/tcc
   - go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/.coverprofile {{.ImportPath}}"{{end}}' ./... | xargs -L 1 sh -c
   - gover
   - goveralls -coverprofile=gover.coverprofile -service=travis-ci

@@ -1,7 +1,11 @@
 // Package characteristic implements the Characteristic Tree.
 package characteristic
 
-import "github.com/tmadeira/tcc/ktree"
+import (
+	"sort"
+
+	"github.com/tmadeira/tcc/ktree"
+)
 
 type Tree struct {
 	P, L []int
@@ -136,8 +140,80 @@ func buildLabels(K [][]int, p []int) []int {
 }
 
 // RenyiKtreeFrom returns a Renyi k-Tree from a given characteristic tree.
-// See Step 3 from Decoding Algorithm in Section 6 of Caminiti et al.
-func RenyiKtreeFrom(T *Tree) *ktree.RenyiKtree {
-	// TODO.
-	return nil
+// See Step 3 (Prog. 8) from Decoding Algorithm in Section 6 of Caminiti et al.
+func RenyiKtreeFrom(n, k int, Q []int, T *Tree) *ktree.RenyiKtree {
+	adj := make([][]int, n)
+
+	// Initialize Rk as the k-clique R on [n-k, ..., n)
+	for i := n - k; i < n; i++ {
+		for j := n - k; j < n; j++ {
+			if i != j {
+				adj[i] = append(adj[i], j)
+			}
+		}
+	}
+
+	// Create children vector from T.P.
+	children := make([][]int, n)
+	for i := 0; i < len(T.P); i++ {
+		if T.P[i] == -1 {
+			continue
+		}
+		children[T.P[i]] = append(children[T.P[i]], i)
+	}
+
+	// Visit T in BFS order, starting with the children of R.
+	K := make([][]int, n)
+	queue := make([]int, n)
+	m := make([]bool, n)
+	start, end := 0, 0
+	for i := 0; i < len(children[0]); i++ {
+		m[children[0][i]] = true
+		queue[end] = children[0][i]
+		end++
+	}
+	for start != end {
+		v := queue[start]
+		start++
+		if T.P[v] == 0 {
+			for i := n - k + 1; i <= n; i++ {
+				K[v] = append(K[v], i)
+			}
+		} else {
+			for i := 0; i < len(K[T.P[v]]); i++ {
+				if i != T.L[v] {
+					K[v] = append(K[v], K[T.P[v]][i])
+				}
+			}
+			K[v] = append(K[v], T.P[v])
+			sort.Ints(K[v])
+		}
+		for i := 0; i < len(K[v]); i++ {
+			u := K[v][i]
+			adj[u-1] = append(adj[u-1], v-1)
+			adj[v-1] = append(adj[v-1], u-1)
+		}
+		for i := 0; i < len(children[v]); i++ {
+			if !m[children[v][i]] {
+				m[children[v][i]] = true
+				queue[end] = children[v][i]
+				end++
+			}
+		}
+	}
+
+	Rk := &ktree.RenyiKtree{
+		&ktree.Ktree{make([][]int, n), k},
+		Q,
+	}
+
+	// Order adjacency lists in O(nk).
+	for u := 0; u < n; u++ {
+		for i := 0; i < len(adj[u]); i++ {
+			v := adj[u][i]
+			Rk.Ktree.Adj[v] = append(Rk.Ktree.Adj[v], u)
+		}
+	}
+
+	return Rk
 }

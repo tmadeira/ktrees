@@ -38,10 +38,14 @@ func TestTreeFrom(t *testing.T) {
 	want := &Tk
 	got := TreeFrom(&Rk)
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("TreeFrom(%v) = %v; want %v", Rk, Tk)
+		t.Errorf("TreeFrom(%v) = %v; want %v", Rk, got, want)
 	}
 }
 
-// TODO: add unit tests to test pruneRk.
-// TODO: add unit tests to test addEdges.
-// TODO: add unit tests to test buildLabels.
+func TestRenyiKtreeFrom(t *testing.T) {
+	want := &Rk
+	got := RenyiKtreeFrom(11, 3, []int{1, 2, 8}, &Tk)
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("RenyiKtreeFrom(%v) = %v; want %v", Tk, got, want)
+	}
+}

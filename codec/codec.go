@@ -43,12 +43,10 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	x := phi[q]
 	fmt.Printf("x = %v\n", x)
 
-	// We increased the indices in Step 2. Increase x accordingly.
-	x++
-
 	// Step 3: Compute the Generalized Dandelion Code for T.
 	fmt.Println("Step 3...")
-	S := dandelion.Code(T, x)
+	// The +1 is required because of the reindexing.
+	S := dandelion.Code(T, x+1)
 	fmt.Printf("S (with lm) = %v\n", S)
 
 	// Remove the pair corresponding to phi[lm].
@@ -58,7 +56,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	}
 	// cor is the index of the pair corresponding to phi[lm].
 	cor := phi[lm]
-	if x-1 < cor {
+	if x < cor {
 		cor--
 	}
 	fmt.Printf("lm = %v; phi[lm] = %v; cor = %v\n", lm, phi[lm], cor)
@@ -75,20 +73,34 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 // See Section 6 in Caminiti et al.
 func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	fmt.Printf("Decoding Algorithm received input %v\n", code)
+	Q, S := code.Q, code.S
 
-	// Step 1: Compute phi, q, lm.
+	// Step 1: Compute phi, q, x, lm.
 	fmt.Println("Step 1...")
-	q := getMinVNotIn(code.Q)
-	k := len(code.Q)
-	n := len(code.S.P) + k + 2
-	phi := ktree.ComputePhi(n, k, code.Q)
-	lm := findLm(n, phi, code.S.P)
+	k := len(Q)
+	n := len(S.P) + k + 2
+	phi := ktree.ComputePhi(n, k, Q)
+	q := getMinVNotIn(Q)
+	x := phi[q]
+	lm := findLm(n, phi, S.P)
 	if lm == -1 {
 		return nil, errors.New("Can't find lm. This should never happen.")
 	}
-	fmt.Printf("phi = %v\nq = %v\nlm = %v\n", phi, q, lm)
+	// cor is the index of the pair corresponding to phi[lm].
+	cor := phi[lm]
+	if x < cor {
+		cor--
+	}
+	fmt.Printf("phi = %v; q = %v; x = %v\n", phi, q, x)
+	fmt.Printf("lm = %v; phi[lm] = %v; cor = %v\n", lm, phi[lm], cor)
 
-	// Step 2: Insert the pair (0, e) and decode S to obtain T. TODO.
+	// Step 2: Insert the pair (0, e) in index cor and decode S to obtain T.
+	S.P = append(S.P[:cor], append([]int{0}, S.P[cor:]...)...)
+	S.L = append(S.L[:cor], append([]int{characteristic.E}, S.L[cor:]...)...)
+	fmt.Printf("S = %v\n", S)
+	// The +1 is required because of the reindexing.
+	T := dandelion.Decode(S, x+1)
+	fmt.Printf("T = %v\n", T)
 
 	// Step 3: Rebuild Rk by visiting T. TODO.
 

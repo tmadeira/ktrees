@@ -1,6 +1,7 @@
 Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso.
 
-**Build Status:** [![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
+[![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
+[![Coverage Status](https://coveralls.io/repos/github/tmadeira/tcc/badge.svg?branch=master)](https://coveralls.io/github/tmadeira/tcc?branch=master)
 
 ## Informações ##
 

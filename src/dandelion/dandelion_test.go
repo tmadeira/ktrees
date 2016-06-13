@@ -12,12 +12,12 @@ func TestCodeFig2C(t *testing.T) {
 	// This is the tree shown in Fig. 2(c) of Caminiti et al.
 	characteristic := &characteristic.Tree{
 		[]int{e, 5, 0, 0, 2, 8, 8, 1, 0},
-		[]int{0, 3, e, e, 1, 3, 2, 3, e},
+		[]int{e, 2, e, e, 0, 2, 1, 2, e},
 	}
 
 	want := &DandelionCode{
 		[]int{0, 0, 2, 8, 8, 1, 5},
-		[]int{e, e, 1, 3, 2, 3, 3},
+		[]int{e, e, 0, 2, 1, 2, 2},
 	}
 	got := Code(characteristic, 1)
 
@@ -32,12 +32,12 @@ func TestDecodeFig2C(t *testing.T) {
 	// This is the code shown in Fig. 2(c) of Caminiti et al.
 	code := &DandelionCode{
 		[]int{0, 0, 2, 8, 8, 1, 5},
-		[]int{e, e, 1, 3, 2, 3, 3},
+		[]int{e, e, 0, 2, 1, 2, 2},
 	}
 
 	want := &characteristic.Tree{
 		[]int{e, 5, 0, 0, 2, 8, 8, 1, 0},
-		[]int{e, 3, e, e, 1, 3, 2, 3, e},
+		[]int{e, 2, e, e, 0, 2, 1, 2, e},
 	}
 	got := Decode(code, 1)
 

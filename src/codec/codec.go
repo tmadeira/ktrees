@@ -18,7 +18,7 @@ type Code struct {
 // CodingAlgorithm receives a k-tree Tk and returns a code (Q, S).
 // See Section 5 from Caminiti et al.
 func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
-	fmt.Println("Coding Algorithm received input %v\n", Tk)
+	fmt.Printf("Coding Algorithm received input %v\n", Tk)
 
 	// Step 1: Identify Q. Transform Tk into Rk.
 	fmt.Println("Step 1...")
@@ -26,17 +26,17 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Rk = %v\n", Rk)
+	fmt.Printf("Rk = %v\nQ = %v\n", Rk.Ktree, Rk.Q)
 
 	// Step 2: Generate the characteristic tree T for Rk.
 	fmt.Println("Step 2...")
 	T := characteristic.TreeFrom(Rk)
-	fmt.Println("T = %v\n", T)
+	fmt.Printf("T = %v\n", T)
 
 	// Identify q = min(v not in Q).
 	q := Rk.Q[len(Rk.Q)-1] + 1
-	if Rk.Q[0] != 1 {
-		q = 1
+	if Rk.Q[0] != 0 {
+		q = 0
 	} else {
 		for i := 0; i+1 < len(Rk.Q); i++ {
 			if Rk.Q[i+1] > Rk.Q[i]+1 {
@@ -45,10 +45,12 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 			}
 		}
 	}
+	fmt.Printf("q = %v\n", q)
 
 	// Make x = phi[q].
 	phi := ktree.ComputePhi(len(Tk.Adj), Tk.K, Rk.Q)
 	x := phi[q]
+	fmt.Printf("x = %v\n", x)
 
 	// We increased the indices in Step 2. Increase x and Q accordingly.
 	x++
@@ -59,10 +61,10 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 
 	// Step 3: Compute the Generalized Dandelion Code for T. TODO.
 	S := dandelion.Code(T, x)
-	// TODO: Remove from the obtained code the pair corresponding to phi[lm].
+	// TODO: Remove from the obtained code the pair corresponding to phi[lm]?
 
 	// Step 4: Return the code (Q, S).
-	return &Code{Q, S}, errors.New("Not implemented.")
+	return &Code{Q, S}, nil
 }
 
 // DecodingAlgorithm receives a code (Q, S) and returns a k-tree Tk.

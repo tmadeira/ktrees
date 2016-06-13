@@ -31,8 +31,8 @@ var fig1A ktree.Ktree = ktree.Ktree{
 var codedFig1A Code = Code{
 	[]int{2, 3, 9},
 	&dandelion.DandelionCode{
-		[]int{0, 0, 2, 8, 8, 1, 5},
-		[]int{e, e, 0, 2, 1, 2, 2},
+		[]int{0, 2, 8, 8, 1, 5},
+		[]int{e, 0, 2, 1, 2, 2},
 	},
 }
 

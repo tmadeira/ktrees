@@ -19,7 +19,18 @@ type RenyiKtree struct {
 
 // GetQ returns Q, the k-clique adjacent to the maximum labeled leaf of T_k.
 func GetQ(t *Ktree) ([]int, error) {
-	// Compute degree of each node v and find lm: maximum v such that d(v) = k.
+	lm, err := FindLm(t)
+	if err != nil {
+		return nil, err
+	}
+
+	Q := t.Adj[lm]
+	sort.Ints(Q)
+	return Q, nil
+}
+
+// FindLm computes degree of each node to find lm: maximum v s.t. d(v) = k.
+func FindLm(t *Ktree) (int, error) {
 	lm := -1
 	for v := 0; v < len(t.Adj); v++ {
 		if len(t.Adj[v]) == t.K {
@@ -28,12 +39,10 @@ func GetQ(t *Ktree) ([]int, error) {
 	}
 
 	if lm == -1 {
-		return nil, errors.New("Can't find v with d(v) = k.")
+		return lm, errors.New("Can't find v with d(v) = k.")
 	}
 
-	Q := t.Adj[lm]
-	sort.Ints(Q)
-	return Q, nil
+	return lm, nil
 }
 
 // ComputePhi returns a vector phi from Q (see Program 4 in Caminiti et al).

@@ -49,6 +49,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 
 	// Make x = phi[q].
 	phi := ktree.ComputePhi(len(Tk.Adj), Tk.K, Rk.Q)
+	fmt.Printf("phi = %v\n", phi)
 	x := phi[q]
 	fmt.Printf("x = %v\n", x)
 
@@ -59,9 +60,25 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 		Q[i]++
 	}
 
-	// Step 3: Compute the Generalized Dandelion Code for T. TODO.
+	// Step 3: Compute the Generalized Dandelion Code for T.
 	S := dandelion.Code(T, x)
-	// TODO: Remove from the obtained code the pair corresponding to phi[lm]?
+	fmt.Printf("S (with lm) = %v\n", S)
+
+	// Remove the pair corresponding to phi[lm].
+	lm, err := ktree.FindLm(Tk)
+	if err != nil {
+		return nil, err
+	}
+	// cor is the index of the pair corresponding to phi[lm].
+	cor := phi[lm]
+	if x < cor {
+		cor--
+	}
+	fmt.Printf("lm = %v; phi[lm] = %v; cor = %v\n", lm, phi[lm], cor)
+	S.P = append(S.P[:cor], S.P[cor+1:]...)
+	S.L = append(S.L[:cor], S.L[cor+1:]...)
+
+	fmt.Printf("Final S = %v\n", S)
 
 	// Step 4: Return the code (Q, S).
 	return &Code{Q, S}, nil

@@ -42,6 +42,10 @@ func main() {
 		Tk.Adj[y] = append(Tk.Adj[y], x)
 	}
 
+	for i := 0; i < n; i++ {
+		sort.Ints(Tk.Adj[i])
+	}
+
 	C, err := codec.CodingAlgorithm(&Tk)
 	if err != nil {
 		fmt.Printf("An error occurred: %v\n", err)

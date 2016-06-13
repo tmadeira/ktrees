@@ -27,7 +27,7 @@ As três primeiras linhas criarão o diretório `$HOME/go` e o usarão como `$GO
 
 Caso você não esteja acostumado com esse *workflow* (que é o padrão da linguagem Go), recomenda-se a leitura de [How to Write Go Code](https://golang.org/doc/code.html).
 
-## Utilitários ##
+## Exemplos ##
 
 Após baixar o código no seu `$GOPATH`, você pode usar alguns utilitários disponíveis na pasta `examples/`.
 

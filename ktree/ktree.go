@@ -3,7 +3,6 @@ package ktree
 
 import (
 	"errors"
-	"sort"
 )
 
 type Ktree struct {
@@ -25,7 +24,6 @@ func GetQ(t *Ktree) ([]int, error) {
 	}
 
 	Q := t.Adj[lm]
-	sort.Ints(Q)
 	return Q, nil
 }
 

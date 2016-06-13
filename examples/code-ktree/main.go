@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 
 	"github.com/tmadeira/tcc/codec"
 	"github.com/tmadeira/tcc/ktree"

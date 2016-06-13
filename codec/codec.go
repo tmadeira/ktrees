@@ -71,7 +71,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 	}
 	// cor is the index of the pair corresponding to phi[lm].
 	cor := phi[lm]
-	if x < cor {
+	if x-1 < cor {
 		cor--
 	}
 	fmt.Printf("lm = %v; phi[lm] = %v; cor = %v\n", lm, phi[lm], cor)

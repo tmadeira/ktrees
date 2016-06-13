@@ -7,7 +7,7 @@ import (
 )
 
 type Ktree struct {
-	// Keep the adjacency lists sorted.
+	// The adjacency lists must be always sorted.
 	Adj [][]int
 	K   int
 }
@@ -71,14 +71,23 @@ func ComputePhi(n, k int, Q []int) []int {
 
 // Relabel receives a k-Tree and relabels it by phi.
 func Relabel(old *Ktree, phi []int) *Ktree {
-	new := &Ktree{make([][]int, len(old.Adj)), old.K}
+	n := len(old.Adj)
+	adj := make([][]int, n)
+	new := &Ktree{make([][]int, n), old.K}
 
-	for u := 0; u < len(old.Adj); u++ {
+	for u := 0; u < n; u++ {
 		for i := 0; i < len(old.Adj[u]); i++ {
 			v := old.Adj[u][i]
-			new.Adj[phi[u]] = append(new.Adj[phi[u]], phi[v])
+			adj[phi[u]] = append(adj[phi[u]], phi[v])
 		}
-		sort.Ints(new.Adj[phi[u]])
+	}
+
+	// Order adjacency lists in O(nk).
+	for u := 0; u < n; u++ {
+		for i := 0; i < len(adj[u]); i++ {
+			v := adj[u][i]
+			new.Adj[v] = append(new.Adj[v], u)
+		}
 	}
 
 	return new

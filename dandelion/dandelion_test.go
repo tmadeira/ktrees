@@ -1,9 +1,10 @@
 package dandelion
 
 import (
-	"characteristic"
 	"reflect"
 	"testing"
+
+	"github.com/tmadeira/tcc/characteristic"
 )
 
 func TestCodeFig2C(t *testing.T) {

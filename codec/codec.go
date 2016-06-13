@@ -5,9 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"characteristic"
-	"dandelion"
-	"ktree"
+	"github.com/tmadeira/tcc/characteristic"
+	"github.com/tmadeira/tcc/dandelion"
+	"github.com/tmadeira/tcc/ktree"
 )
 
 type Code struct {

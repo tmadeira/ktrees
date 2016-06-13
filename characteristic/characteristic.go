@@ -1,7 +1,7 @@
 // Package characteristic implements the Characteristic Tree.
 package characteristic
 
-import "ktree"
+import "github.com/tmadeira/tcc/ktree"
 
 type Tree struct {
 	P, L []int

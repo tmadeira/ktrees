@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"testing"
 
-	"characteristic"
-	"dandelion"
-	"ktree"
+	"github.com/tmadeira/tcc/characteristic"
+	"github.com/tmadeira/tcc/dandelion"
+	"github.com/tmadeira/tcc/ktree"
 )
 
 const e = characteristic.E

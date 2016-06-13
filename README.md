@@ -9,15 +9,23 @@ Este repositório contém os códigos desenvolvidos para o meu trabalho de concl
 **Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
 **Mais:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
 
-## Uso ##
+## Instalação e uso ##
 
-As implementações foram realizadas em [Go](https://golang.org/) e é necessário instalá-lo.
+As implementações foram realizadas em [Go](https://golang.org/) e é necessário instalá-lo. Recomenda-se utilizar o próprio `go` para clonar este repositório.
 
-Para rodar os testes, use:
+Para baixar o código e rodar os testes, use:
 
 ```sh
-$ make test
+$ export ${GOPATH:=$HOME/go}
+$ mkdir -p $GOPATH
+$ cd $GOPATH
+$ go get github.com/tmadeira/tcc/...
+$ go test -v github.com/tmadeira/tcc/...
 ```
+
+As três primeiras linhas criarão o diretório `$HOME/go` e o usarão como `$GOPATH` caso essa variável de ambiente não esteja configurada na sua estação de trabalho.
+
+Caso você não esteja acostumado com esse *workflow* (que é o padrão da linguagem Go), recomenda-se a leitura de [How to Write Go Code](https://golang.org/doc/code.html).
 
 ## Referências ##
 

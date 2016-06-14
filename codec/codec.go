@@ -82,7 +82,7 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	phi := ktree.ComputePhi(n, k, Q)
 	q := getMinVNotIn(Q)
 	x := phi[q]
-	lm := findLm(n, phi, S.P)
+	lm := findLm(n, phi, S.P, Q)
 	if lm == -1 {
 		return nil, errors.New("Can't find lm. This should never happen.")
 	}
@@ -132,9 +132,9 @@ func getMinVNotIn(Q []int) int {
 	return q
 }
 
-// findLm receives n, phi and p (parent vector) and returns lm, i.e.,
-// the maximum v such that d(v) = k.
-func findLm(n int, phi, p []int) int {
+// findLm receives n, phi, p (parent vector) and Q. It returns lm, i.e.,
+// the maximum v such that d(v) = k and v is not in Q.
+func findLm(n int, phi, p, Q []int) int {
 	internal := make([]bool, n)
 
 	inv := ktree.GetInverse(phi)
@@ -142,6 +142,10 @@ func findLm(n int, phi, p []int) int {
 		if p[i] != 0 {
 			internal[inv[p[i]-1]] = true
 		}
+	}
+
+	for i := 0; i < len(Q); i++ {
+		internal[Q[i]] = true
 	}
 
 	for i := n - 1; i >= 0; i-- {

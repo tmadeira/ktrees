@@ -92,6 +92,22 @@ Um exemplo de entrada pode ser encontrado em `examples/decode-ktree/code1a.txt`.
 
 A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.
 
+### generate-ktree ###
+
+Para gerar uma *k-tree* aleatória, use:
+
+```sh
+$ go install github.com/tmadeira/tcc/examples/generate-ktree
+$ $GOPATH/bin/generate-ktree
+```
+
+A entrada desse utilitário deve ser dada no formato:
+
+```n k
+```
+
+A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.
+
 ## Referências ##
 
 **Caminiti et. al** citado nos comentários do código se refere o artigo **Bijective Linear Time Coding and Decoding for k-Trees** escrito por Saverito Caminiti, Emanuele G. Fusco e Rossella Petreschi (2008).

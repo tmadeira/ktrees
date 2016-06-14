@@ -1,0 +1,170 @@
+
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Proposta do TCC</title>
+    <link rel="stylesheet" type="text/css" href="css.css" />
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+    });
+    </script>
+    <script src='//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+</head>
+
+<body>
+<div id="wrap">
+    <h1>Proposta do trabalho</h1>
+
+    <p><strong>Tema:</strong> geração uniforme de $k$-trees para aprendizado de redes bayesianas<br />
+    <strong>Aluno:</strong> Tiago Madeira<br />
+    <strong>Supervisor:</strong> <a href="http://www.ime.usp.br/~ddm/" target="_blank">Prof. Denis Deratani Mauá</a></p>
+
+    <h2>Resumo</h2>
+
+    <p>Em teoria dos grafos, $k$-trees<sup><a href="#ref1">[1]</a></sup> são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque muitos problemas NP-difíceis são resolvidos em tempo polinomial em $k$-trees e partial $k$-trees<sup><a href="#ref2">[2]</a></sup>. Um desses problemas é a inferência em redes bayesianas, que pode ser resolvida com complexidade linear para $k$ pequeno<sup><a href="#ref3">[3]</a>.</p>
+
+    <p>O trabalho consiste em estudar os conceitos de teoria dos grafos relacionados a $k$-trees e implementar um algoritmo para gerar $k$-trees de forma uniforme que possam ser usadas no aprendizado de redes bayesianas. Pretende-se também estudar formas de adicionar restrições do tipo <em>must-link</em> e <em>cannot-link</em> à geração sem perder a uniformidade.</p>
+
+    <h2>Justificativa</h2>
+
+    <p>As $k$-trees são consideradas uma generalização de árvores. Formalmente, uma $k$-tree é definida da seguinte maneira recursiva<sup><a href="#ref1">[1]</a></sup>:</p>
+
+    <ol>
+      <li>Um $k$-clique é uma $k$-tree.</li>
+      <li>Se $T_k' = (V, E)$ é uma $k$-tree, $K \subset V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) | x \in K\})$ é uma $k$-tree.</li>
+    </ol>
+
+    <p>Há considerável interesse em estudar $k$-trees, porque todo grafo com <em>treewidth</em> $k$ é um subgrafo de uma $k$-tree e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com <em>treewidth</em> limitada. O artigo de Arnborg e Proskurowski<sup><a href="#ref2">[2]</a></sup> apresenta algoritmos para resolver em tempo linear problemas como, dado um grafo com <em>treewidth</em> limitada:</p>
+
+    <ul>
+      <li>Encontrar o tamanho máximo dos seus conjuntos independentes;</li>
+      <li>Computar o tamanho mínimo dos seus conjuntos dominantes;</li>
+      <li>Calcular seu número cromático; e</li>
+      <li>Determinar se ele tem um ciclo hamiltoniano.</li>
+    </ul>
+
+    <p>O problema no qual estamos interessados é a inferência em redes bayesianas.</p>
+    
+    <p>Uma rede bayesiana<sup><a href="#ref3">[3]</a></sup> é um modelo probabilístico em grafo usado para raciocinar e tomar decisões em situações com incerteza através de técnicas de inteligência artificial e aprendizagem computacional. Ela representa uma distribuição de probabilidade multivariada num <acronym title="directed acyclic graph">DAG</acronym> (grafo acíclico dirigido) no qual os vértices correspondem às variáveis aleatórias do domínio e as arestas correspondem, intuitivamente, a influência de um vértice sobre outro.</p>
+
+    <p>Segundo Koller e Friedman<sup><a href="#ref3">[3]</a></sup>, a inferência em redes bayesianas em geral é NP-difícil; porém, se a rede possui <em>treewidth</em> limitado, a inferência pode ser realizada em tempo polinomial. Daí a importância de aprender redes bayesianas que tenham <em>treewidth</em> limitada. Isso nos motiva a estudar geração aleatória uniforme de $k$-trees, que pode ser usada na fase de aprendizagem.</p>
+
+    <p>Por fim, nos problemas práticos de aprendizagem de redes bayesianas, muitas vezes sabemos de antemão que determinadas variáveis devem estar relacionadas ou não podem estar relacionadas. Por isso, é interessante conseguirmos exigir que a geração aleatória de $k$-trees para a aprendizagem de redes bayesianas respeite restrições do tipo <em>must-link</em> (dois vértices devem estar relacionados) e <em>cannot-link</em> (dois vértices não podem estar relacionados) sem perder a uniformidade.</p>
+
+    <h2>Objetivos</h2>
+
+    <p>O principal objetivo do trabalho é implementar um algoritmo para gerar $k$-trees aleatórias de forma uniforme que possam ser usadas no aprendizados de redes bayesianas. Outros objetivos são:</p>
+
+    <ol>
+      <li>Estudar teoria dos grafos (e $k$-trees, em particular) e criar familiaridade com o funcionamento de algoritmos de geração de grafos;</li>
+      <li>Compreender de forma mais concreta como funciona aprendizagem e inferência em redes bayesianas;</li>
+      <li>Estudar como adicionar restrições do tipo <em>must-link</em> e <em>cannot-link</em> aos algoritmos de geração de grafos sem perder a uniformidade.</li>
+    </ol>
+
+    <h2>Atividades previstas (cronograma)</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Atividade</td>
+                <td>Abr</td>
+                <td>Mai</td>
+                <td>Jun</td>
+                <td>Jul</td>
+                <td>Ago</td>
+                <td>Set</td>
+                <td>Out</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Estudar conceitos e formular projeto</td>
+                <td>✓</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Estudar, implementar e testar algoritmo de geração de $k$-trees</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Aplicar geração de $k$-trees no aprendizado de redes bayesianas</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Escrever relatório parcial</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Estudar o problema com restrições <em>must-link</em> e <em>cannot-link</em></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>Organizar resultados e escrever monografia</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>✓</td>
+            </tr>
+            <tr>
+                <td>Preparar apresentação e pôster</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>✓</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Referências</h2>
+
+    <ol>
+      <li id="ref1">S. Caminiti, E. G. Fusco, R. Petreschi. <strong>Bijective Linear Time Coding and Decoding for k-Trees</strong> (2008).</li>
+      <li id="ref2">S. Arnborg, A. Proskurowski. <strong>Linear Time Algorithms for NP-Hard Problems Restricted to Partial k-Trees</strong> (1989).</li>
+      <li id="ref3">D. Koller, N. Friedman. <strong>Probabilistic Graphical Models: Principles and Techniques</strong> (2009).</li>
+    </ol>
+
+    <p><small>
+        <strong>Última atualização:</strong>
+        Dom Abr 10 11:28:09 BRT 2016
+    </small></p>
+</div>
+</body>
+
+</html>

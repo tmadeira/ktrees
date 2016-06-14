@@ -1,0 +1,61 @@
+@import url('normalize.css');
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+html {
+    padding: 20px;
+}
+
+acronym {
+  border-bottom: dotted 1px #666;
+}
+
+a {
+    color: #b22;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#wrap {
+    font-size: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 2em;
+}
+
+table {
+    width: 100%;
+    border-top: solid 1px #aaa;
+    border-bottom: solid 1px #aaa;
+}
+
+td {
+    line-height: 2em;
+    padding: 0 5px;
+    border-right: solid 1px #aaa;
+    width:5%;
+    text-align: center;
+}
+
+td:first-child {
+    border-left: solid 1px #aaa;
+    width:65%;
+    text-align: left;
+}
+
+thead {
+    background: #333;
+    color: #fff;
+    font-weight: bold;
+    font-size: 80%;
+}
+
+tbody tr:nth-child(2n+1) {
+    background: #eee;
+}

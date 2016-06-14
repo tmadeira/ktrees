@@ -63,7 +63,7 @@ func randomCode(n, k int) (*codec.Code, error) {
 
 	for i := 0; i < ssz; i++ {
 		C.S.P[i] = rand.Intn(n - k + 1)
-		if C.S.L[i] == 0 {
+		if C.S.P[i] == 0 {
 			C.S.L[i] = characteristic.E
 		} else {
 			C.S.L[i] = rand.Intn(k)

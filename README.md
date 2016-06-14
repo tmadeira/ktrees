@@ -59,7 +59,7 @@ Onde:
 
 Um exemplo de entrada pode ser encontrado em `examples/code-ktree/fig1a.txt`.
 
-A saída será um par *(Q, S)* como definido em **Caminiti et. al**.
+A saída será um par *(Q, S)* no formato de entrada esperado pelo utilitário **decode-ktree**.
 
 ### decode-ktree ###
 
@@ -91,7 +91,7 @@ Onde:
 
 Um exemplo de saída pode ser encontrado em `examples/decode-ktree/code1a.txt`.
 
-A saída será uma *k-tree*.
+A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.
 
 ## Referências ##
 

@@ -54,13 +54,16 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Q = %v\n", C.Q)
-	fmt.Printf("S = [")
-	for i := 0; i < len(C.S.P); i++ {
+	fmt.Printf("%d\n", len(C.Q))
+	for i := 0; i < len(C.Q); i++ {
 		if i != 0 {
-			fmt.Printf(", ")
+			fmt.Printf(" ")
 		}
-		fmt.Printf("(%d, %d)", C.S.P[i], C.S.L[i])
+		fmt.Printf("%d", C.Q[i])
 	}
-	fmt.Println("]")
+	fmt.Println("")
+	fmt.Printf("%d\n", len(C.S.P))
+	for i := 0; i < len(C.S.P); i++ {
+		fmt.Printf("%d %d\n", C.S.P[i], C.S.L[i])
+	}
 }

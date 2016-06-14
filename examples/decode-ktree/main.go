@@ -52,19 +52,24 @@ func main() {
 		return
 	}
 
-	fmt.Printf("n = %d\n", len(Tk.Adj))
-	fmt.Printf("k = %d\n", Tk.K)
-	fmt.Printf("edges = [")
+	fmt.Printf("%d\n", len(Tk.Adj))
+	fmt.Printf("%d\n", Tk.K)
+	m := 0
 	for u := 0; u < len(Tk.Adj); u++ {
 		for i := 0; i < len(Tk.Adj[u]); i++ {
 			v := Tk.Adj[u][i]
 			if v > u {
-				if u != 0 || i != 0 {
-					fmt.Printf(", ")
-				}
-				fmt.Printf("(%d, %d)", u, v)
+				m++
 			}
 		}
 	}
-	fmt.Println("]")
+	fmt.Printf("%d\n", m)
+	for u := 0; u < len(Tk.Adj); u++ {
+		for i := 0; i < len(Tk.Adj[u]); i++ {
+			v := Tk.Adj[u][i]
+			if v > u {
+				fmt.Printf("%d %d\n", u, v)
+			}
+		}
+	}
 }

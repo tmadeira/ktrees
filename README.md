@@ -1,13 +1,12 @@
 Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso.
 
-[![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
-[![Coverage Status](https://coveralls.io/repos/github/tmadeira/tcc/badge.svg?branch=master)](https://coveralls.io/github/tmadeira/tcc?branch=master)
-
-## Informações ##
-
 **Tema:** geração uniforme de *k-trees* para aprendizado de redes bayesianas  
 **Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
-**Mais:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
+**Mais informações:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
+
+[![GoDoc](https://godoc.org/github.com/tmadeira/tcc?status.svg)](https://godoc.org/github.com/tmadeira/tcc)
+[![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
+[![Coverage Status](https://coveralls.io/repos/github/tmadeira/tcc/badge.svg?branch=master)](https://coveralls.io/github/tmadeira/tcc?branch=master)
 
 ## Instalação e testes ##
 

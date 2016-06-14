@@ -72,7 +72,7 @@ func CodingAlgorithm(Tk *ktree.Ktree) (*Code, error) {
 // DecodingAlgorithm receives a code (Q, S) and returns a k-tree Tk.
 // See Section 6 in Caminiti et al.
 func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
-	log.Printf("Decoding Algorithm received input %v\n", code)
+	log.Printf("Decoding Algorithm received input {%v, %v}\n", code.Q, code.S)
 	Q, S := code.Q, code.S
 
 	// Step 1: Compute phi, q, x, lm.
@@ -106,7 +106,7 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	// Step 3: Rebuild Rk by visiting T.
 	log.Println("Step 3...")
 	Rk := characteristic.RenyiKtreeFrom(n, k, Q, T)
-	log.Printf("Rk = %v\n", Rk)
+	log.Printf("Rk = %v\n", Rk.Ktree)
 
 	// Step 4: Apply phi^(-1) to Rk to obtain Tk.
 	log.Println("Step 4...")

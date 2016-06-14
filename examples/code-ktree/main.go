@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"sort"
 
 	"github.com/tmadeira/tcc/codec"
@@ -9,22 +10,22 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome!")
-	fmt.Println("This program expects input in the following format:")
-	fmt.Println("")
-	fmt.Println("===")
-	fmt.Println("n")
-	fmt.Println("k")
-	fmt.Println("m")
-	fmt.Println("x_1 y_1")
-	fmt.Println("...")
-	fmt.Println("x_m y_m")
-	fmt.Println("===")
-	fmt.Println("")
-	fmt.Println("Where:")
-	fmt.Println("- (x_i, y_i) correspond to an edge in the k-tree.")
-	fmt.Println("- Nodes must be 0-indexed.")
-	fmt.Println("")
+	log.Println("Welcome!")
+	log.Println("This program expects input in the following format:")
+	log.Println("")
+	log.Println("===")
+	log.Println("n")
+	log.Println("k")
+	log.Println("m")
+	log.Println("x_1 y_1")
+	log.Println("...")
+	log.Println("x_m y_m")
+	log.Println("===")
+	log.Println("")
+	log.Println("Where:")
+	log.Println("- (x_i, y_i) correspond to an edge in the k-tree.")
+	log.Println("- Nodes must be 0-indexed.")
+	log.Println("")
 
 	var Tk ktree.Ktree
 	var n, m int
@@ -49,13 +50,10 @@ func main() {
 
 	C, err := codec.CodingAlgorithm(&Tk)
 	if err != nil {
-		fmt.Printf("An error occurred: %v\n", err)
+		log.Printf("An error occurred: %v\n", err)
 		return
 	}
 
-	fmt.Println("")
-	fmt.Println("OUTPUT")
-	fmt.Println("======")
 	fmt.Printf("Q = %v\n", C.Q)
 	fmt.Printf("S = [")
 	for i := 0; i < len(C.S.P); i++ {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"sort"
 
 	"github.com/tmadeira/tcc/codec"
@@ -9,24 +10,24 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome!")
-	fmt.Println("This program expects input in the following format:")
-	fmt.Println("")
-	fmt.Println("===")
-	fmt.Println("k")
-	fmt.Println("Q_1")
-	fmt.Println("...")
-	fmt.Println("Q_k")
-	fmt.Println("s")
-	fmt.Println("p_1 l_1")
-	fmt.Println("...")
-	fmt.Println("p_s l_s")
-	fmt.Println("===")
-	fmt.Println("")
-	fmt.Println("Where:")
-	fmt.Println("- Q_i correspond to the values in Q.")
-	fmt.Println("- (p_i, l_i) correspond to the pairs in the code S.")
-	fmt.Println("")
+	log.Println("Welcome!")
+	log.Println("This program expects input in the following format:")
+	log.Println("")
+	log.Println("===")
+	log.Println("k")
+	log.Println("Q_1")
+	log.Println("...")
+	log.Println("Q_k")
+	log.Println("s")
+	log.Println("p_1 l_1")
+	log.Println("...")
+	log.Println("p_s l_s")
+	log.Println("===")
+	log.Println("")
+	log.Println("Where:")
+	log.Println("- Q_i correspond to the values in Q.")
+	log.Println("- (p_i, l_i) correspond to the pairs in the code S.")
+	log.Println("")
 
 	var C codec.Code
 
@@ -47,13 +48,10 @@ func main() {
 
 	Tk, err := codec.DecodingAlgorithm(&C)
 	if err != nil {
-		fmt.Printf("An error occurred: %v\n", err)
+		log.Printf("An error occurred: %v\n", err)
 		return
 	}
 
-	fmt.Println("")
-	fmt.Println("OUTPUT")
-	fmt.Println("======")
 	fmt.Printf("n = %d\n", len(Tk.Adj))
 	fmt.Printf("k = %d\n", Tk.K)
 	fmt.Printf("edges = [")

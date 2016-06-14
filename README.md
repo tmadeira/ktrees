@@ -28,7 +28,7 @@ Caso você não esteja acostumado com esse *workflow* (que é o padrão da lingu
 
 ## Exemplos ##
 
-Após baixar o código no seu `$GOPATH`, você pode usar alguns utilitários disponíveis na pasta `examples/`.
+Após baixar o código no seu `$GOPATH`, você pode usar alguns utilitários disponíveis na pasta `examples/`. Eles permitem codificar/decodificar *k-trees* e gerar *k-trees* aleatórias.
 
 ### code-ktree ###
 
@@ -107,8 +107,8 @@ A entrada desse utilitário deve ser dada no formato:
 n k
 ```
 
-A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.
+A saída será uma *k-tree* com *n* vértices no formato de entrada esperado pelo utilitário **code-ktree**.
 
 ## Referências ##
 
-**Caminiti et. al** citado nos comentários do código se refere o artigo **Bijective Linear Time Coding and Decoding for k-Trees** escrito por Saverito Caminiti, Emanuele G. Fusco e Rossella Petreschi (2008).
+**Caminiti et al.** citado nos comentários do código se refere o artigo **Bijective Linear Time Coding and Decoding for k-Trees** escrito por Saverito Caminiti, Emanuele G. Fusco e Rossella Petreschi (2008).

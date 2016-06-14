@@ -103,7 +103,8 @@ $ $GOPATH/bin/generate-ktree
 
 A entrada desse utilitário deve ser dada no formato:
 
-```n k
+```
+n k
 ```
 
 A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.

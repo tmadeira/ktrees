@@ -59,6 +59,40 @@ Onde:
 
 Um exemplo de entrada pode ser encontrado em `examples/code-ktree/fig1a.txt`.
 
+A saída será um par *(Q, S)* como definido em **Caminiti et. al**.
+
+### decode-ktree ###
+
+Para decodificar um código *(Q, S)* em uma *k-tree*, use:
+
+```sh
+$ go install github.com/tmadeira/tcc/examples/decode-ktree
+$ $GOPATH/bin/decode-ktree
+```
+
+A entrada desse utilitário deve ser dada no formato:
+
+```k
+Q_1
+...
+Q_k
+s
+p_1 l_1
+...
+p_s l_s
+```
+
+Onde:
+
+- `k` é o tamanho de *Q*
+- `Q_i` corresponde ao *i-ésimo* valor em *Q*
+- `s` é o tamanho do Generalized Dandelion Code, *|S|*
+- `p_i l_i` corresponde ao *i-ésimo* valor em *S*
+
+Um exemplo de saída pode ser encontrado em `examples/decode-ktree/code1a.txt`.
+
+A saída será uma *k-tree*.
+
 ## Referências ##
 
 **Caminiti et. al** citado nos comentários do código se refere o artigo **Bijective Linear Time Coding and Decoding for k-Trees** escrito por Saverito Caminiti, Emanuele G. Fusco e Rossella Petreschi (2008).

@@ -95,6 +95,7 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	fmt.Printf("lm = %v; phi[lm] = %v; cor = %v\n", lm, phi[lm], cor)
 
 	// Step 2: Insert the pair (0, e) in index cor and decode S to obtain T.
+	fmt.Println("Step 2...")
 	S.P = append(S.P[:cor], append([]int{0}, S.P[cor:]...)...)
 	S.L = append(S.L[:cor], append([]int{characteristic.E}, S.L[cor:]...)...)
 	fmt.Printf("S = %v\n", S)
@@ -103,10 +104,14 @@ func DecodingAlgorithm(code *Code) (*ktree.Ktree, error) {
 	fmt.Printf("T = %v\n", T)
 
 	// Step 3: Rebuild Rk by visiting T.
+	fmt.Println("Step 3...")
 	Rk := characteristic.RenyiKtreeFrom(n, k, Q, T)
+	fmt.Printf("Rk = %v\n", Rk)
 
 	// Step 4: Apply phi^(-1) to Rk to obtain Tk.
+	fmt.Println("Step 4...")
 	Tk := ktree.TkFrom(Rk)
+	fmt.Printf("Tk = %v\n", Tk)
 
 	return Tk, nil
 }

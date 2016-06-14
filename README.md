@@ -89,7 +89,7 @@ Onde:
 - `s` é o tamanho do Generalized Dandelion Code, *|S|*
 - `p_i l_i` corresponde ao *i-ésimo* valor em *S*
 
-Um exemplo de saída pode ser encontrado em `examples/decode-ktree/code1a.txt`.
+Um exemplo de entrada pode ser encontrado em `examples/decode-ktree/code1a.txt`.
 
 A saída será uma *k-tree* no formato de entrada esperado pelo utilitário **code-ktree**.
 

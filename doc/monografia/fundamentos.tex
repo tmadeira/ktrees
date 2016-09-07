@@ -1,0 +1,34 @@
+\chapter{Fundamentos}
+\label{cap:fundamentos}
+
+Neste capítulo, apresentamos algumas definições que o leitor deve conhecer para compreender o trabalho.
+
+Partimos do pressuposto de que o leitor conhece notações de conjuntos e as definições de grafo, árvore, subgrafo induzido e grafo completo.
+
+\begin{definition}[$k$-clique]
+  \cite{defkclique} Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
+\end{definition}
+
+\begin{definition}[k-tree e k-tree enraizada]
+  \cite{harary} Uma $k$-tree é definida da seguinte forma recursiva:
+
+  \begin{enumerate}
+    \item Um grafo induzido por um $k$-clique é uma $k$-tree.
+    \item Se $T_k' = (V, E)$ é uma $k$-tree, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma $k$-tree.
+  \end{enumerate}
+
+  Uma $k$-tree enraizada é uma $k$-tree com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da $k$-tree enraizada.
+\end{definition}
+
+\begin{definition}[k-tree de Rényi]
+  \cite{renyi} Uma $k$-tree de Rényi $R_k$ é uma $k$-tree enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.
+\end{definition}
+
+\begin{definition}[esqueleto de uma k-tree enraizada]
+  \cite{caminiti} % TODO
+\end{definition}
+
+\begin{definition}[árvore característica]
+  \cite{caminiti} % TODO
+\end{definition}
+

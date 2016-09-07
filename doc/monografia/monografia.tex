@@ -5,6 +5,17 @@
 \usepackage{emptypage}
 \usepackage{hyperref}
 \usepackage{natbib}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+
+\newtheoremstyle{definition}
+{\topsep}{\topsep}%
+{}{}%
+{\bfseries}{}
+{ }
+{\thmname{#1}~\thmnumber{#2}\thmnote{ (#3)}.}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definição}
 
 \frenchspacing
 \linespread{1.5}
@@ -31,6 +42,9 @@
 \mainmatter
 
   \input{introducao}
+  \cleardoublepage
+
+  \input{fundamentos}
   \cleardoublepage
 
   \input{conclusao}

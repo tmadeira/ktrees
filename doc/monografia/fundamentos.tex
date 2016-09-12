@@ -19,7 +19,7 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 
 \begin{definition}[subgrafo induzido]
   \cite{defsubgrafo}
-  Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ induzido por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E | u, v \in V'\}$.
+  Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ induzido por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E \ | \  u, v \in V'\}$.
 \end{definition}
 
 \begin{definition}[caminho]
@@ -42,16 +42,16 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
   \cite{defkclique} Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
 \end{definition}
 
-\begin{definition}[$k$-tree e $k$-tree enraizada]
+\begin{definition}[\emph{k-tree} e \emph{k-tree} enraizada]
   \label{def:ktree}
-  \cite{harary} Uma $k$-tree é definida da seguinte forma recursiva:
+  \cite{harary} Uma \emph{$k$-tree} é definida da seguinte forma recursiva:
 
   \begin{enumerate}
-    \item Um grafo induzido por um $k$-clique é uma $k$-tree.
-    \item Se $T_k' = (V, E)$ é uma $k$-tree, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma $k$-tree.
+    \item Um grafo induzido por um $k$-clique é uma \emph{$k$-tree}.
+    \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
   \end{enumerate}
 
-  Uma $k$-tree enraizada é uma $k$-tree com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da $k$-tree enraizada.
+  Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
 \end{definition}
 
 \section{Redes bayesianas}

@@ -17,7 +17,6 @@ Para baixar o código e rodar os testes, use:
 ```sh
 $ export ${GOPATH:=$HOME/go}
 $ mkdir -p $GOPATH
-$ cd $GOPATH
 $ go get github.com/tmadeira/tcc/...
 $ go test -v github.com/tmadeira/tcc/...
 ```
@@ -109,6 +108,7 @@ n k
 
 A saída será uma *k-tree* com *n* vértices no formato de entrada esperado pelo utilitário **code-ktree**.
 
-## Referências ##
+## Documentação ##
 
-**Caminiti et al.** citado nos comentários do código se refere o artigo **Bijective Linear Time Coding and Decoding for k-Trees** escrito por Saverito Caminiti, Emanuele G. Fusco e Rossella Petreschi (2008).
+A monografia (em desenvolvimento) pode ser lida em `doc/monografia/monografia.pdf`.
+

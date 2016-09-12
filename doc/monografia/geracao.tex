@@ -1,0 +1,42 @@
+\chapter{Geração aleatória de $k$-trees}
+\label{cap:geracao}
+
+O problema de gerar $k$-trees está intimamente relacionado ao problema de codificá-las. De fato, se há um código bijetivo que associa $k$-trees à \emph{bytes}, basta gerar \emph{bytes} aleatórios para gerar $k$-trees aleatórias.
+
+Neste capítulo, apresentamos o problema de codificar $k$-trees, discutimos a solução linear e bijetiva para codificar/decodificar $k$-trees proposta por Caminiti et al\cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar $k$-trees aleatórias e mostramos os resultados obtidos.
+
+\section{Introdução à codificação de $k$-trees}
+
+% TODO
+
+\section{A solução de Caminiti et al}
+
+\begin{definition}[$k$-tree de Rényi]
+  \cite{renyi} Uma $k$-tree de Rényi $R_k$ é uma $k$-tree enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.
+\end{definition}
+
+\begin{definition}[esqueleto de uma $k$-tree enraizada]
+  \label{def:skeleton}
+  \cite{caminiti} O esqueleto de uma $k$-tree enraizada $T_k$ com raiz $R$, denotado por $S(T_k, R)$, é definido da seguinte forma recursiva:
+
+  \begin{enumerate}
+    \item Se $T_k$ é apenas o $k$-clique $R$, seu esqueleto é uma árvore com um único vértice $R$.
+    \item Dada uma $k$-tree enraizada $T_k$ com raiz $R$, obtida por $T_k'$ enraizada em $R$ através da adição de um novo vértice $v$ conectado a um $k$-clique $K$ (ver definição \ref{def:ktree}), seu esqueleto $S(T_k, R)$ é obtido adicionando a $S(T_k', R)$ um novo vértice $X = \{v\} \cup K$ e uma nova aresta $(X, Y)$, onde $Y$ é o vértice de $S(T_k', R)$ que contém $K$ com uma distância mínima da raiz. Chamamos $Y$ de pai de $X$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[árvore característica]
+  \cite{caminiti} A árvore característica $T(T_k, R)$ de uma $k$-tree enraizada $T_k$ com raiz $R$ é obtida rotulando os vértices e arestas de $S(T_k, R)$ da seguinte forma:
+
+  \begin{enumerate}
+    \item O vértice $R$ é rotulado $0$ e cada vértice $\{v\} \cup K$ é rotulado $v$;
+    \item Cada aresta do vértice $\{v\} \cup K$ ao seu pai $\{v'\} \cup K'$ é rotulada com o índice do vértice em $K'$ (visualizando-o como um conjunto ordenado) que não aparece em $K$. Quando o pai é $R$ a aresta é rotulada $\epsilon$.
+  \end{enumerate}
+
+  Note que a existência de um único vértice em $K' \setminus K'$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
+\end{definition}
+
+\section{Experimentos e resultados}
+
+% TODO
+

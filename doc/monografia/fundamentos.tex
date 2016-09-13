@@ -37,12 +37,14 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
   Dado um grafo $G = (V, E)$, dizemos que ele é uma árvore se cada dois vértices $u, v \in V$ são conectados por exatamente um caminho.
 \end{definition}
 
+\section{$k$-clique e \emph{k-tree}}
+
 \begin{definition}[$k$-clique]
   \label{def:kclique}
   \cite{defkclique} Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
 \end{definition}
 
-\begin{definition}[\emph{k-tree} e \emph{k-tree} enraizada]
+\begin{definition}[\emph{k-tree}]
   \label{def:ktree}
   \cite{harary} Uma \emph{$k$-tree} é definida da seguinte forma recursiva:
 
@@ -50,7 +52,10 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
     \item Um grafo induzido por um $k$-clique é uma \emph{$k$-tree}.
     \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
   \end{enumerate}
+\end{definition}
 
+\begin{definition}[\emph{k-tree} enraizada]
+  \label{def:rootedktree}
   Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
 \end{definition}
 

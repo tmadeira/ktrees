@@ -8,32 +8,32 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 \section{Grafos}
 
 \begin{definition}[grafo]
-  \cite{defgrafo}
+  \cite{bondy}
   Um grafo é um par ordenado $G = (V, E)$. Os elementos de $V$ são chamados de vértices de $G$. Os elementos de $E$ são chamados de arestas de $G$ e consistem em pares (não-ordenados) de vértices. Dados $u, v \in V$, se $(u, v) \in E$ dizemos que $u$ e $v$ são adjacentes em $G$.
 \end{definition}
 
 \begin{definition}[grafo completo]
-  \cite{defgrafocompleto}
+  \cite{bondy}
   Um grafo $G = (V, E)$ é dito completo se $(u, v) \in E$ para todo $u, v \in V, u \neq v$.
 \end{definition}
 
 \begin{definition}[subgrafo induzido]
-  \cite{defsubgrafo}
+  \cite{bondy}
   Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ induzido por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E \ | \  u, v \in V'\}$.
 \end{definition}
 
 \begin{definition}[caminho]
-  \cite{defcaminho}
+  \cite{bondy}
   Dado um grafo $G = (V, E)$, um caminho é uma sequência de arestas que conectam uma sequência de vértices adjacentes distintos.
 \end{definition}
 
 \begin{definition}[distância]
-  \cite{defdistancia}
+  \cite{bondy}
   Dado um grafo $G = (V, E)$ e dois vértices $(u, v) \in V$, a distância entre $u$ e $v$ é o número de arestas num menor caminho que os conecte.
 \end{definition}
 
 \begin{definition}[árvore]
-  \cite{defarvore}
+  \cite{bondy}
   Dado um grafo $G = (V, E)$, dizemos que ele é uma árvore se cada dois vértices $u, v \in V$ são conectados por exatamente um caminho.
 \end{definition}
 
@@ -41,7 +41,7 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 
 \begin{definition}[$k$-clique]
   \label{def:kclique}
-  \cite{defkclique} Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
+  \cite{bondy} Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
 \end{definition}
 
 \begin{definition}[\emph{k-tree}]
@@ -56,9 +56,15 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 
 \begin{definition}[\emph{k-tree} enraizada]
   \label{def:rootedktree}
-  Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
+  \cite{caminiti} Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
 \end{definition}
+
+\section{Probabilidade}
+
+\cite{koller}
+% TODO
 
 \section{Redes bayesianas}
 
+\cite{koller}
 % TODO

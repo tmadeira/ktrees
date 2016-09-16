@@ -1,21 +1,43 @@
 \chapter{Geração aleatória de \emph{$k$-trees}}
 \label{cap:geracao}
 
-O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las. De fato, se há um código bijetivo que associa \emph{$k$-trees} à \emph{bytes}, basta gerar \emph{bytes} aleatórios para gerar \emph{$k$-trees} aleatórias.
+O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
 
 Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear e bijetiva para codificar/decodificar \emph{$k$-trees} proposta por Caminiti et al\cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
 
 \section{Introdução à codificação de \emph{$k$-trees}}
 
-A escrever. % TODO
+O problema de codificar árvores já foi amplamente estudado na literatura. Como destaca Caminiti et al\cite{caminiti}:
 
-\section{A solução de Caminiti et al}
+\begin{quotation}
+  Codificar árvores rotuladas por meio de \emph{strings} de rótulos de vértices é uma alternativa interessante à representação usual de estruturas de dados de árvore na memória e tem muitas aplicações práticas (por exemplo, algoritmos evolucionários sobre árvores, geração aleatória de árvores, compressão de dados e computação do volume de floresta de grafos). Diversos códigos bijetivos diferentes que realizam associações entre árvores rotuladas e \emph{strings} de rótulos foram introduzidas. De um ponto de vista algorítmico, o problema foi cuidadosamente investigado e algoritmos ótimos de codificação e decodificação desses códigos são conhecidos.
+\end{quotation}
 
-A escrever. % TODO
+Em 1889, Cayley\cite{cayley} demonstrou que para um conjunto de $n$ vértices distintos existem $n^{n-2}$ árvores associadas. Desde lá, foram criados vários códigos para associar \emph{strings} e árvores.
+
+Um dos mais conhecidos é o código de Prüfer\cite{prufer}, que surgiu em 1918 e é bijetivo, associando cada árvore (rotulada) de $n$ vértices a uma lista distinta de comprimento $n-2$ no alfabeto dos rótulos da árvore.
+
+\emph{$k$-trees}\cite{harary} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitada, como destacado na \textbf{Introdução} deste trabalho.
+
+Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro décadas. Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi e que são definidas como segue:
 
 \begin{definition}[\emph{$k$-tree} de Rényi]
   \cite{renyi} Uma \emph{$k$-tree} de Rényi $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.
 \end{definition}
+
+Entretanto, até onde sabemos, apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti et al\cite{caminiti}, que implementamos neste trabalho.
+
+\section{A solução de Caminiti et al}
+
+O artigo \emph{``Bijective Linear Time Coding and Decoding for $k$-Trees''}\cite{caminiti} apresenta um código bijetivo para \emph{$k$-trees} rotuladas, juntamente a algoritmos lineares para realizar a codificação e a decodificação.
+
+O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code}\cite{egecioglu}, que consiste em $n-k-2$ pares (onde $n$ é o número de vértices) definidos no conjunto $\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k])$. Portanto, dizemos que a codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
+
+$$
+\mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
+$$
+
+Os algoritmos consistem em uma série de transformações. Para compreendê-los, é necessário definir esqueleto de uma \emph{$k$-tree} enraizada e árvore característica:
 
 \begin{definition}[esqueleto de uma \emph{$k$-tree} enraizada]
   \label{def:skeleton}
@@ -37,6 +59,38 @@ A escrever. % TODO
 
   Note que a existência de um único vértice em $K' \setminus K$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
 \end{definition}
+
+\subsection{Codificação}
+
+O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em 6 passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.
+
+\begin{algorithm}[Algoritmo de codificação]
+  \textbf{Entrada:} uma \emph{$k$-tree} $T_k$ com $n$ vértices\\
+  \textbf{Saída:} um código em $\mathcal{A}^n_k$
+
+  \begin{enumerate}
+    \item Identificar $Q$, o $k$-clique adjacente à folha de maior rótulo $l_M$ de $T_k$;
+    \item Através de um processo de re-rotulação $\phi$ (computado a partir de $Q$ e definido a seguir), transformar $T_k$ numa \emph{$k$-tree} de Rényi $R_k$;
+    \item Gerar a árvore característica $T$ para $R_k$;
+    \item Computar o \emph{Dandelion Code} generalizado $S$ para $T$;
+    \item Remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$;
+    \item Retornar o código $(Q, S)$.
+  \end{enumerate}
+
+  Na nossa implementação, uma \emph{$k$-tree} (estrutura definida no pacote {\tt ktree}) é representada através de uma lista de adjacências ({\tt Adj}) e um inteiro $k$ ({\tt K}). % TODO: é preciso definir lista de adjacência (em Fundamentos?).
+
+  O algoritmo de codificação é implementado pela função {\tt CodingAlgorithm} do pacote {\tt codec}. A seguir, detalhamos os seis passos.
+
+  \begin{step}
+    A escrever. % TODO
+  \end{step}
+
+  A escrever. % TODO
+\end{algorithm}
+
+\subsection{Decodificação}
+
+A escrever. % TODO
 
 \section{Experimentos e resultados}
 

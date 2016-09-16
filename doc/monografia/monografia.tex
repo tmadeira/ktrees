@@ -8,14 +8,34 @@
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 
 \newtheoremstyle{definition}
-{\topsep}{\topsep}%
-{}{}%
+{\topsep}{\topsep}
+{}{}
 {\bfseries}{}
 { }
 {\thmname{#1}~\thmnumber{#2}\thmnote{ (#3)}.}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definição}
+
+\newtheoremstyle{algorithm}
+{\topsep}{\topsep}
+{}{}
+{\scshape}{}
+{ }
+{\thmnote{#3}\\}
+
+\theoremstyle{algorithm}
+\newtheorem{algorithm}{Algoritmo}
+
+\newtheoremstyle{step}
+{\topsep}{\topsep}
+{}{}
+{\itshape}{}
+{1em}
+{\thmname{#1}~\thmnumber{#2}.}
+
+\theoremstyle{step}
+\newtheorem{step}{Passo}
 
 \frenchspacing
 \linespread{1.5}

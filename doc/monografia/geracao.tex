@@ -85,6 +85,90 @@ Os algoritmos consistem em uma série de transformações. Para compreendê-los,
   Note que a existência de um único vértice em $K' \setminus K$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
 \end{definition}
 
+A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica.
+
+\begin{figure}
+  \begin{minipage}{0.3\textwidth}
+    \centering
+    \scalebox{0.75}{
+      \begin{tikzpicture}
+          [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+        \node (n10) at (1,9) {3};
+        \node[fill=gray!30] (n2) at (1.5,12) {9};
+        \node (n1) at (2,3) {1};
+        \node (n5) at (3,6) {5};
+        \node (n7) at (3.5,0) {7};
+        \node[fill=gray!30] (n9) at (4.5,12) {11};
+        \node (n6) at (6,6) {6};
+        \node (n4) at (9,3) {4};
+        \node[fill=gray!30] (n3) at (7.5,12) {10};
+        \node (n8) at (4.5,9) {8};
+        \node (n11) at (8,9) {2};
+
+        \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+          \draw (\from) edge (\to);
+
+        \draw (n1) edge [bend right=20] (n8);
+        \draw (n1) edge [bend left=50] (n2);
+        \draw (n2) edge [bend left] (n3);
+        \draw (n2) edge [bend right=20] (n6);
+        \draw (n3) edge [bend left] (n4);
+        \draw (n3) edge [bend left=20] (n5);
+        \draw (n7) edge [bend right=20] (n8);
+      \end{tikzpicture}
+    }
+
+    (a)
+  \end{minipage}\begin{minipage}{0.5\textwidth}
+    \centering
+    \scalebox{0.64}{\setstretch{1.0}
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, rectangle, rounded corners = .1cm, inner sep = 0pt, minimum height = 1.25cm, minimum width = 2.25cm, align = center}]
+        \node[fill=gray!30] (n0) at (5,12) {$\{9, 10, 11\}$};
+        \node (n3) at (0.5,9) {$\{3\} \cup$ \\ $\{9, 10, 11\}$};
+        \node (n8) at (5,9) {$\{8\} \cup$ \\ $\{9, 10, 11\}$};
+        \node (n2) at (9.5,9) {$\{2\} \cup$ \\ $\{9, 10, 11\}$};
+        \node (n5) at (2,6) {$\{5\} \cup$ \\ $\{8, 9, 10\}$};
+        \node (n6) at (6.5,6) {$\{6\} \cup$ \\ $\{8, 9, 11\}$};
+        \node (n4) at (11,6) {$\{4\} \cup$ \\ $\{2, 10, 11\}$};
+        \node (n1) at (2,3) {$\{1\} \cup$ \\ $\{5, 8, 9\}$};
+        \node (n7) at (2,0) {$\{5\} \cup$ \\ $\{1, 5, 8\}$};
+
+      \foreach \from/\to in {n0/n3, n0/n8, n0/n2, n8/n5, n8/n6, n2/n4, n5/n1, n1/n7}
+        \draw (\from) edge (\to);
+      \end{tikzpicture}
+    }
+
+    (b)
+  \end{minipage}\begin{minipage}{0.2\textwidth}
+    \centering
+    \begin{tikzpicture}
+        [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.65cm}]
+      \node[fill=gray!30] (n0) at (5,8) {0};
+      \node (n3) at (3.5,6) {3};
+      \node (n8) at (5,6) {8};
+      \node (n2) at (6.5,6) {2};
+      \node (n5) at (3.75,4) {5};
+      \node (n6) at (5.25,4) {6};
+      \node (n4) at (6.75,4) {4};
+      \node (n1) at (4,2) {1};
+      \node (n7) at (4,0) {7};
+
+      \foreach \from/\to in {n0/n3, n0/n8, n0/n2, n8/n5, n8/n6, n2/n4, n5/n1, n1/n7}
+        \draw (\from) edge (\to);
+    \end{tikzpicture}
+
+    (c)
+  \end{minipage}
+
+  \caption{
+    \textbf{(a)} Uma \emph{$3$-tree} de Rényi $R_3$ com 11 vértices e raiz $\{9, 10, 11\}$.
+    \textbf{(b)} O esqueleto de $R_3$.
+    \textbf{(c)} A árvore característica de $R_3$.
+  }
+  \label{fig:transformation}
+\end{figure}
+
 \subsection{Codificação}
 
 O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em seis passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.

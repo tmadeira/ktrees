@@ -69,6 +69,68 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 
 \begin{definition}[\emph{$k$-tree} enraizada]
   \cite{caminiti} Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
+
+  Na figura \ref{fig:rootedktree}(a), um exemplo de uma \emph{$k$-tree} com $k = 3$ e $n = 11$ vértices rotulados com inteiros em $[1, 11]$. Na figura \ref{fig:rootedktree}(b), a mesma \emph{$k$-tree}, dessa vez enraizada no clique $R = \{2, 3, 9\}$.
+
+  \begin{figure}
+    \begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+        \node (n10) at (1,9) {10};
+        \node (n2) at (2.5,7) {2};
+        \node (n1) at (1,4) {1};
+        \node (n5) at (3,2.75) {5};
+        \node (n7) at (2,1) {7};
+        \node (n9) at (4.5,9.5) {9};
+        \node (n6) at (4,5) {6};
+        \node (n4) at (6,10.5) {4};
+        \node (n3) at (8.5,6.5) {3};
+        \node (n8) at (8,4.5) {8};
+        \node (n11) at (9,9) {11};
+
+        \foreach \from/\to in {n1/n2, n1/n5, n1/n7, n1/n8, n2/n3, n2/n5, n2/n6, n2/n8, n2/n9, n2/n10, n2/n11, n3/n4, n3/n5, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n7/n8, n8/n9, n9/n10, n9/n11}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+
+      (a)
+    \end{minipage}\begin{minipage}{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+        \node (n10) at (1,8.25) {10};
+        \node[fill=gray!30] (n2) at (1.5,10.5) {2};
+        \node (n1) at (2,3.75) {1};
+        \node (n5) at (3,6) {5};
+        \node (n7) at (3.5,1.5) {7};
+        \node[fill=gray!30] (n9) at (4.5,10.5) {9};
+        \node (n6) at (6,6) {6};
+        \node (n4) at (9,4) {4};
+        \node[fill=gray!30] (n3) at (7.5,10.5) {3};
+        \node (n8) at (4.5,8.25) {8};
+        \node (n11) at (8,8.25) {11};
+
+        \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+          \draw (\from) edge (\to);
+
+        \draw (n1) edge [bend right=20] (n8);
+        \draw (n1) edge [bend left=50] (n2);
+        \draw (n2) edge [bend left] (n3);
+        \draw (n2) edge [bend right=20] (n6);
+        \draw (n3) edge [bend left] (n4);
+        \draw (n3) edge [bend left=20] (n5);
+        \draw (n7) edge [bend right=20] (n8);
+      \end{tikzpicture}
+
+      (b)
+    \end{minipage}
+
+    \caption{
+      \textbf{(a)} Uma \emph{$3$-tree} $T_3$ com 11 vértices.
+      \textbf{(b)} A mesma \emph{$3$-tree} ($T_3$) enraizada no clique $\{2, 3, 9\}$.
+    }
+    \label{fig:rootedktree}
+  \end{figure}
 \end{definition}
 
 \begin{definition}[\emph{partial $k$-tree}]

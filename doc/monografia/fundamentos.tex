@@ -20,7 +20,26 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 \end{definition}
 
 \begin{definition}[grafo completo]
-  Um grafo $G = (V, E)$ é dito completo se $(u, v) \in E$ para todo $u, v \in V, u \neq v$.
+  Um grafo $G = (V, E)$ é dito completo se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
+
+  Na figura \ref{fig:k4}, o grafo completo com $4$ vértices.
+
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+        [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+      \node (n1) at (1,1) {1};
+      \node (n2) at (4,4) {2};
+      \node (n3) at (1,4) {3};
+      \node (n4) at (4,1) {4};
+
+      \foreach \from/\to in {n1/n2, n1/n3, n1/n4, n2/n3, n2/n4, n3/n4}
+        \draw (\from) edge (\to);
+    \end{tikzpicture}
+
+    \caption{$K_4$, o grafo completo com $4$ vértices.}
+    \label{fig:k4}
+  \end{figure}
 \end{definition}
 
 \begin{definition}[subgrafo]
@@ -65,6 +84,66 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
     \item Um grafo induzido por um $k$-clique é uma \emph{$k$-tree}.
     \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
   \end{enumerate}
+
+  Na figura \ref{fig:ktree}(a), um exemplo de \emph{$k$-tree} com $k = 1$ (ou seja, uma árvore comum) e $n = 4$ vértices rotulados com inteiros em $[1, 4]$; na figura \ref{fig:ktree}(b), um exemplo de \emph{$k$-tree} com $k = 2$ e $n = 5$ vértices rotulados com inteiros em $[1, 5]$; na figura \ref{fig:ktree}(c), um exemplo de \emph{$k$-tree} com $k = 3$ e $n = 5$ vértices rotulados em $[1, 5]$.
+
+  \begin{figure}
+    \begin{minipage}{0.3333\textwidth}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+        \node (n1) at (3,8) {1};
+        \node (n2) at (1.5,6) {2};
+        \node (n3) at (4.5,6) {3};
+        \node (n4) at (2.25,4) {4};
+
+        \foreach \from/\to in {n1/n2, n1/n3, n2/n4}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+
+      (a)
+    \end{minipage}\begin{minipage}{0.3333\textwidth}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+        \node (n1) at (3,8) {1};
+        \node (n2) at (5,8) {2};
+        \node (n3) at (2.5,6) {3};
+        \node (n4) at (6,6) {4};
+        \node (n5) at (3.5,4) {5};
+
+        \foreach \from/\to in {n1/n2, n3/n1, n3/n2, n4/n1, n4/n2, n5/n3, n5/n2}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+
+      (b)
+    \end{minipage}\begin{minipage}{0.3333\textwidth}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+        \node (n1) at (3,8) {1};
+        \node (n2) at (5,8) {2};
+        \node (n3) at (7,8) {3};
+        \node (n4) at (4,6) {4};
+        \node (n5) at (5,4) {5};
+
+        \foreach \from/\to in {n1/n2, n2/n3, n1/n4, n2/n4, n3/n4, n4/n5, n3/n5}
+          \draw (\from) edge (\to);
+
+        \draw (n1) edge [bend left=40] (n3);
+        \draw (n1) edge [bend right=40] (n5);
+      \end{tikzpicture}
+
+      (c)
+    \end{minipage}
+
+    \caption{
+      \textbf{(a)} Uma \emph{$1$-tree} (ou seja, uma árvore comum) com $4$ vértices.
+      \textbf{(b)} Uma \emph{$2$-tree} com $5$ vértices.
+      \textbf{(c)} Uma \emph{$3$-tree} com $5$ vértices.
+    }
+    \label{fig:rootedktree}
+  \end{figure}
 \end{definition}
 
 \begin{definition}[\emph{$k$-tree} enraizada]
@@ -134,7 +213,7 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 \end{definition}
 
 \begin{definition}[\emph{partial $k$-tree}]
-  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \emph{partial $k$-tree}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$.
+  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \emph{partial $k$-tree}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$. % TODO: citar referencia (bodlaender?), definir treewidth?
 \end{definition}
 
 \section{Probabilidade}

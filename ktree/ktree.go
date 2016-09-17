@@ -29,18 +29,13 @@ func GetQ(t *Ktree) ([]int, error) {
 
 // FindLm computes degree of each node to find lm: maximum v s.t. d(v) = k.
 func FindLm(t *Ktree) (int, error) {
-	lm := -1
-	for v := 0; v < len(t.Adj); v++ {
+	for v := len(t.Adj) - 1; v >= 0; v-- {
 		if len(t.Adj[v]) == t.K {
-			lm = v
+			return v, nil
 		}
 	}
 
-	if lm == -1 {
-		return lm, errors.New("Can't find v with d(v) = k.")
-	}
-
-	return lm, nil
+	return -1, errors.New("Can't find v with d(v) = k.")
 }
 
 // ComputePhi returns a vector phi from Q (see Program 4 in Caminiti et al).

@@ -171,7 +171,7 @@ A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ 
 
 \subsection{Codificação}
 
-O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em seis passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.
+O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.
 
 \begin{algorithm}[Algoritmo de codificação]
   \textbf{Entrada:} uma \emph{$k$-tree} $T_k$ com $n$ vértices\\
@@ -179,22 +179,90 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em seis passos.
 
   \begin{enumerate}
     \item Identificar $Q$, o $k$-clique adjacente à folha de maior rótulo $l_M$ de $T_k$;
-    \item Através de um processo de re-rotulação $\phi$ (computado a partir de $Q$ e definido a seguir), transformar $T_k$ numa \emph{$k$-tree} de Rényi $R_k$;
+    \item Através de um processo de re-rotulação $\phi$ (computado a partir de $Q$ e detalhado a seguir), transformar $T_k$ numa \emph{$k$-tree} de Rényi $R_k$;
     \item Gerar a árvore característica $T$ para $R_k$;
     \item Computar o \emph{Dandelion Code} generalizado $S$ para $T$;
     \item Remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$;
-    \item Retornar o código $(Q, S) \in \mathcal{A}^n_k$.
   \end{enumerate}
+
+  O algoritmo retorna o par $(Q, S)$ computado durante esse processo.
+
+  \vspace{2em}
 
   Na nossa implementação, uma \emph{$k$-tree} (estrutura definida no pacote {\tt ktree}) é representada através de uma lista de adjacências ({\tt Adj}) e um inteiro $k$ ({\tt K}). % TODO: é preciso definir lista de adjacência (em Fundamentos?).
 
-  O algoritmo de codificação é implementado pela função {\tt CodingAlgorithm} do pacote {\tt codec}. A seguir, detalhamos os seis passos.
+  O algoritmo de codificação é implementado pela função {\tt CodingAlgorithm} do pacote {\tt codec}. A seguir, detalhamos os cinco passos.
 
   \begin{step}
-    A escrever. % TODO
+    Primeiramente precisamos encontrar $l_M$, a folha de $T_k$ com maior rótulo. Uma folha em uma \emph{$k$-tree} consiste em um vértice de grau $k$, portanto basta iterar na lista de adjacências em ordem decrescente nos rótulos até encontrar um vértice com grau $k$. Isso foi implementado na função {\tt FindLm}, localizada no pacote {\tt ktree}.
+
+    Encontrado $l_M$, atribuímos a $Q$ a lista {\tt Adj[$l_M$]} (ver função {\tt GetQ} do pacote {\tt ktree}.
   \end{step}
 
-  A escrever. % TODO
+  \begin{step}
+    Queremos transformar $T_k$ numa \emph{$k$-tree} de Rényi enraizada em $Q$. Para isso, precisamos definir uma permutação que associe os vértices de $Q$ a $\{n-k+1, n-k+2, \cdots, n\}$. A função de permutação, que chamamos de $\phi$, é definida da seguinte forma:
+
+    \begin{enumerate}
+      \item Se $q_i$ é o $i$-ésimo menor vértice em $Q$, fazemos $\phi(q_i) = n-k+i$;
+      \item Para cada $q \not \in Q \cup \{n-k+1, \cdots, n\}$, fazemos $\phi(q) = q$;
+      \item O restante dos valores são usados para fechar os ciclos de permutação, ou seja, para cada $q \in \{n-k+1, \cdots, n\} \setminus Q$, fazemos $\phi(q) = i$ tal que $\phi^j(i) = q$ e $j$ é maximizado.
+    \end{enumerate}
+
+    Essa computação é implementada pela função {\tt ComputePhi} no pacote {\tt ktree}.
+
+    Usamos a função $\phi$ para re-rotular os vértices de $T_k$, obtendo a \emph{$k$-tree} de Rényi $R_k$. A implementação desse processo foi realizada na função {\tt Relabel} do pacote {\tt ktree}.
+
+    A figura \ref{fig:phi} mostra uma representação gráfica da função $\phi$ usada para re-rotular a \emph{$3$-tree} mostrada na figura \ref{fig:rootedktree} com $Q = \{2, 3, 9\}$ produzindo a \emph{$k$-tree} de Rényi mostrada na figura \ref{fig:transformation}(a).
+
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+          [scale=.6,auto=left,every node/.style={circle, inner sep = 0pt, minimum width = 0.55cm}]
+        \node (n2) at (1,0) {2};
+        \node (n9) at (2.5,0) {9};
+        \node (n11) at (4,0) {11};
+
+        \node (n3) at (6,0) {3};
+        \node (n10) at (7.5,0) {10};
+
+        \node (n1) at (9.5,0) {1};
+
+        \node (n4) at (11.5,0) {4};
+
+        \node (n5) at (13.5,0) {5};
+
+        \node (n6) at (15.5,0) {6};
+
+        \node (n7) at (17.5,0) {7};
+
+        \node (n8) at (19.5,0) {8};
+
+        \foreach \from/\to in {n2/n9, n9/n11, n11/n2, n3/n10, n10/n3}
+          \draw (\from) edge[->,bend right] (\to);
+
+        \foreach \vv in {n1, n4, n5, n6, n7, n8}
+          \draw (\vv) edge[loop] (\vv);
+      \end{tikzpicture}
+      % TODO: melhorar desenho
+
+      \caption{Representação gráfica da função $\phi$ computada para a \emph{$3$-tree} mostrada na figura \ref{fig:rootedktree}.}
+      \label{fig:phi}
+    \end{figure}
+  \end{step}
+
+  \begin{step}
+    A escrever (gerar a árvore característica $T$ para $R_k$) % TODO
+  \end{step}
+
+  \begin{step}
+    A escrever (computar o \emph{Dandelion Code} generalizado $S$ para $T$) % TODO
+  \end{step}
+
+  \begin{step}
+    A escrever (remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$) % TODO
+  \end{step}
+
+  A concluir. % TODO
 \end{algorithm}
 
 \subsection{Decodificação}

@@ -13,18 +13,52 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 
 \begin{definition}[grafo]
   Um grafo é um par ordenado $G = (V, E)$. Os elementos de $V$ são chamados de vértices de $G$. Os elementos de $E$ são chamados de arestas de $G$ e consistem em pares (não-ordenados) de vértices distintos\footnote{A rigor, por causa da palavra ``distintos'', essa é a definição do que a literatura costuma chamar de \emph{grafo simples}. Tal definição é utilizada porque neste trabalho não temos interesse em grafos que possuam arestas $(u, v)$ com $u=v$.}. Dados $u, v \in V$, se $(u, v) \in E$ dizemos que $u$ e $v$ são adjacentes em $G$.
+
+  A figura \ref{fig:grafo}(a) mostra como costuma ser representado um grafo. Os vértices são representados pelos círculos e as arestas são representadas pela ligação entre eles. Se $(u, v) \in E$, há uma linha ligando os vértices $u$ e $v$.
 \end{definition}
 
 \begin{definition}[grafo dirigido]
-  Um grafo $G = (V, E)$ é dito dirigido se $E$ consiste em pares \emph{ordenados} de vértices.
+  Um grafo $G = (V, E)$ é dito dirigido se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$ ou que há uma aresta de $a$ para $b$.
+
+  A figura \ref{fig:grafo}(b) mostra como costuma ser representado um grafo dirigido. Como o conjunto de arestas consiste em pares ordenados, elas são representadas com uma seta. Se $(u, v) \in E$, então a seta aponta de $u$ para $v$.
 \end{definition}
 
 \begin{definition}[grafo completo]
   Um grafo $G = (V, E)$ é dito completo se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
 
-  Na figura \ref{fig:k4}, o grafo completo com $4$ vértices.
+  Na figura \ref{fig:grafo}(c), a representação de um grafo completo com $4$ vértices.
+\end{definition}
 
-  \begin{figure}
+\begin{figure}
+  \begin{minipage}{0.3333\textwidth}
+    \centering
+    \begin{tikzpicture}
+        [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+      \node (n1) at (1,1) {1};
+      \node (n2) at (4,4) {2};
+      \node (n3) at (1,4) {3};
+      \node (n4) at (4,1) {4};
+
+      \foreach \from/\to in {n1/n3, n1/n4, n2/n3, n3/n4}
+        \draw (\from) edge (\to);
+    \end{tikzpicture}
+
+    (a)
+  \end{minipage}\begin{minipage}{0.3333\textwidth}
+    \centering
+    \begin{tikzpicture}
+        [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+      \node (n1) at (1,1) {1};
+      \node (n2) at (4,4) {2};
+      \node (n3) at (1,4) {3};
+      \node (n4) at (4,1) {4};
+
+      \foreach \from/\to in {n1/n3, n1/n4, n2/n3}
+        \draw (\from) edge[->] (\to);
+    \end{tikzpicture}
+
+    (b)
+  \end{minipage}\begin{minipage}{0.3333\textwidth}
     \centering
     \begin{tikzpicture}
         [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
@@ -37,10 +71,16 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
         \draw (\from) edge (\to);
     \end{tikzpicture}
 
-    \caption{$K_4$, o grafo completo com $4$ vértices.}
-    \label{fig:k4}
-  \end{figure}
-\end{definition}
+    (c)
+  \end{minipage}
+
+  \caption{
+    \textbf{(a)} Representação do grafo $G = (V_G, E_G)$ com $V_G = \{1, 2, 3, 4\}$ e $E_G = \{(1, 3), (1, 4), (2, 3), (3, 4)\}$.
+    \textbf{(b)} Representação do grafo dirigido $D = (V_D, E_D)$ com $V_D = \{1, 2, 3, 4\}$ e $E_D = \{(1, 3), (1, 4), (2, 3)\}$.
+    \textbf{(c)} Representação do $K_4$, o grafo completo com $4$ vértices.
+  }
+  \label{fig:grafo}
+\end{figure}
 
 \begin{definition}[subgrafo]
   Um grafo $F = (V_F, E_F)$ é chamado de subgrafo de $G = (V_G, E_G)$ se $V_F \subseteq V_G$ e $E_F \subseteq E_G$.

@@ -1,9 +1,9 @@
 \chapter{Geração aleatória de \emph{$k$-trees}}
 \label{cap:geracao}
 
-O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
+O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
 
-Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear e bijetiva para codificar/decodificar \emph{$k$-trees} proposta por Caminiti et al\cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
+Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear para codificar e decodificar \emph{$k$-trees} de forma bijetiva proposta por Caminiti et al\cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
 
 \section{Introdução à codificação de \emph{$k$-trees}}
 
@@ -13,7 +13,7 @@ O problema de codificar árvores já foi amplamente estudado na literatura. Como
   Codificar árvores rotuladas por meio de \emph{strings} de rótulos de vértices é uma alternativa interessante à representação usual de estruturas de dados de árvore na memória e tem muitas aplicações práticas (por exemplo, algoritmos evolucionários sobre árvores, geração aleatória de árvores, compressão de dados e computação do volume de floresta de grafos). Diversos códigos bijetivos diferentes que realizam associações entre árvores rotuladas e \emph{strings} de rótulos foram introduzidas. De um ponto de vista algorítmico, o problema foi cuidadosamente investigado e algoritmos ótimos de codificação e decodificação desses códigos são conhecidos.
 \end{quotation}
 
-Em 1889, Cayley\cite{cayley} demonstrou que para um conjunto de $n$ vértices distintos existem $n^{n-2}$ árvores associadas. Desde lá, foram criados vários códigos para associar \emph{strings} e árvores.
+Em 1889, Cayley\cite{cayley} demonstrou que para um conjunto de $n$ vértices distintos existem $n^{n-2}$ árvores possíveis. Desde lá, foram criados vários códigos para associar \emph{strings} e árvores.
 
 Um dos mais conhecidos é o código de Prüfer\cite{prufer}, que surgiu em 1918 e é bijetivo, associando cada árvore (rotulada) de $n$ vértices a uma lista distinta de comprimento $n-2$ no alfabeto dos rótulos da árvore.
 
@@ -62,7 +62,7 @@ Os algoritmos consistem em uma série de transformações. Para compreendê-los,
 
 \subsection{Codificação}
 
-O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em 6 passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.
+O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em seis passos. Aqui apresentamos esse algoritmo detalhando nossa implementação.
 
 \begin{algorithm}[Algoritmo de codificação]
   \textbf{Entrada:} uma \emph{$k$-tree} $T_k$ com $n$ vértices\\
@@ -74,7 +74,7 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em 6 passos. Aq
     \item Gerar a árvore característica $T$ para $R_k$;
     \item Computar o \emph{Dandelion Code} generalizado $S$ para $T$;
     \item Remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$;
-    \item Retornar o código $(Q, S)$.
+    \item Retornar o código $(Q, S) \in \mathcal{A}^n_k$.
   \end{enumerate}
 
   Na nossa implementação, uma \emph{$k$-tree} (estrutura definida no pacote {\tt ktree}) é representada através de uma lista de adjacências ({\tt Adj}) e um inteiro $k$ ({\tt K}). % TODO: é preciso definir lista de adjacência (em Fundamentos?).

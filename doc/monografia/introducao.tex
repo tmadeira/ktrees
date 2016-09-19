@@ -3,7 +3,7 @@
 
 Em teoria dos grafos, \emph{$k$-trees} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitada.
 
-Com efeito, o artigo de Arnborg e Proskurowski\cite{arnborg} apresenta algoritmos para resolver em tempo linear problemas como, dado um grafo com \emph{treewidth} limitada:
+Com efeito, o artigo de Arnborg e Proskurowski \cite{arnborg} apresenta algoritmos para resolver em tempo linear problemas como, dado um grafo com \emph{treewidth} limitada:
 
 \begin{itemize}
   \item Encontrar o tamanho máximo dos seus conjuntos independentes;
@@ -16,7 +16,7 @@ O problema que desperta nosso interesse em \emph{$k$-trees} é a inferência em 
 
 Uma rede bayesiana é um modelo probabilístico em grafo usado para raciocinar e tomar decisões em situações com incerteza através de técnicas de inteligência artificial e aprendizagem computacional. Ela representa uma distribuição de probabilidade multivariada num DAG (grafo acíclico dirigido) no qual os vértices correspondem às variáveis aleatórias do domínio e as arestas correspondem, intuitivamente, a influência de um vértice sobre outro.
 
-Segundo Koller e Friedman\cite{koller}, a inferência em redes bayesianas em geral é NP-difícil; porém, se seu DAG possui \emph{treewidth} limitado, a inferência pode ser realizada em tempo polinomial. Daí a importância de aprender redes bayesianas que tenham \emph{treewidth} limitada.
+Segundo Koller e Friedman \cite{koller}, a inferência em redes bayesianas em geral é NP-difícil; porém, se seu DAG possui \emph{treewidth} limitado, a inferência pode ser realizada em tempo polinomial. Daí a importância de aprender redes bayesianas que tenham \emph{treewidth} limitada.
 
 A partir dessa motivação, este trabalho de conclusão de curso consistiu em estudar os conceitos de teoria dos grafos relacionados a \emph{$k$-trees} e implementar um algoritmo para gerar \emph{$k$-trees} de forma uniforme que possam ser usadas no aprendizado de redes bayesianas.
 

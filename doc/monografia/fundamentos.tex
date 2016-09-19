@@ -9,7 +9,7 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 
 \section{Grafos}
 
-Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos grafos necessários para a compreensão deste trabalho. Mais detalhes podem ser encontrados no livro de Bondy e Murty\cite{bondy}, que foi utilizado como referência.
+Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos grafos necessários para a compreensão deste trabalho. Mais detalhes podem ser encontrados no livro de Bondy e Murty \cite{bondy}, que foi utilizado como referência.
 
 \begin{definition}[grafo]
   Um grafo é um par ordenado $G = (V, E)$. Os elementos de $V$ são chamados de vértices de $G$. Os elementos de $E$ são chamados de arestas de $G$ e consistem em pares (não-ordenados) de vértices distintos\footnote{A rigor, por causa da palavra ``distintos'', essa é a definição do que a literatura costuma chamar de \emph{grafo simples}. Tal definição é utilizada porque neste trabalho não temos interesse em grafos que possuam arestas $(u, v)$ com $u=v$.}. Dados $u, v \in V$, se $(u, v) \in E$ dizemos que $u$ e $v$ são adjacentes em $G$.
@@ -121,7 +121,7 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
   \cite{harary} Uma \emph{$k$-tree} é definida da seguinte forma recursiva:
 
   \begin{enumerate}
-    \item Um grafo induzido por um $k$-clique é uma \emph{$k$-tree}.
+    \item Um grafo completo com $k$ vértices é uma \emph{$k$-tree}.
     \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
   \end{enumerate}
 

@@ -85,7 +85,7 @@ Os algoritmos consistem em uma série de transformações. Para compreendê-los,
   Note que a existência de um único vértice em $K' \setminus K$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
 \end{definition}
 
-A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica.
+A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica. O \emph{Dandelion Code} generalizado correspondente a essa árvore é $[(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$.
 
 \begin{figure}
   \begin{minipage}{0.3\textwidth}
@@ -154,8 +154,8 @@ A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ 
       \node (n1) at (4,2) {1};
       \node (n7) at (4,0) {7};
 
-      \foreach \from/\to in {n0/n3, n0/n8, n0/n2, n8/n5, n8/n6, n2/n4, n5/n1, n1/n7}
-        \draw (\from) edge (\to);
+      \foreach \from/\to/\elab in {n0/n3/$\varepsilon$, n0/n8/$\varepsilon$, n0/n2/$\varepsilon$, n8/n5/3, n8/n6/2, n2/n4/1, n5/n1/3, n1/n7/3}
+        \draw (\from) -- (\to) node [draw=none, minimum width = 0.3cm, midway] {\scriptsize \elab};
     \end{tikzpicture}
 
     (c)

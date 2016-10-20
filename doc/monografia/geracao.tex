@@ -62,7 +62,7 @@ $$
 \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
 $$
 
-Caminiti et. al \cite{caminiti} mostra que a estrutura dessas \emph{strings} que o \emph{Dandelion Code} gera é crucial para garantir a bijetividade.
+Caminiti et. al \cite{caminiti} mostra que a estrutura dessas \emph{strings} que o \emph{Dandelion Code} gera é essencial para garantir a bijetividade.
 
 \vspace{1em}
 
@@ -90,7 +90,7 @@ Os algoritmos consistem em uma série de transformações. Para compreendê-los,
   Note que a existência de um único vértice em $K' \setminus K$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
 \end{definition}
 
-A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica. O \emph{Dandelion Code} generalizado correspondente a essa árvore é $[(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$.
+A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica. O \emph{Dandelion Code} generalizado correspondente a essa árvore é $[(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$. A forma como chegamos a esse código será vista a seguir, no algoritmo de codificação.
 
 \begin{figure}
   \begin{minipage}{0.3\textwidth}
@@ -276,14 +276,14 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
 
     A implementação desse processo pode ser vista na função {\tt Code} do pacote {\tt dandelion}.
 
-    Ao final, o código $S$ é dado por uma lista ordenada de pares $(p(v), l(v)) \forall v \in V(T) \setminus \{0, x\}$.
+    Ao final, o código $S$ é dado por uma lista ordenada de pares $(p(v), l(v)) \  \forall v \in V(T) \setminus \{0, x\}$.
   \end{step}
 
   \begin{step}
-    A escrever (remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$) % TODO
-  \end{step}
+    Como $l_M$ foi escolhida como a folha de maior rótulo adjacente a $Q$, ela não é $\bar{q}$ (porque $\bar{q} = min\{v \not \in Q\}$ e $n \geq k + 2$). A prova formal desse fato pode ser encontrada no Lema 1 do artigo \cite{caminiti}. Além disso, $\phi(l_M)$ não estava no caminho de $0$ a $x = \phi(\bar{q})$ em $T$ (porque é uma folha).
 
-  A concluir. % TODO
+    Como $l_M$ é adjacente a $Q$, $\phi(l_M)$ é adjacente a $0$. Portanto $(p(\phi{l_M}), l(\phi{l_M})) = (0, \varepsilon)$ pode ser removido da lista $S$ de forma que o tamanho do código passe a ser $n - k - 2$. Isso é crucial para o código ser bijetivo.
+  \end{step}
 \end{algorithm}
 
 \subsection{Decodificação}

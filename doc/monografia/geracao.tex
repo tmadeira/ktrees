@@ -64,7 +64,7 @@ $$
 
 Caminiti et. al \cite{caminiti} mostra que a estrutura dessas \emph{strings} que o \emph{Dandelion Code} gera é essencial para garantir a bijetividade.
 
-\vspace{1em}
+\vspace{2em}
 
 Os algoritmos consistem em uma série de transformações. Para compreendê-los, é necessário definir esqueleto de uma \emph{$k$-tree} enraizada e árvore característica:
 
@@ -180,14 +180,14 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
 
 \begin{algorithm}[Algoritmo de codificação]
   \textbf{Entrada:} uma \emph{$k$-tree} $T_k$ com $n$ vértices\\
-  \textbf{Saída:} um código em $\mathcal{A}^n_k$
+  \textbf{Saída:} um código $(Q, S)$ em $\mathcal{A}^n_k$
 
   \begin{enumerate}
     \item Identificar $Q$, o $k$-clique adjacente à folha de maior rótulo $l_M$ de $T_k$;
     \item Através de um processo de re-rotulação $\phi$ (computado a partir de $Q$ e detalhado a seguir), transformar $T_k$ numa \emph{$k$-tree} de Rényi $R_k$;
     \item Gerar a árvore característica $T$ para $R_k$;
     \item Computar o \emph{Dandelion Code} generalizado $S$ para $T$;
-    \item Remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$;
+    \item Remover da \emph{string} obtida $S$ o par correspondente a $\phi(l_M)$.
   \end{enumerate}
 
   O algoritmo retorna o par $(Q, S)$ computado durante esse processo.
@@ -283,12 +283,48 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
     Como $l_M$ foi escolhida como a folha de maior rótulo adjacente a $Q$, ela não é $\bar{q}$ (porque $\bar{q} = min\{v \not \in Q\}$ e $n \geq k + 2$). A prova formal desse fato pode ser encontrada no Lema 1 do artigo \cite{caminiti}. Além disso, $\phi(l_M)$ não estava no caminho de $0$ a $x = \phi(\bar{q})$ em $T$ (porque é uma folha).
 
     Como $l_M$ é adjacente a $Q$, $\phi(l_M)$ é adjacente a $0$. Portanto $(p(\phi{l_M}), l(\phi{l_M})) = (0, \varepsilon)$ pode ser removido da lista $S$ de forma que o tamanho do código passe a ser $n - k - 2$. Isso é crucial para o código ser bijetivo.
+
+    O algoritmo retorna o par $(Q, S)$.
   \end{step}
 \end{algorithm}
 
 \subsection{Decodificação}
 
-A escrever. % TODO
+O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada $T_k$ com $n$ vértices consiste numa sequência de transformações inversas às transformações usadas no algoritmo de codificação. Aqui apresentamos esse algoritmo indicando onde cada um dos passos pode ser encontrado na nossa implementação.
+
+\begin{algorithm}[Algoritmo de decodificação]
+  \textbf{Entrada:} um código $(Q, S)$ em $\mathcal{A}^n_k$\\
+  \textbf{Saída:} uma \emph{$k$-tree} $T_k$ com $n$ vértices
+
+  \begin{enumerate}
+    \item Computar $\phi$, $\bar{q}$, $x$ e $l_M$ (definidos como no algoritmo de codificação);
+    \item Inserir o par $(0, \varepsilon)$ correspondente a $l_M$ em $S$ e decodificar $S$ para obter a árvore característica $T$;
+    \item Reconstruir a \emph{$k$-tree} de Rényi $R_k$ a partir de $T$;
+    \item Aplicar $\phi^{-1}$ a $R_k$ para obter $T_k$.
+  \end{enumerate}
+
+  O algoritmo de decodificação é implementado pela função {\tt DecodingAlgorithm} do pacote {\tt codec}. A seguir, detalhamos os quatro passos.
+
+  \setcounter{step}{0}
+
+  \begin{step}
+    A escrever. % TODO Computar $\phi$, $\bar{q}$, $x$ e $l_M$ (definidos como no algoritmo de codificação);
+  \end{step}
+
+  \begin{step}
+    A escrever. % TODO Inserir o par $(0, \varepsilon)$ correspondente a $l_M$ em $S$ e decodificar $S$ para obter a árvore característica $T$;
+  \end{step}
+
+  \begin{step}
+    A escrever. % TODO Reconstruir a \emph{$k$-tree} de Rényi $R_k$ a partir de $T$;
+  \end{step}
+
+  \begin{step}
+    A escrever. % TODO Aplicar $\phi^{-1}$ a $R_k$ para obter $T_k$.
+  \end{step}
+
+  A escrever. % TODO
+\end{algorithm}
 
 \section{Geração uniforme}
 

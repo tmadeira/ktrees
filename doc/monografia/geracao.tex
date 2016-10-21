@@ -90,7 +90,7 @@ Os algoritmos consistem em uma série de transformações. Para compreendê-los,
   Note que a existência de um único vértice em $K' \setminus K$ é garantida pela definição \ref{def:skeleton}. De fato, $v'$ precisa aparecer em $K$, caso contrário $K' = K$ e o pai de $\{v'\} \cup K'$ contém $K$. Isso contradiz o fato de que cada vértice em $S(T_k, R)$ é ligado à distância mínima da raiz.
 \end{definition}
 
-A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica. O \emph{Dandelion Code} generalizado correspondente a essa árvore é $[(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$. A forma como chegamos a esse código será vista a seguir, no algoritmo de codificação.
+A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ vértices, seu esqueleto e sua árvore característica. O \emph{Dandelion Code} generalizado correspondente a essa árvore é $[(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$. A forma como codificamos e decodificamos árvores características usando esse código será vista a seguir, nos algoritmos de codificação e decodificação.
 
 \begin{figure}
   \begin{minipage}{0.3\textwidth}
@@ -308,11 +308,21 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
   \setcounter{step}{0}
 
   \begin{step}
-    A escrever. % TODO Computar $\phi$, $\bar{q}$, $x$ e $l_M$ (definidos como no algoritmo de codificação);
+    Para computar $\phi$, $\bar{q}$, $x$ e $l_M$, os procedimentos são exatamente os mesmos usados no algoritmo de codificação.
   \end{step}
 
   \begin{step}
-    A escrever. % TODO Inserir o par $(0, \varepsilon)$ correspondente a $l_M$ em $S$ e decodificar $S$ para obter a árvore característica $T$;
+    Como já computamos $\phi$ e $l_M$ no passo anterior, inserimos o par $(0, \varepsilon)$ na posição $\phi(l_M)$ do vetor $S$.
+
+    O procedimento para decodificar o \emph{Dandelion Code} numa árvore característica, implementado na função {\tt Decode} do pacote {\tt dandelion}, consiste em:
+
+    \begin{enumerate}
+      \item Construir o grafo a partir do código $S$, gerando vetores $p$ (de pais) e $l$ (de rótulos das arestas $(p(v), v)$);
+      \item Identificar todos os ciclos do grafo e guardar num vetor $m$, para cada ciclo, o vértice com maior rótulo;
+      \item Ordenar o vetor $m$ em ordem crescente e iterar nele fazendo trocas $p(x) \leftrightarrow p(m_i)$, $l(x) \leftrightarrow l(m_i)$ (para $i = 1, \cdots, |m|$).
+    \end{enumerate}
+
+    A árvore característica $T$ é dada pelo par $(p, l)$ resultante desse processo.
   \end{step}
 
   \begin{step}

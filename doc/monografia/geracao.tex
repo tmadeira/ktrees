@@ -53,6 +53,7 @@ Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro déc
 Entretanto, até onde sabemos, apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti et al. \cite{caminiti}, que implementamos neste trabalho.
 
 \section{A solução de Caminiti et al.}
+\label{sec:caminiti}
 
 O artigo \emph{``Bijective Linear Time Coding and Decoding for $k$-Trees''} \cite{caminiti} apresenta um código bijetivo para \emph{$k$-trees} rotuladas, juntamente a algoritmos lineares para realizar a codificação e a decodificação.
 
@@ -176,7 +177,7 @@ A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ 
 
 \subsection{Codificação}
 
-O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos. Aqui apresentamos esse algoritmo indicando onde cada um dos passos pode ser encontrado na nossa implementação.
+O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos e tem complexidade $O(nk)$. Aqui apresentamos esse algoritmo indicando onde cada um dos passos pode ser encontrado na nossa implementação.
 
 \begin{algorithm}[Algoritmo de codificação]
   \textbf{Entrada:} uma \emph{$k$-tree} $T_k$ com $n$ vértices\\
@@ -290,7 +291,7 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
 
 \subsection{Decodificação}
 
-O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada $T_k$ com $n$ vértices consiste numa sequência de transformações inversas às transformações usadas no algoritmo de codificação. Aqui apresentamos esse algoritmo indicando onde cada um dos passos pode ser encontrado na nossa implementação.
+O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada $T_k$ com $n$ vértices consiste numa sequência de transformações inversas às transformações usadas no algoritmo de codificação. Aqui apresentamos esse algoritmo, de complexidade $O(nk)$, indicando onde cada um dos passos pode ser encontrado na nossa implementação.
 
 \begin{algorithm}[Algoritmo de decodificação]
   \textbf{Entrada:} um código $(Q, S)$ em $\mathcal{A}^n_k$\\
@@ -340,7 +341,27 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
 
 \section{Geração uniforme}
 
-A escrever. % TODO
+Como comentamos no início deste capítulo, se temos uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
+
+Para gerar \emph{$k$-trees} aleatórias de forma uniforme, usamos o código de Caminiti et. al \cite{caminiti} e o algoritmo linear para decodificar uma \emph{string} em uma \emph{$k$-tree} rotulada que apresentamos na seção \ref{sec:caminiti}.
+
+As \emph{strings} que estamos interessados em gerar são elementos do conjunto:
+
+$$
+\mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
+$$
+
+A função que implementamos para gerar tais \emph{strings} é {\tt randomCode}, que recebe {\tt n} e {\tt k} como parâmetros e pertence ao pacote {\tt generator}.
+
+Primeiramente, ela sorteia $Q$ em ${ [1,n] \choose k }$ (e inicializa um \emph{Dandelion Code} vazio):
+
+\lstinputlisting[firstline=51, lastline=59]{../../generator/generator.go}
+
+Depois, ela gera $S$ sorteando $n-k-2$ pares em $\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k])$. Para gerar um par nesse intervalo de forma uniforme, gera-se um inteiro $r$ no intervalo $[0, (n-k)k+1)$. Se $r = 0$, então o par é $(0, \varepsilon)$. Caso contrário, o par é dado por $\left(1 + \frac{r-1}{k}, (r-1) \mod k\right)$:
+
+\lstinputlisting[firstline=61, lastline=71]{../../generator/generator.go}
+
+Decodificamos o código usando o algoritmo de decodificação apresentado na seção \ref{sec:caminiti} para transformar essa string $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada.
 
 \section{Experimentos e resultados}
 

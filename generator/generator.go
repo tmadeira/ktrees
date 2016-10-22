@@ -46,29 +46,26 @@ func randomCode(n, k int) (*codec.Code, error) {
 		return nil, errors.New("This code requires k > 0.")
 	}
 
-	qsz := k
-	ssz := n - k - 2
-
 	rand.Seed(seed())
 
 	C := &codec.Code{
-		rand.Perm(n)[:qsz],
+		rand.Perm(n)[:k],
 		&dandelion.DandelionCode{
-			make([]int, ssz),
-			make([]int, ssz),
+			make([]int, n-k-2),
+			make([]int, n-k-2),
 		},
 	}
 
 	sort.Ints(C.Q)
 
-	for i := 0; i < ssz; i++ {
-		r := rand.Intn((n - k) * k + 1)
+	for i := 0; i < n-k-2; i++ {
+		r := rand.Intn((n-k)*k + 1)
 		if r == 0 {
 			C.S.P[i] = 0
 			C.S.L[i] = characteristic.E
 		} else {
 			r--
-			C.S.P[i] = 1 + r / k
+			C.S.P[i] = 1 + r/k
 			C.S.L[i] = r % k
 		}
 	}

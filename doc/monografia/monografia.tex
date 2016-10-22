@@ -2,12 +2,24 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{courier}
 \usepackage{emptypage}
 \usepackage{hyperref}
 \usepackage{natbib}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{listings}
+\usepackage{listings-golang}
 \usepackage{tikz}
 \usepackage{setspace}
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  frame=L,
+  language=Golang,
+  numbers=left,
+  tabsize=2
+}
 
 \newtheoremstyle{definition}
 {\topsep}{\topsep}

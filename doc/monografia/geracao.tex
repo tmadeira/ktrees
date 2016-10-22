@@ -326,14 +326,16 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
   \end{step}
 
   \begin{step}
-    A escrever. % TODO Reconstruir a \emph{$k$-tree} de Rényi $R_k$ a partir de $T$;
+    A reconstrução da \emph{$k$-tree} de Rényi $R_k$ a partir de $T$ foi implementada na função {\tt RenyiKtreeFrom} do pacote {\tt characteristic}.
+
+    O processo consiste em inicializar $R_k$ com o $k$-clique $\{ n-k+1, \cdots, n \}$ e percorrer $T$ na ordem da busca em largura (a partir dos filhos do vértice de rótulo $0$) para inserir vértices em $R_k$.
+
+    O programa 8 do artigo de Caminiti et. al \cite{caminiti} detalha esse passo.
   \end{step}
 
   \begin{step}
-    A escrever. % TODO Aplicar $\phi^{-1}$ a $R_k$ para obter $T_k$.
+    Para transformar a \emph{$k$-tree} de Rényi $R_k$ na \emph{$k$-tree} rotulada $T_k$, basta aplicar o inverso da permutação $\phi$. Esse processo foi implementado na função {\tt TkFrom} do pacote {\tt ktree}.
   \end{step}
-
-  A escrever. % TODO
 \end{algorithm}
 
 \section{Geração uniforme}

@@ -176,6 +176,7 @@ A figura \ref{fig:transformation} mostra uma \emph{$k$-tree} de Rényi com $11$ 
 \end{figure}
 
 \subsection{Codificação}
+\label{subsec:codificacao}
 
 O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos e tem complexidade $O(nk)$. Aqui apresentamos esse algoritmo indicando onde cada um dos passos pode ser encontrado na nossa implementação.
 
@@ -290,6 +291,7 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
 \end{algorithm}
 
 \subsection{Decodificação}
+\label{subsec:decodificacao}
 
 O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada $T_k$ com $n$ vértices consiste numa sequência de transformações inversas às transformações usadas no algoritmo de codificação. Aqui apresentamos esse algoritmo, de complexidade $O(nk)$, indicando onde cada um dos passos pode ser encontrado na nossa implementação.
 
@@ -340,6 +342,7 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
 \end{algorithm}
 
 \section{Geração uniforme}
+\label{sec:geracao}
 
 Como comentamos no início deste capítulo, se temos uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
 
@@ -363,7 +366,271 @@ Depois, ela gera $S$ sorteando $n-k-2$ pares em $\{ ( 0, \varepsilon ) \} \cup (
 
 Decodificamos o código usando o algoritmo de decodificação apresentado na seção \ref{sec:caminiti} para transformar essa string $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k$-tree} rotulada.
 
-\section{Experimentos e resultados}
+\section{Utilitários}
 
-A escrever. % TODO
+Para exemplificar como se usa a biblioteca desenvolvida nas seções anteriores, foram desenvolvidos três utilitários que se encontram no pacote {\tt examples}: {\tt code-ktree}, {\tt decode-ktree} e {\tt generate-ktree}.
+
+Eles permitem codificar/decodificar \emph{$k$-trees} e gerar \emph{$k$-trees} aleatórias.
+
+\subsection{code-ktree}
+
+O utilitário {\tt code-ktree} serve para codificar \emph{$k$-trees} usando o algoritmo da subseção \ref{subsec:codificacao}. Sua entrada deve ser dada no formato\footnote{A leitura da entrada despreza espaços e quebras de linha.}:
+
+\begin{lstlisting}
+n k
+m
+x_1 y_1
+...
+x_m y_m
+\end{lstlisting}
+
+Onde:
+
+\begin{itemize}
+  \item {\tt n} é o número de vértices;
+  \item {\tt k} é o parâmetro $k$ da \emph{$k$-tree};
+  \item {\tt m} é o número de arestas;
+  \item {\tt x\_i y\_i} corresponde à \emph{i}-ésima aresta ($0 \leq $ {\tt x\_i, y\_i} $ < n$).
+\end{itemize}
+
+Um exemplo de entrada equivalente à \emph{$k$-tree} da figura \ref{fig:rootedktree}(a) é:
+
+\begin{lstlisting}
+11 3
+27
+0 1 0 4 0 6 0 7
+1 2 1 4 1 5 1 7 1 8 1 9 1 10
+2 3 2 4 2 7 2 8 2 9 2 10
+3 8 3 10 4 6
+4 7
+5 7 5 8
+6 7
+7 8
+8 9 8 10
+\end{lstlisting}
+
+A saída desse utilitário é um par $(Q, S)$ no formato de entrada esperado pelo utilitário {\tt decode-ktree}, que será descrito a seguir.
+
+\subsection{decode-ktree}
+
+O utilitário {\tt decode-ktree} serve para decodificar um código $(Q, S)$ numa \emph{$k$-tree} usando o algoritmo da subseção \ref{subsec:decodificacao}. Sua entrada deve ser dada no formato:
+
+\begin{lstlisting}
+k
+Q_1
+...
+Q_k
+s
+p_1 l_1
+...
+p_s l_s
+\end{lstlisting}
+
+Onde:
+
+\begin{itemize}
+  \item {\tt k} é o tamanho de $Q$;
+  \item {\tt Q\_i} corresponde ao $i$-ésimo valor em $Q$;
+  \item {\tt s} é o tamanho do \emph{Generalized Dandelion Code}, $|S|$;
+  \item {\tt p\_i l\_i} corresponde ao $i$-ésimo valor em $S$.
+\end{itemize}
+
+Um exemplo de entrada equivalente ao código gerado pela \emph{$k$-tree} da figura \ref{fig:rootedktree}(a) é:
+
+\begin{lstlisting}
+3
+1 2 8
+6
+0 -1
+2 0
+8 2
+8 1
+1 2
+5 2
+\end{lstlisting}
+
+A saída desse utilitário é uma \emph{$k$-tree} no formato de entrada esperado pelo utilitário {\tt code-ktree}.
+
+\subsection{generate-ktree}
+
+O utilitário {\tt generate-ktree} serve para gerar uma \emph{$k$-tree} aleatória usando o algoritmo desenvolvido na seção \ref{sec:geracao}.
+
+Sua entrada deve ser dada no formato:
+
+\begin{lstlisting}
+n k
+\end{lstlisting}
+
+Sua saída é uma \emph{$k$-tree} com $n$ vértices no formato de entrada esperado pelo utilitário {\tt code-ktree}.
+
+\section{Testes, experimentos e resultados}
+
+\subsection{Testes unitários e cobertura}
+
+Como escrevemos na introdução deste trabalho, um dos motivos pelos quais escolhemos a linguagem Go para a implementação foi a facilidade para escrever testes.
+
+Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}:
+
+\begin{lstlisting}
+$ go get github.com/tmadeira/tcc/...
+$ go test -v github.com/tmadeira/tcc/...
+=== RUN   TestTreeFrom
+--- PASS: TestTreeFrom (0.00s)
+=== RUN   TestRenyiKtreeFrom
+--- PASS: TestRenyiKtreeFrom (0.00s)
+PASS
+ok  	github.com/tmadeira/tcc/characteristic	0.002s
+=== RUN   TestCodingAlgorithm
+--- PASS: TestCodingAlgorithm (0.00s)
+=== RUN   TestDecodingAlgorithm
+--- PASS: TestDecodingAlgorithm (0.00s)
+PASS
+ok  	github.com/tmadeira/tcc/codec	0.017s
+=== RUN   TestCodeFig2C
+--- PASS: TestCodeFig2C (0.00s)
+=== RUN   TestDecodeFig2C
+--- PASS: TestDecodeFig2C (0.00s)
+=== RUN   TestDecodeFig3
+--- PASS: TestDecodeFig3 (0.00s)
+PASS
+ok  	github.com/tmadeira/tcc/dandelion	0.002s
+=== RUN   TestRandomKtree
+--- PASS: TestRandomKtree (0.03s)
+PASS
+ok  	github.com/tmadeira/tcc/generator	0.029s
+=== RUN   TestGetQ
+--- PASS: TestGetQ (0.00s)
+=== RUN   TestComputePhi
+--- PASS: TestComputePhi (0.00s)
+=== RUN   TestRelabel
+--- PASS: TestRelabel (0.00s)
+=== RUN   TestRkFrom
+--- PASS: TestRkFrom (0.00s)
+=== RUN   TestTkFrom
+--- PASS: TestTkFrom (0.00s)
+PASS
+ok  	github.com/tmadeira/tcc/ktree	0.002s
+\end{lstlisting}
+
+Com efeito, 96\% das linhas do código são cobertas por testes, como mostra o relatório da ferramenta \emph{Coveralls}\footnote{Esse relatório pode ser visto em: https://coveralls.io/github/tmadeira/tcc?branch=master}.
+
+\subsection{Experimentos e resultados}
+
+\subsubsection{Corretude e uniformidade}
+
+Para mostrar que nossa implementação gera \emph{$k$-trees} aleatórias corretamente e uniformemente, realizamos dezenas de milhares de testes com $n$ e $k$ pequenos.
+
+Escrevemos um pequeno \emph{script} em Bash para nos auxiliar nesse experimento. Ele usa o utilitário {\tt generate-ktree} para gerar $10000$ \emph{$k$-trees} com parâmetros $(n, k)$ constantes e imprime quantas vezes cada \emph{$k$-tree} diferente foi gerada:
+
+\begin{lstlisting}[language=bash]
+i=0
+while [ $i -lt 10000 ]; do
+  echo $N $K | generate-ktree | xargs echo
+  i=$((i+1))
+done | sort | uniq -c
+\end{lstlisting}
+
+Com $n = 3$ e $k = 1$, existem $3$ \emph{$k$-trees} rotuladas distintas, como mostra a figura \ref{fig:n3k1}.
+
+\begin{figure}
+  \begin{minipage}{0.333\textwidth}
+    \centering
+    \scalebox{0.75}{
+      \begin{tikzpicture}
+          [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+        \node (n0) at (1,1) {0};
+        \node (n1) at (3,3) {1};
+        \node (n2) at (1,5) {2};
+
+        \foreach \from/\to in {n0/n1, n1/n2}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+    }
+  \end{minipage}\begin{minipage}{0.333\textwidth}
+    \centering
+    \scalebox{0.75}{
+      \begin{tikzpicture}
+          [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+        \node (n0) at (1,1) {0};
+        \node (n1) at (3,3) {1};
+        \node (n2) at (1,5) {2};
+
+        \foreach \from/\to in {n0/n1, n0/n2}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+    }
+  \end{minipage}\begin{minipage}{0.333\textwidth}
+    \centering
+    \scalebox{0.75}{
+      \begin{tikzpicture}
+          [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+        \node (n0) at (1,1) {0};
+        \node (n1) at (3,3) {1};
+        \node (n2) at (1,5) {2};
+
+        \foreach \from/\to in {n0/n2, n1/n2}
+          \draw (\from) edge (\to);
+      \end{tikzpicture}
+    }
+  \end{minipage}
+
+  \caption{Representação das três \emph{$1$-trees} rotuladas distintas com $n = 3$.}
+  \label{fig:n3k1}
+\end{figure}
+
+Ao executar o \emph{script} com {\tt N=3 K=1} esperamos portanto que as três \emph{$1$-trees} apareçam com uma frequência similar. O resultado que obtivemos foi:
+
+\begin{lstlisting}
+3320 3 1 2 0 1 0 2
+3345 3 1 2 0 1 1 2
+3335 3 1 2 0 2 1 2
+\end{lstlisting}
+
+O primeiro inteiro que aparece em cada linha é a quantidade de vezes que a \emph{$k$-tree} apareceu e o restante é a \emph{$k$-tree} gerada no formato de saída do utilitário {\tt generate-ktree} (sem quebras de linha).
+
+Como a frequência de cada uma das $3$ \emph{$k$-trees} com $n = 3$ e $k = 1$ está similar, o experimento mostra que o algoritmo gera \emph{$k$-trees} aleatórias de forma uniforme.
+
+Testes com outros pares $(n, k)$ também mostram frequências similares, comprovando a uniformidade.
+
+\vspace{1em}
+
+Por exemplo, com {\tt N=4 K=2} obtivemos:
+
+\begin{lstlisting}
+1703 4 2 5 0 1 0 2 0 3 1 2 1 3
+1627 4 2 5 0 1 0 2 0 3 1 2 2 3
+1573 4 2 5 0 1 0 2 0 3 1 3 2 3
+1709 4 2 5 0 1 0 2 1 2 1 3 2 3
+1717 4 2 5 0 1 0 3 1 2 1 3 2 3
+1671 4 2 5 0 2 0 3 1 2 1 3 2 3
+\end{lstlisting}
+
+% TODO: colocar figura das k-trees com N=4, K=2
+
+\vspace{1em}
+
+E com {\tt N=5 K=3} obtivemos:
+
+\begin{lstlisting}
+  970 5 3 9 0 1 0 2 0 3 0 4 1 2 1 3 1 4 2 3 2 4
+ 1023 5 3 9 0 1 0 2 0 3 0 4 1 2 1 3 1 4 2 3 3 4
+ 1009 5 3 9 0 1 0 2 0 3 0 4 1 2 1 3 1 4 2 4 3 4
+ 1014 5 3 9 0 1 0 2 0 3 0 4 1 2 1 3 2 3 2 4 3 4
+  994 5 3 9 0 1 0 2 0 3 0 4 1 2 1 4 2 3 2 4 3 4
+ 1019 5 3 9 0 1 0 2 0 3 0 4 1 3 1 4 2 3 2 4 3 4
+ 1008 5 3 9 0 1 0 2 0 3 1 2 1 3 1 4 2 3 2 4 3 4
+ 1000 5 3 9 0 1 0 2 0 4 1 2 1 3 1 4 2 3 2 4 3 4
+  978 5 3 9 0 1 0 3 0 4 1 2 1 3 1 4 2 3 2 4 3 4
+  985 5 3 9 0 2 0 3 0 4 1 2 1 3 1 4 2 3 2 4 3 4
+\end{lstlisting}
+
+% TODO: colocar figura das k-trees com N=5, K=3
+
+%\subsubsection{Tempo linear}
+%
+%Para checar se nossa implementação gera \emph{$k$-trees} em tempo $O(nk)$ como esperado, geramos \emph{$k$-trees} com diferentes valores de $n$ e de $k$ várias vezes, calculamos a média e o desvio padrão dos tempos de execução e comparamos os resultados com outros pares de parâmetros $(n, k)$.
+%
+%\vspace{2em}
+%
+%A testar/escrever. % TODO
 

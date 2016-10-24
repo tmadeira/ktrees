@@ -20,6 +20,30 @@ Segundo Koller e Friedman \cite{koller}, a inferência em redes bayesianas em ge
 
 A partir dessa motivação, este trabalho de conclusão de curso consistiu em estudar os conceitos de teoria dos grafos relacionados a \emph{$k$-trees} e implementar um algoritmo para gerar \emph{$k$-trees} de forma uniforme que possam ser usadas no aprendizado de redes bayesianas.
 
-\vspace{2em}
+\section{Código desenvolvido}
 
-A continuar: citar algoritmos usados, falar do artigo de Caminiti, justificar a escolha de Go para implementações, apresentar a organização da monografia. % TODO
+As implementações deste trabalho foram realizadas na linguagem \emph{Go}\footnote{\emph{The Go Programming Language:} \url{https://golang.org/}}. \emph{Go} é uma linguagem de código aberto criada em 2007. Ela é compilada e usa tipagem estática como o C, mas por ser uma linguagem muito nova tem \emph{garbage collection} e recursos para programação concorrente.
+
+Escolhemos \emph{Go} porque ela tem boa performance e é agradável de usar. Tem sistemas de pacotes ({\tt go get}), testes ({\tt go test}) e documentação (\emph{GoDoc}\footnote{\emph{GoDoc:} \url{https://godoc.org/}}) padronizados facilitando que os códigos sejam testados e reutilizados. Produz código limpo e padronizado (identação, espaçamento e outros detalhes de estilo são automatizados pela ferramenta {\tt gofmt} que vem com ela).
+
+Todo o código desenvolvido neste trabalho está num repositório público no \emph{GitHub}\footnote{\emph{GitHub:} \url{https://github.com/}} cujo endereço é \url{https://github.com/tmadeira/tcc/}.
+
+A documentação de todas as estruturas e funções declaradas no código está disponível em \url{https://godoc.org/github.com/tmadeira/tcc}.
+
+Para baixar o código, rodar os testes e instalar os utilitários, recomenda-se usar as ferramentas da linguagem \emph{Go}:
+
+\begin{lstlisting}
+$ export ${GOPATH:=$HOME/go}
+$ mkdir -p $GOPATH
+$ go get github.com/tmadeira/tcc/...
+$ go test -v github.com/tmadeira/tcc/...
+$ go install github.com/tmadeira/tcc/examples/...
+\end{lstlisting}
+
+\section{Organização da monografia}
+
+No capítulo \ref{cap:fundamentos} (Fundamentos), apresentamos definições fundamentais de teoria dos grafos, teoria da probabilidade e redes bayesianas que o leitor deve conhecer para compreender o trabalho.
+
+No capítulo \ref{cap:geracao} (Geração aleatória de \emph{$k$-trees}), apresentamos o problema de codificar \emph{$k$-trees}, discutimos os algoritmos lineares para codificar e decodificar \emph{$k$-trees} propostos no artigo \emph{``Bijective Linear Time Coding and Decoding for $k$-Trees''} \cite{caminiti}, explicamos como eles foram implementados neste trabalho para gerar \emph{$k$-trees} aleatórias uniformemente e apresentamos o resultado que obtivemos através de experimentos.
+
+No capítulo \ref{cap:aprendizado} (Aprendizado de redes bayesianas), explicamos como as \emph{$k$-trees} que geramos no capítulo \ref{cap:geracao} foram usadas para aprender redes bayesianas e comparamos os resultados obtidos com o estado da arte.

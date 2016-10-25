@@ -12,19 +12,23 @@ Partimos do pressuposto de que o leitor conhece notações básicas de conjuntos
 Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos grafos necessários para a compreensão deste trabalho. Mais detalhes podem ser encontrados no livro de Bondy e Murty \cite{bondy}, que foi utilizado como referência.
 
 \begin{definition}[grafo]
-  Um grafo é um par ordenado $G = (V, E)$. Os elementos de $V$ são chamados de vértices de $G$. Os elementos de $E$ são chamados de arestas de $G$ e consistem em pares (não-ordenados) de vértices distintos\footnote{A rigor, por causa da palavra ``distintos'', essa é a definição do que a literatura costuma chamar de \emph{grafo simples}. Tal definição é utilizada porque neste trabalho não temos interesse em grafos que possuam arestas $(u, v)$ com $u=v$.}. Dados $u, v \in V$, se $(u, v) \in E$ dizemos que $u$ e $v$ são adjacentes em $G$.
+  Um \textbf{grafo} é um par ordenado $G = (V, E)$. Os elementos de $V$ são chamados de \textbf{vértices} de $G$. Os elementos de $E$ são chamados de \textbf{arestas} de $G$ e consistem em pares (não-ordenados) de vértices distintos\footnote{A rigor, por causa da palavra ``distintos'', essa é a definição do que a literatura costuma chamar de \emph{grafo simples}. Tal definição é utilizada porque neste trabalho não temos interesse em grafos que possuam arestas $(u, v)$ com $u=v$.}. Dados $u, v \in V$, se $(u, v) \in E$ dizemos que $u$ e $v$ são \textbf{adjacentes} em $G$.
 
   A figura \ref{fig:grafo}(a) mostra como costuma ser representado um grafo. Os vértices são representados pelos círculos e as arestas são representadas pela ligação entre eles. Se $(u, v) \in E$, há uma linha ligando os vértices $u$ e $v$.
+
+  Dado um grafo $G = (V, E)$, o número de arestas que incide num determinado vértice $v \in V$ é chamado de \textbf{grau} do vértice $v$.
 \end{definition}
 
+Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacência}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
+
 \begin{definition}[grafo dirigido]
-  Um grafo $G = (V, E)$ é dito dirigido se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$ ou que há uma aresta de $a$ para $b$.
+  Um grafo $G = (V, E)$ é dito \textbf{dirigido} se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$ ou que há uma aresta de $a$ para $b$.
 
   A figura \ref{fig:grafo}(b) mostra como costuma ser representado um grafo dirigido. Como o conjunto de arestas consiste em pares ordenados, elas são representadas por setas. Se $(u, v) \in E$, então a seta aponta de $u$ para $v$.
 \end{definition}
 
 \begin{definition}[grafo completo]
-  Um grafo $G = (V, E)$ é dito completo se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
+  Um grafo $G = (V, E)$ é dito \textbf{completo} se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
 
   Na figura \ref{fig:grafo}(c), a representação de um grafo completo com $4$ vértices.
 \end{definition}
@@ -83,42 +87,46 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 \end{figure}
 
 \begin{definition}[subgrafo]
-  Um grafo $F = (V_F, E_F)$ é chamado de subgrafo de $G = (V_G, E_G)$ se $V_F \subseteq V_G$ e $E_F \subseteq E_G$.
+  Um grafo $F = (V_F, E_F)$ é chamado de \textbf{subgrafo} de $G = (V_G, E_G)$ se $V_F \subseteq V_G$ e $E_F \subseteq E_G$.
 \end{definition}
 
 \begin{definition}[subgrafo induzido]
-  Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ induzido por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E \ | \  u, v \in V'\}$.
+  Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ \textbf{induzido} por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E \ | \  u, v \in V'\}$.
 \end{definition}
 
 \begin{definition}[caminho]
-  Dado um grafo $G = (V, E)$, um caminho em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência linear de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário. Se $u, v \in V$ pertencem a um caminho $P$, dizemos que eles estão conectados pelo caminho $P$.
+  Dado um grafo $G = (V, E)$, um \textbf{caminho} em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência linear de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário. Se $u, v \in V$ pertencem a um caminho $P$, dizemos que eles estão conectados pelo caminho $P$.
 \end{definition}
 
 \begin{definition}[distância]
-  Dado um grafo $G = (V, E)$ e dois vértices $(u, v) \in V$, a distância entre $u$ e $v$ é o número de arestas num menor caminho que os conecte.
+  Dado um grafo $G = (V, E)$ e dois vértices $(u, v) \in V$, a \textbf{distância} entre $u$ e $v$ é o número de arestas num menor caminho que os conecte.
 \end{definition}
 
 \begin{definition}[ciclo]
-  Dado um grafo $G = (V, E)$, um ciclo em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência cíclica de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário.
+  Dado um grafo $G = (V, E)$, um \textbf{ciclo} em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência cíclica de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário.
 \end{definition}
 
 \begin{definition}[DAG]
-  Um grafo $G = (V, E)$ é chamado de DAG (do inglês \emph{directed acyclic graph}: grafo dirigido acíclico) se ele é dirigido e não possui ciclos.
+  Um grafo $G = (V, E)$ é chamado de \textbf{DAG} (do inglês \emph{directed acyclic graph}: grafo dirigido acíclico) se ele é dirigido e não possui ciclos.
 \end{definition}
 
 \begin{definition}[árvore]
-  Dado um grafo $G = (V, E)$, dizemos que ele é uma árvore se cada dois vértices $u, v \in V$ são conectados por exatamente um caminho.
+  Dado um grafo $G = (V, E)$, dizemos que ele é uma \textbf{árvore} se cada dois vértices $u, v \in V$ são conectados por exatamente um caminho.
 \end{definition}
 
+Dada uma árvore $T = (V, E)$, os vértices em $V$ que tem grau $1$ são chamados de \textbf{folhas}.
+
+Dada uma árvore $T = (V, E)$, às vezes é conveniente destacar um vértice $r \in V$ e chamá-lo de \textbf{raiz} da árvore $T$. Chamamos o par formado pela árvore $T$ e pela raiz $r \in V$ de \textbf{árvore enraizada}.
+
 \begin{definition}[$k$-clique]
-  Seja $G = (V, E)$ um grafo. Um $k$-clique é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
+  Seja $G = (V, E)$ um grafo. Um \textbf{$k$-clique} é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
 \end{definition}
 
 \subsection{\emph{$k$-trees}}
 
 \begin{definition}[\emph{$k$-tree}]
   \label{def:ktree}
-  \cite{harary} Uma \emph{$k$-tree} é definida da seguinte forma recursiva:
+  \cite{harary} Uma \textbf{\emph{$k$-tree}} é definida da seguinte forma recursiva:
 
   \begin{enumerate}
     \item Um grafo completo com $k$ vértices é uma \emph{$k$-tree}.
@@ -187,7 +195,7 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 \end{definition}
 
 \begin{definition}[\emph{$k$-tree} enraizada]
-  \cite{caminiti} Uma \emph{$k$-tree} enraizada é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
+  \cite{caminiti} Uma \textbf{\emph{$k$-tree} enraizada} é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \emph{raiz} da \emph{$k$-tree} enraizada.
 
   Na figura \ref{fig:rootedktree}(a), um exemplo de uma \emph{$k$-tree} com $k = 3$ e $n = 11$ vértices rotulados com inteiros em $[1, 11]$. Na figura \ref{fig:rootedktree}(b), a mesma \emph{$k$-tree}, dessa vez enraizada no $3$-clique $R = \{2, 3, 9\}$.
 
@@ -253,7 +261,7 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 \end{definition}
 
 \begin{definition}[\emph{partial $k$-tree}]
-  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \emph{partial $k$-tree}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$. % TODO: definir treewidth?
+  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$. % TODO: definir treewidth?
 \end{definition}
 
 \section{Probabilidade}

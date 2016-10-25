@@ -3,11 +3,11 @@
 
 O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
 
-Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear para codificar e decodificar \emph{$k$-trees} de forma bijetiva proposta por Caminiti et al. \cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
+Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear para codificar e decodificar \emph{$k$-trees} de forma bijetiva proposta por Caminiti \emph{et al.} \cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
 
 \section{Codificando árvores e \emph{$k$-trees}}
 
-O problema de codificar árvores já foi amplamente estudado na literatura. Como destaca Caminiti et al. \cite{caminiti}:
+O problema de codificar árvores já foi amplamente estudado na literatura. Como destaca Caminiti \emph{et al.} \cite{caminiti}:
 
 \begin{quotation}
   Codificar árvores rotuladas por meio de \emph{strings} de rótulos de vértices é uma alternativa interessante à representação usual de estruturas de dados de árvore na memória e tem muitas aplicações práticas (por exemplo, algoritmos evolucionários sobre árvores, geração aleatória de árvores, compressão de dados e computação do volume de floresta de grafos). Diversos códigos bijetivos diferentes que realizam associações entre árvores rotuladas e \emph{strings} de rótulos foram introduzidas. De um ponto de vista algorítmico, o problema foi cuidadosamente investigado e algoritmos ótimos de codificação e decodificação desses códigos são conhecidos.
@@ -50,9 +50,9 @@ Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro déc
   \cite{renyi} Uma \emph{$k$-tree} de Rényi $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.
 \end{definition}
 
-Entretanto, até onde sabemos, apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti et al. \cite{caminiti}, que implementamos neste trabalho.
+Entretanto, até onde sabemos, apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti \emph{et al.} \cite{caminiti}, que implementamos neste trabalho.
 
-\section{A solução de Caminiti et al.}
+\section{A solução de Caminiti \emph{et al.}}
 \label{sec:caminiti}
 
 O artigo \emph{``Bijective Linear Time Coding and Decoding for $k$-Trees''} \cite{caminiti} apresenta um código bijetivo para \emph{$k$-trees} rotuladas, juntamente a algoritmos lineares para realizar a codificação e a decodificação.
@@ -63,7 +63,7 @@ $$
 \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
 $$
 
-Caminiti et. al \cite{caminiti} mostra que a estrutura dessas \emph{strings} que o \emph{Dandelion Code} gera é essencial para garantir a bijetividade.
+Caminiti \emph{et al.} \cite{caminiti} mostra que a estrutura dessas \emph{strings} que o \emph{Dandelion Code} gera é essencial para garantir a bijetividade.
 
 \vspace{2em}
 
@@ -260,7 +260,7 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
   \begin{step}
     As definições \ref{def:skeleton} e \ref{def:chartree} sugerem algoritmos triviais para gerar a árvore característica $T$ para a \emph{$k$-tree} de Rényi $R_k$ obtida no passo anterior por meio do seu esqueleto (o processo visto na figura \ref{fig:transformation}).
 
-    Para garantir tempo linear, no entanto, o artigo de Caminiti et. al \cite{caminiti} sugere evitar a construção explícita do esqueleto $S(R_k)$ e construir os conjuntos de vértices e arestas de $T$ separadamente.
+    Para garantir tempo linear, no entanto, o artigo de Caminiti \emph{et al.} \cite{caminiti} sugere evitar a construção explícita do esqueleto $S(R_k)$ e construir os conjuntos de vértices e arestas de $T$ separadamente.
 
     Para computar o conjunto de vértices, identifica-se cliques maximais em $R_k$ através da poda sucessiva das $k$-folhas de $R_k$. Esse processo pode ser visto na função {\tt pruneRk} do pacote {\tt characteristic}. Para cada vértice $v$ podado, essa função guarda uma lista $K_v \subseteq Adj(v)$ dos exatamente $k$ vértices adjacentes a $v$ que ainda não foram podados.
 
@@ -333,7 +333,7 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
 
     O processo consiste em inicializar $R_k$ com o $k$-clique $\{ n-k+1, \cdots, n \}$ e percorrer $T$ na ordem da busca em largura (a partir dos filhos do vértice de rótulo $0$) para inserir vértices em $R_k$.
 
-    O programa 8 do artigo de Caminiti et. al \cite{caminiti} detalha esse passo.
+    O programa 8 do artigo de Caminiti \emph{et al.} \cite{caminiti} detalha esse passo.
   \end{step}
 
   \begin{step}
@@ -346,7 +346,7 @@ O algoritmo para decodificar um par $(Q, S) \in \mathcal{A}^n_k$ em uma \emph{$k
 
 Como comentamos no início deste capítulo, se temos uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
 
-Para gerar \emph{$k$-trees} aleatórias de forma uniforme, usamos o código de Caminiti et. al \cite{caminiti} e o algoritmo linear para decodificar uma \emph{string} em uma \emph{$k$-tree} rotulada que apresentamos na seção \ref{sec:caminiti}.
+Para gerar \emph{$k$-trees} aleatórias de forma uniforme, usamos o código de Caminiti \emph{et al.} \cite{caminiti} e o algoritmo linear para decodificar uma \emph{string} em uma \emph{$k$-tree} rotulada que apresentamos na seção \ref{sec:caminiti}.
 
 As \emph{strings} que estamos interessados em gerar são elementos do conjunto:
 

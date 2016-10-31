@@ -42,7 +42,7 @@ A figura \ref{fig:prufer} exemplifica a codificação de Prüfer mostrando uma �
 
 \vspace{2em}
 
-\emph{$k$-trees} \cite{harary} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitada, como destacado na \textbf{Introdução} deste trabalho.
+\emph{$k$-trees} \cite{harary} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitada, como destacado no capítulo \ref{cap:introducao} deste trabalho.
 
 Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro décadas. Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi e que são definidas como segue:
 
@@ -203,7 +203,7 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
   \begin{step}
     Primeiramente precisamos encontrar $l_M$, a folha de $T_k$ com maior rótulo. Uma folha em uma \emph{$k$-tree} consiste em um vértice de grau $k$, portanto basta iterar na lista de adjacências em ordem decrescente nos rótulos até encontrar um vértice com grau $k$. Isso foi implementado na função {\tt FindLm}, localizada no pacote {\tt ktree}.
 
-    Encontrado $l_M$, atribuímos a $Q$ a lista {\tt Adj[$l_M$]} (ver função {\tt GetQ} do pacote {\tt ktree}.
+    Encontrado $l_M$, atribuímos a $Q$ a lista {\tt Adj[$l_M$]} (ver função {\tt GetQ} do pacote {\tt ktree}).
   \end{step}
 
   \begin{step}

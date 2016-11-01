@@ -118,7 +118,7 @@ Dizemos que um ciclo tem uma \textbf{corda} se dois vértices no ciclo são cone
 
 O \textbf{grafo moral} de um DAG $G = (V, E)$ é um grafo não-dirigido obtido conectando-se todo par de vértices com um filho em comum e retirando a direção das arestas.
 
-\begin{definition}[treewidth]
+\begin{definition}[\emph{treewidth}]
   \cite{maua} Dado um grafo $G = (V, E)$, seu \textbf{\emph{treewidth}} é um inteiro definido da seguinte forma:
 
   \begin{itemize}
@@ -282,13 +282,15 @@ Dada uma árvore $T = (V, E)$, às vezes é conveniente destacar um vértice $r 
 
 Nesta seção apresentamos de forma sintética alguns conceitos de teoria da probabilidade necessários para a compreensão deste trabalho. Mais detalhes podem ser encontrados no livro de Koller e Friedman \cite{koller}, que foi utilizado como referência.
 
+\vspace{2em}
+
 Um \textbf{experimento aleatório} é um fenômeno que possui resultado imprevisível. Por exemplo, o lançamento de um dado de seis faces é um experimento aleatório.
 
 O \textbf{espaço amostral} de um experimento aleatório, geralmente denotado $\Omega$, é o conjunto de todos os resultados possíveis do experimento. Por exemplo, o espaço amostral do lançamento de um dado de seis faces é $\{1, 2, 3, 4, 5, 6\}$.
 
-\textbf{Eventos} são subconjuntos de um espaço amostral para os quais pretendemos atribuir probabilidades. Por exemplo, no lançamento de um dado de seis faces o evento $\{6\}$ corresponde ao caso em que o lançamento resulta em $6$ e o evento $\{1, 2\}$ corresponde ao caso em que o lançamento resulta em $1$ ou $2$.
+Chamamos de \textbf{eventos} os subconjuntos de um espaço amostral para os quais pretendemos atribuir probabilidades. Por exemplo, no lançamento de um dado de seis faces o evento $\{6\}$ corresponde ao caso em que o lançamento resulta em $6$ e o evento $\{1, 2\}$ corresponde ao caso em que o lançamento resulta em $1$ ou $2$.
 
-A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ satisfaça três propriedades:
+A teoria da probabilidade requer que o \textbf{espaço dos eventos} $S \subseteq \Omega$ satisfaça três propriedades:
 
 \begin{itemize}
   \item Deve conter o \textbf{evento vazio} $\emptyset$ e o \textbf{evento trivial} $\Omega$.
@@ -299,7 +301,7 @@ A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ 
 O requisito de que o espaço dos eventos é fechado sob a união e o complemento implica que ele também seja fechado sob outras operações booleanas como interseção e diferença.
 
 \begin{definition}[distribuição de probabilidade]
-  Seja $\Omega$ um espaço amostral e $S$ um espaço de eventos. Uma \textbf{distribuição de probabilidade} $P$ sobre $(\Omega, S)$ é um mapeamento dos eventos em $S$ para valores reais que satisfaz as seguintes condições:
+  Seja $\Omega$ um espaço amostral e $S$ o espaço dos eventos. Uma \textbf{distribuição de probabilidade} $P$ sobre $(\Omega, S)$ é um mapeamento dos eventos em $S$ para valores reais que satisfaz as seguintes condições:
 
   \begin{itemize}
     \item Probabilidades são não-negativas, ou seja, $P(\alpha) \geq 0$ para todo $\alpha \in S$.
@@ -328,12 +330,9 @@ Duas consequências da definição da probabilidade condicional são as fórmula
     $$P(\alpha | \beta) = \frac{P(\beta | \alpha) P(\alpha)}{P(\beta)}$$
 \end{description}
 
-\vspace{2em}
+Uma \textbf{variável aleatória} é uma função que associa a cada elemento em $\Omega$ um valor. Por exemplo, no caso do lançamento de um dado de seis faces, podemos definir uma variável aleatória $f_{\text{Resultado}}(\omega)$ para $\omega \in \Omega$ que vale \emph{``bom''} se o resultado do lançamento é 6 ou \emph{``ruim''} caso contrário. Nesse caso, podemos representar $P(\{1, 2, 3, 4, 5\})$ pela notação $P(\text{Resultado} = \text{``ruim''})$, que equivale a $P(\{\omega \in \Omega : f_{\text{Resultado}}(\omega) = \text{``ruim''}\})$.
 
-A continuar (variável aleatória, probabilidade conjunta, independência).
-% TODO: variável aleatória
-% TODO: probabilidade conjunta
-% TODO: independência
+Muitas vezes a notação $P(X = x)$ é redundante, porque $x$ é um valor que só faz sentido como imagem de $X$. Nesses casos, é comum usar a abreviação $P(x)$. Além disso, no lugar de $P((X=x) \cap (Y=y))$ é comum escrever $P(X=x, Y=y)$ ou simplesmente $P(x, y)$.
 
 \subsection{Redes bayesianas}
 
@@ -341,9 +340,9 @@ Redes bayesianas são modelos probabilísticos gráficos que representam distrib
 
 \begin{definition}[rede bayesiana]
   \cite{maua}
-  Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \pi)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\pi = \{\pi_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\pi_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
+  Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\theta_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
 \end{definition}
 
-Redes bayesianas são geralmente usadas para fazer inferências como computar a probabilidade de alguma variável depois que alguma evidência é observada. Por exepmlo, uma rede bayesiana pode representar as relações de probabilidade entre doenças e sintomas. Observados alguns sintomas, a rede pode ser usada para computar a probabilidade da presença das doenças.
+Redes bayesianas são geralmente usadas para fazer inferências como computar a probabilidade de alguma variável depois que alguma evidência é observada. Por exemplo, uma rede bayesiana pode representar as relações de probabilidade entre doenças e sintomas. Observados alguns sintomas, a rede pode ser usada para computar a probabilidade da presença das doenças.
 
 No capítulo \ref{cap:aprendizado}, discutimos o problema de aprender estruturas de redes bayesianas a partir de dados.

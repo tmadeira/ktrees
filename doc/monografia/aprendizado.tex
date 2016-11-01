@@ -1,10 +1,28 @@
 \chapter{Aprendizado de redes bayesianas}
 \label{cap:aprendizado}
 
-\section{Aprendendo redes bayesianas}
-
-Neste trabalho, quando falamos em aprender redes bayesianas estamos nos referindo ao processo de inferir a estrutura (ou seja, o DAG) de uma rede bayesiana a partir de dados. Como mostra Chickering \cite{chickering}, este é um problema NP-completo.
+Neste capítulo apresentamos o problema de aprender redes bayesianas e descrevemos um método desenvolvido por Nie \emph{et al.} \cite{nie} para resolvê-lo que é baseado na geração de \emph{$k$-trees}.
 
 \vspace{2em}
 
-A continuar \cite{nie}. % TODO
+Aprender uma rede bayesiana se refere ao processo de inferir a estrutura (ou seja, o DAG) dela a partir de dados. Como mostra Chickering \cite{chickering}, este é um problema NP-completo.
+
+O aprendizado de redes bayesianas costuma servir para realizar inferências em situações com incerteza. O artigo de Nie \emph{et al.} \cite{maua} mostra que tais inferências são NP-difíceis até mesmo aproximadamente e todos os algoritmos conhecidos (exatos e comprovadamente bons) têm uma complexidade de pior caso exponencial no \emph{treewidth}.
+
+Além disso, resultados empíricos sugerem que limitar o \emph{treewidth} pode melhorar a performance dos modelos e há evidências de que limitar a \emph{treewidth} da estrutura de uma rede bayesiana não causa perdas significativas na expressividade do modelo para conjuntos de dados reais (também visto em \cite{maua}).
+
+Por isso, estamos interessados em fixar $k$ e aprender redes bayesianas cuja estrutura tem \emph{treewidth} limitada a $k$.
+
+A fim de identificar o ``melhor'' DAG para um determinado conjunto de dados, vamos supôr que há uma função de \emph{score} $s(G)$ que atribui uma pontuação para cada DAG $G$. Segundo \cite{nie}, as funções de \emph{score} costumam poder ser escritas como a soma de funções de \emph{score} locais, ou seja,
+
+$$s(G) = \sum_{i \in N} s_i(X_{\pi_i}).$$
+
+Para cada variável, sua pontuação só depende do seu conjunto de pais. Ou seja, nosso problema é encontrar $G^*$ tal que
+
+$$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
+
+onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maiores que $k$.
+
+Mesmo esse problema é NP-difícil, como mostram Korhonen e Parviainen \cite{korhonen}. Entretanto, os artigos \cite{nie} e \cite{maua} mostram um método aproximado para aprender redes bayesianas com \emph{treewidth} limitado que é baseado em amostrar \emph{$k$-trees} e encontrar DAGs cujo grafo moral é um subgrafo dessas \emph{$k$-trees}.
+
+Tal método funciona com domínios grandes e \emph{treewidth} alto. Nos artigos é mostrado empiricamente que ele tem um desempenho muito bom numa coleção de conjuntos de dados públicos.

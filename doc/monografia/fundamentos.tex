@@ -103,7 +103,7 @@ Há diferentes estruturas de dados que podem ser usadas para representar um graf
 \end{definition}
 
 \begin{definition}[ciclo]
-  Dado um grafo $G = (V, E)$, um \textbf{ciclo} em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência cíclica de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário.
+  Dado um grafo $G = (V, E)$, um \textbf{ciclo} em $G$ é um caminho formado por vértices $x_1, \cdots, x_k \in V$ onde $x_1 = x_k$.
 \end{definition}
 
 \begin{definition}[DAG]
@@ -274,7 +274,7 @@ O \textbf{espaço amostral} de um experimento aleatório, geralmente denotado $\
 
 \textbf{Eventos} são subconjuntos de um espaço amostral para os quais pretendemos atribuir probabilidades. Por exemplo, no lançamento de um dado de seis faces o evento $\{6\}$ corresponde ao caso em que o lançamento resulta em $6$ e o evento $\{1, 2\}$ corresponde ao caso em que o lançamento resulta em $1$ ou $2$.
 
-A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ satisfaça três propriedades \cite{koller}:
+A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ satisfaça três propriedades:
 
 \begin{itemize}
   \item Deve conter o \textbf{evento vazio} $\emptyset$ e o \textbf{evento trivial} $\Omega$.
@@ -285,8 +285,7 @@ A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ 
 O requisito de que o espaço dos eventos é fechado sob a união e o complemento implica que ele também seja fechado sob outras operações booleanas como interseção e diferença.
 
 \begin{definition}[distribuição de probabilidade]
-  \cite{koller}
-  Seja $\Omega$ um espaço amostral e $S$ um espaço de eventos. Uma distribuição de probabilidade $P$ sobre $(\Omega, S)$ é um mapeamento dos eventos em $S$ para valores reais que satisfaz as seguintes condições:
+  Seja $\Omega$ um espaço amostral e $S$ um espaço de eventos. Uma \textbf{distribuição de probabilidade} $P$ sobre $(\Omega, S)$ é um mapeamento dos eventos em $S$ para valores reais que satisfaz as seguintes condições:
 
   \begin{itemize}
     \item Probabilidades são não-negativas, ou seja, $P(\alpha) \geq 0$ para todo $\alpha \in S$.
@@ -297,11 +296,27 @@ O requisito de que o espaço dos eventos é fechado sob a união e o complemento
   Essas condições implicam em outras. Em particular, vale destacar que $P(\emptyset) = 0$ e $P(\alpha \cup \beta) = P(\alpha) + P(\beta) - P(\alpha \cap \beta)$.
 \end{definition}
 
+\begin{definition}[probabilidade condicional]
+  Seja $P$ uma distribuição de probabilidade sobre $(\Omega, S)$ e sejam $\alpha, \beta \in S$. A \textbf{probabilidade condicional} de $\beta$ dado $\alpha$, $P(\beta | \alpha)$, é definida como:
+
+  $$P(\beta | \alpha) = \frac{P(\alpha \cap \beta)}{P(\alpha)}$$
+\end{definition}
+
+Duas consequências da definição da probabilidade condicional são as fórmulas que chamamos de \textbf{regra da cadeia} e \textbf{regra de Bayes}:
+
+\begin{description}
+  \item[Regra da Cadeia.] Se $\alpha_1, \cdots, \alpha_k \in S$, então
+
+    $$P(\alpha_1 \cap \cdots \alpha_k) = P(\alpha_1) P(\alpha_2 | \alpha_1) \cdots P(\alpha_k | \alpha_1 \cap \cdots \cap \alpha_{k-1})$$
+
+  \item[Regra de Bayes.] Se $\alpha, \beta \in S$, então
+
+    $$P(\alpha | \beta) = \frac{P(\beta | \alpha) P(\alpha)}{P(\beta)}$$
+\end{description}
+
 \vspace{2em}
 
 A continuar.
-% TODO: probabilidade condicional (2.1.2.1)
-% TODO: regra de Bayes (2.1.2.2)
 % TODO: variável aleatória
 % TODO: probabilidade conjunta
 % TODO: independência

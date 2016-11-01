@@ -316,7 +316,7 @@ Duas consequências da definição da probabilidade condicional são as fórmula
 
 \vspace{2em}
 
-A continuar.
+A continuar (variável aleatória, probabilidade conjunta, independência).
 % TODO: variável aleatória
 % TODO: probabilidade conjunta
 % TODO: independência
@@ -327,12 +327,9 @@ Redes bayesianas são modelos probabilísticos gráficos que representam distrib
 
 \begin{definition}[rede bayesiana]
   \cite{maua}
-  Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$.
-
-  Uma \textbf{rede bayesiana} é uma tripla $(X, G, \pi)$, onde $G = (V, E)$ é um DAG cujos vértices correspondem a variáveis em $X$ e $\pi = \{\pi_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\pi_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
+  Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \pi)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\pi = \{\pi_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\pi_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
 \end{definition}
 
-\vspace{2em}
+Redes bayesianas são geralmente usadas para fazer inferências como computar a probabilidade de alguma variável depois que alguma evidência é observada. Por exepmlo, uma rede bayesiana pode representar as relações de probabilidade entre doenças e sintomas. Observados alguns sintomas, a rede pode ser usada para computar a probabilidade da presença das doenças.
 
-A continuar.
-% TODO: onde falar de aprendizagem e inferência?
+No capítulo \ref{cap:aprendizado}, discutimos o problema de aprender estruturas de redes bayesianas a partir de dados.

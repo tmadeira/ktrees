@@ -266,10 +266,58 @@ Dada uma árvore $T = (V, E)$, às vezes é conveniente destacar um vértice $r 
 
 \section{Probabilidade}
 
-A escrever. \cite{koller} % TODO
+Nesta seção apresentamos de forma sintética alguns conceitos de teoria da probabilidade necessários para a compreensão deste trabalho. Mais detalhes podem ser encontrados no livro de Koller e Friedman \cite{koller}, que foi utilizado como referência.
 
-\section{Redes bayesianas}
+Um \textbf{experimento aleatório} é um fenômeno que possui resultado imprevisível. Por exemplo, o lançamento de um dado de seis faces é um experimento aleatório.
 
-A escrever. \cite{koller} % TODO
+O \textbf{espaço amostral} de um experimento aleatório, geralmente denotado $\Omega$, é o conjunto de todos os resultados possíveis do experimento. Por exemplo, o espaço amostral do lançamento de um dado de seis faces é $\{1, 2, 3, 4, 5, 6\}$.
 
+\textbf{Eventos} são subconjuntos de um espaço amostral para os quais pretendemos atribuir probabilidades. Por exemplo, no lançamento de um dado de seis faces o evento $\{6\}$ corresponde ao caso em que o lançamento resulta em $6$ e o evento $\{1, 2\}$ corresponde ao caso em que o lançamento resulta em $1$ ou $2$.
+
+A teoria da probabilidade requer que o espaço dos eventos $S \subseteq \Omega$ satisfaça três propriedades \cite{koller}:
+
+\begin{itemize}
+  \item Deve conter o \textbf{evento vazio} $\emptyset$ e o \textbf{evento trivial} $\Omega$.
+  \item Se $\alpha, \beta \in S$, então $\alpha \cup \beta \in S$.
+  \item Se $\alpha \in S$, então $\Omega \setminus \alpha \in S$.
+\end{itemize}
+
+O requisito de que o espaço dos eventos é fechado sob a união e o complemento implica que ele também seja fechado sob outras operações booleanas como interseção e diferença.
+
+\begin{definition}[distribuição de probabilidade]
+  \cite{koller}
+  Seja $\Omega$ um espaço amostral e $S$ um espaço de eventos. Uma distribuição de probabilidade $P$ sobre $(\Omega, S)$ é um mapeamento dos eventos em $S$ para valores reais que satisfaz as seguintes condições:
+
+  \begin{itemize}
+    \item Probabilidades são não-negativas, ou seja, $P(\alpha) \geq 0$ para todo $\alpha \in S$.
+    \item O evento trivial tem a maior probabilidade possível, ou seja, $P(\Omega) = 1$.
+    \item A probabilidade de que um de dois eventos disjuntos ocorra é a soma das probabilidades de cada evento, ou seja, se $\alpha, \beta \in S$ e $\alpha \cup \beta = \emptyset$, então $P(\alpha \cup \beta) = P(\alpha) + P(\beta)$.
+  \end{itemize}
+
+  Essas condições implicam em outras. Em particular, vale destacar que $P(\emptyset) = 0$ e $P(\alpha \cup \beta) = P(\alpha) + P(\beta) - P(\alpha \cap \beta)$.
+\end{definition}
+
+\vspace{2em}
+
+A continuar.
+% TODO: probabilidade condicional (2.1.2.1)
+% TODO: regra de Bayes (2.1.2.2)
+% TODO: variável aleatória
+% TODO: probabilidade conjunta
+% TODO: independência
+
+\subsection{Redes bayesianas}
+
+Redes bayesianas são modelos probabilísticos gráficos que representam distribuições de probabilidade conjunta e são usados para raciocinar em situações com incerteza. Formalmente:
+
+\begin{definition}[rede bayesiana]
+  \cite{maua}
+  Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$.
+
+  Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\phi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\phi_i(x_i, x_{\phi_i}) = P(x_i | x_{\phi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\phi_i}$ para os pais $\phi_i$ de $X_i$ (em $G$).
+\end{definition}
+
+\vspace{2em}
+
+A continuar.
 % TODO: onde falar de aprendizagem e inferência?

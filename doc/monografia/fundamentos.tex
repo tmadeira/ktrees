@@ -22,7 +22,7 @@ Nesta seção apresentamos de forma breve apenas os conceitos de teoria dos graf
 Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacência}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
 
 \begin{definition}[grafo dirigido]
-  Um grafo $G = (V, E)$ é dito \textbf{dirigido} se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$ ou que há uma aresta de $a$ para $b$.
+  Um grafo $G = (V, E)$ é dito \textbf{dirigido} se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$, que há uma aresta de $a$ para $b$ ou que $b$ é filho de $a$.
 
   A figura \ref{fig:grafo}(b) mostra como costuma ser representado um grafo dirigido. Como o conjunto de arestas consiste em pares ordenados, elas são representadas por setas. Se $(u, v) \in E$, então a seta aponta de $u$ para $v$.
 \end{definition}
@@ -94,6 +94,10 @@ Há diferentes estruturas de dados que podem ser usadas para representar um graf
   Dado um grafo $G = (V, E)$ e um subconjunto $V'$ de $V$, o subgrafo de $G$ \textbf{induzido} por $V'$, $G' = (V', E')$, é o grafo formado pelos vértices $V' \subseteq V$ e arestas que só contém elementos de $V'$, ou seja, $E' = \{(u, v) \in E \ | \  u, v \in V'\}$.
 \end{definition}
 
+\begin{definition}[$k$-clique]
+  Seja $G = (V, E)$ um grafo. Um \textbf{$k$-clique} (também chamado de \textbf{clique de tamanho $k$}) é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
+\end{definition}
+
 \begin{definition}[caminho]
   Dado um grafo $G = (V, E)$, um \textbf{caminho} em $G$ é um subgrafo de $G$ cujos vértices podem ser arranjados numa sequência linear de forma que dois vértices são adjacentes se eles são consecutivos na sequência e não-adjacentes caso contrário. Se $u, v \in V$ pertencem a um caminho $P$, dizemos que eles estão conectados pelo caminho $P$.
 \end{definition}
@@ -110,6 +114,20 @@ Há diferentes estruturas de dados que podem ser usadas para representar um graf
   Um grafo $G = (V, E)$ é chamado de \textbf{DAG} (do inglês \emph{directed acyclic graph}: grafo dirigido acíclico) se ele é dirigido e não possui ciclos.
 \end{definition}
 
+Dizemos que um ciclo tem uma \textbf{corda} se dois vértices no ciclo são conectados por uma aresta que não está no ciclo. Um \textbf{grafo cordal} é um grafo no qual todos os ciclos com pelo menos $4$ vértices têm uma corda. Qualquer grafo pode ser transformado num grafo cordal adicionando-se arestas num processo chamado de \textbf{cordalização}.
+
+O \textbf{grafo moral} de um DAG $G = (V, E)$ é um grafo não-dirigido obtido conectando-se todo par de vértices com um filho em comum e retirando a direção das arestas.
+
+\begin{definition}[treewidth]
+  \cite{maua} Dado um grafo $G = (V, E)$, seu \textbf{\emph{treewidth}} é um inteiro definido da seguinte forma:
+
+  \begin{itemize}
+    \item Se $G$ é um grafo cordal, então seu \emph{treewidth} é o tamanho do seu maior clique menos 1.
+    \item Se $G$ é um grafo não-dirigido arbitrário, então seu \emph{treewidth} é o mínimo entre os \emph{treewidth} de todas as suas cordalizações.
+    \item Se $G$ é um DAG, então seu \emph{treewidth} é o \emph{treewidth} do seu grafo moral.
+  \end{itemize}
+\end{definition}
+
 \begin{definition}[árvore]
   Dado um grafo $G = (V, E)$, dizemos que ele é uma \textbf{árvore} se cada dois vértices $u, v \in V$ são conectados por exatamente um caminho.
 \end{definition}
@@ -117,10 +135,6 @@ Há diferentes estruturas de dados que podem ser usadas para representar um graf
 Dada uma árvore $T = (V, E)$, os vértices em $V$ que tem grau $1$ são chamados de \textbf{folhas}.
 
 Dada uma árvore $T = (V, E)$, às vezes é conveniente destacar um vértice $r \in V$ e chamá-lo de \textbf{raiz} da árvore $T$. Chamamos o par formado pela árvore $T$ e pela raiz $r \in V$ de \textbf{árvore enraizada}.
-
-\begin{definition}[$k$-clique]
-  Seja $G = (V, E)$ um grafo. Um \textbf{$k$-clique} é um subconjunto dos vértices, $C \subseteq V$, tal que $(u, v) \in E \ \forall \ u, v \in C, u \neq v$ (ou seja, tal que o subgrafo induzido por $C$ é completo).
-\end{definition}
 
 \subsection{\emph{$k$-trees}}
 
@@ -261,7 +275,7 @@ Dada uma árvore $T = (V, E)$, às vezes é conveniente destacar um vértice $r 
 \end{definition}
 
 \begin{definition}[\emph{partial $k$-tree}]
-  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$. % TODO: definir treewidth?
+  \cite{bodlaender} Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$.
 \end{definition}
 
 \section{Probabilidade}

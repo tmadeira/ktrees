@@ -329,7 +329,7 @@ Redes bayesianas são modelos probabilísticos gráficos que representam distrib
   \cite{maua}
   Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$.
 
-  Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\phi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\phi_i(x_i, x_{\phi_i}) = P(x_i | x_{\phi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\phi_i}$ para os pais $\phi_i$ de $X_i$ (em $G$).
+  Uma \textbf{rede bayesiana} é uma tripla $(X, G, \pi)$, onde $G = (V, E)$ é um DAG cujos vértices correspondem a variáveis em $X$ e $\pi = \{\pi_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\pi_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
 \end{definition}
 
 \vspace{2em}

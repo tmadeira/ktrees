@@ -30,9 +30,32 @@ Mesmo esse problema é NP-difícil, como mostram Korhonen e Parviainen \cite{kor
 Tal método funciona com domínios grandes e \emph{treewidth} alto. No artigo é mostrado empiricamente que ele tem um desempenho muito bom numa coleção de conjuntos de dados públicos.
 
 \section{Aprendizado por amostragem de \emph{$k$-trees}}
+\label{sec:aprendizado}
+
+A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela. Como explica \cite{maua}, \emph{``$\sigma$ restringe as ordenações topológicas válidas para os vértices de $G$''}.
+
+A continuar. % TODO
+
+\begin{algorithm}[Algoritmo para aprender estrutura]
+  \textbf{Entrada:} número de variáveis $n$, a \emph{treewidth} desejada $k$ e uma função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
+  \textbf{Saída:} um DAG $G^{\text{melhor}}$
+
+  \begin{enumerate}
+    \item Inicializar $G^{\text{melhor}}$ como um grafo vazio com $s(G^{\text{melhor}}) = -\infty$.
+    \item Repetir até atingir um determinado número de iterações:
+      \begin{enumerate}
+        \item Gerar $(Q, S) \in \mathcal{A}^n_k$ conforme seção \ref{sec:geracao};
+        \item Decodificar $(Q, S)$ na árvore característica $T$ usando o algoritmo da subseção \ref{subsec:decodificacao};
+        \item \emph{TODO: Descrever processo para construir DAG $G$ consistente com $T$} % TODO
+        \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
+      \end{enumerate}
+  \end{enumerate}
+\end{algorithm}
 
 A continuar. % TODO
 
 \section{Experimentos e resultados}
+
+O algoritmo descrito na seção \ref{sec:aprendizado} foi implementado por João de Santana Brito Junior\footnote{E-mail: joaojr@ime.usp.br} e seu código, que usa o código para gerar \emph{$k$-trees} que foi desenvolvido no capítulo \ref{cap:geracao}, está disponível em \url{https://github.com/britojr/bn}.
 
 A continuar. % TODO

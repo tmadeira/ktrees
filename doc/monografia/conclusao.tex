@@ -1,6 +1,12 @@
 \chapter{Conclusão}
 \label{cap:conclusao}
 
-Ainda não foi escrita. % TODO
-% Falar sobre outros samplings (DPS)
-% Discutir vantagens e desvantagens da linguagem durante implementação
+O principal produto deste trabalho de conclusão de curso é a biblioteca implementada em \emph{Go} para codificação e geração uniforme de \emph{$k$-trees} em tempo linear desenvolvida no capítulo \ref{cap:geracao}. Os experimentos realizados no capítulo \ref{cap:aprendizado} mostram como essa biblioteca pode ser usada na prática no aprendizado da estrutura de redes bayesianas com \emph{treewidth} limitado a partir da amostragem de \emph{$k$-trees}. O método usado é eficiente e funciona com grandes domínios e limite alto de \emph{treewidth}.
+
+Aprendizagem computacional é uma área muito contemporânea e fértil, cuja aplicação é cada vez mais difundida. Muitos dos conceitos estudados aqui são recentes e ainda pouco explorados. De fato, os dois principais artigos usados para embasar a codificação de \emph{$k$-trees} (Caminiti \emph{et al.}, \cite{caminiti}) e o aprendizado de redes bayesianas por meio da amostragem de \emph{$k$-trees} (Nie \emph{et al.}, \cite{maua}) são de 2010 e 2014, respectivamente. O segundo ressalta, na sua conclusão, que simultaneamente ao seu desenvolvimento foram publicados independentemente outros trabalhos intimamente relacionados.
+
+Se por um lado o artigo \cite{maua} diz que \emph{``amostragem uniforme é uma propriedade desejada, já que garante uma boa cobertura do espaço e é superior a outras opções se não há informação prévia sobre o espaço de busca''}, há outras amostragens que podem ser testadas em trabalhos futuros.
+
+Com efeito, o artigo \cite{nie}, de 2015, diz que \emph{``amostragem uniforme gera cada amostra independentemente e ignora totalmente amostras anteriores, o que faz com que seja possível que ela gere exatamente a mesma amostra duas vezes, ou ao menos amostras que são muito parecidas uma com a outra''}. Ele define e sugere que se use uma \emph{Distance Preferable Sampling} que descarte amostras que sejam muito parecidas às geradas anteriormente durante o processo de geração.
+
+A linguagem escolhida para fazer as implementações, \emph{Go}, se mostrou bastante satisfatória. Embora nova, ela é bastante madura e suas convenções (destacadas no capítulo \ref{cap:introducao}) facilitam o reaproveitamento de código.

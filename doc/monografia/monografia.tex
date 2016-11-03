@@ -1,7 +1,7 @@
 \documentclass[a4paper,12pt]{book}
 
 \usepackage[utf8]{inputenc}
-\usepackage[brazil]{babel}
+\usepackage[brazil,english]{babel}
 \usepackage{courier}
 \usepackage{emptypage}
 \usepackage{hyperref}
@@ -60,6 +60,7 @@
 \author{Tiago Madeira}
 
 \begin{document}
+\selectlanguage{brazil}
 
 \frontmatter
 
@@ -70,7 +71,9 @@
   \pagenumbering{roman}
   \input{resumo}
 
+  \selectlanguage{english}
   \input{abstract}
+  \selectlanguage{brazil}
 
   \tableofcontents
   \cleardoublepage

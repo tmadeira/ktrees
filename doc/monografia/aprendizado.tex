@@ -1,7 +1,7 @@
 \chapter{Aprendizado de redes bayesianas}
 \label{cap:aprendizado}
 
-Neste capítulo apresentamos o problema de aprender redes bayesianas e descrevemos um método desenvolvido por Nie \emph{et al.} \cite{nie} para resolvê-lo que é baseado na geração de \emph{$k$-trees}.
+Neste capítulo apresentamos o problema de aprender redes bayesianas e descrevemos um método desenvolvido por Nie \emph{et al.} \cite{maua} para resolvê-lo que é baseado na amostragem de \emph{$k$-trees}. Mostramos como a geração uniforme de \emph{$k$-trees} desenvolvida no capítulo \ref{cap:geracao} foi utilizada nesse processo e comparamos os resultados obtidos com os resultados de outros trabalhos.
 
 \section{Motivação}
 
@@ -13,7 +13,9 @@ Além disso, resultados empíricos sugerem que limitar o \emph{treewidth} pode m
 
 Por isso, estamos interessados em fixar $k$ e aprender redes bayesianas cuja estrutura tem \emph{treewidth} limitada a $k$.
 
-A fim de identificar o ``melhor'' DAG para um determinado conjunto de dados, vamos supôr que há uma função de \emph{score} $s(G)$ que atribui uma pontuação para cada DAG $G$. Segundo \cite{nie}, as funções de \emph{score} costumam poder ser escritas como a soma de funções de \emph{score} locais, ou seja,
+\vspace{2em}
+
+A fim de identificar o ``melhor'' DAG para um determinado conjunto de dados, vamos supôr que há uma função de \emph{score} $s(G)$ que atribui uma pontuação para cada DAG $G$ em tempo constante. Segundo \cite{nie}, as funções de \emph{score} costumam poder ser escritas como a soma de funções de \emph{score} locais, ou seja,
 
 $$s(G) = \sum_{i \in N} s_i(X_{\pi_i}).$$
 
@@ -23,14 +25,14 @@ $$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
 
 onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maiores que $k$.
 
-Mesmo esse problema é NP-difícil, como mostram Korhonen e Parviainen \cite{korhonen}. Entretanto, os artigos \cite{nie} e \cite{maua} mostram um método aproximado para aprender redes bayesianas com \emph{treewidth} limitado que é baseado em amostrar \emph{$k$-trees} e encontrar DAGs cujo grafo moral é um subgrafo dessas \emph{$k$-trees}.
+Mesmo esse problema é NP-difícil, como mostram Korhonen e Parviainen \cite{korhonen}. Entretanto, o artigo \cite{maua} mostra um método aproximado para aprender redes bayesianas com \emph{treewidth} limitado que é baseado em amostrar \emph{$k$-trees} e encontrar DAGs cujo grafo moral é um subgrafo dessas \emph{$k$-trees}.
 
-Tal método funciona com domínios grandes e \emph{treewidth} alto. Nos artigos é mostrado empiricamente que ele tem um desempenho muito bom numa coleção de conjuntos de dados públicos.
+Tal método funciona com domínios grandes e \emph{treewidth} alto. No artigo é mostrado empiricamente que ele tem um desempenho muito bom numa coleção de conjuntos de dados públicos.
 
-\section{Aprendizado por amostra de \emph{$k$-trees}}
+\section{Aprendizado por amostragem de \emph{$k$-trees}}
 
 A continuar. % TODO
 
-\section{Resultados obtidos}
+\section{Experimentos e resultados}
 
 A continuar. % TODO

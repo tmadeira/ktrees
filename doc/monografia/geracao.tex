@@ -1,11 +1,15 @@
-\chapter{Geração aleatória de \emph{$k$-trees}}
+\chapter{Geração uniforme de \emph{$k$-trees}}
 \label{cap:geracao}
 
-O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} aleatórias para gerar \emph{$k$-trees} aleatórias.
+O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} uniformemente aleatórias para gerar \emph{$k$-trees} uniformemente aleatórias.
 
 Neste capítulo, apresentamos o problema de codificar \emph{$k$-trees}, discutimos a solução linear para codificar e decodificar \emph{$k$-trees} de forma bijetiva proposta por Caminiti \emph{et al.} \cite{caminiti}, explicamos como ela foi implementada neste trabalho para gerar \emph{$k$-trees} aleatórias e mostramos os resultados obtidos.
 
 \section{Codificando árvores e \emph{$k$-trees}}
+
+\emph{$k$-trees} \cite{harary} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitado, como destacado no capítulo \ref{cap:introducao} deste trabalho.
+
+\vspace{2em}
 
 O problema de codificar árvores já foi amplamente estudado na literatura. Como destaca Caminiti \emph{et al.} \cite{caminiti}:
 
@@ -42,15 +46,13 @@ A figura \ref{fig:prufer} exemplifica a codificação de Prüfer mostrando uma �
 
 \vspace{2em}
 
-\emph{$k$-trees} \cite{harary} são consideradas uma generalização de árvores. Há interesse considerável em desenvolver ferramentas eficientes para manipular essa classe de grafos, porque todo grafo com \emph{treewidth} $k$ é um subgrafo de uma \emph{$k$-tree} e muitos problemas NP-completos podem ser resolvidos em tempo polinomial quando restritos a grafos com \emph{treewidth} limitada, como destacado no capítulo \ref{cap:introducao} deste trabalho.
-
 Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro décadas. Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi e que são definidas como segue:
 
 \begin{definition}[\emph{$k$-tree} de Rényi]
   \cite{renyi} Uma \emph{$k$-tree} de Rényi $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.
 \end{definition}
 
-Entretanto, até onde sabemos, apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti \emph{et al.} \cite{caminiti}, que implementamos neste trabalho.
+Entretanto apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Foram esses algoritmos, propostos por Caminiti \emph{et al.} \cite{caminiti}, que implementamos neste trabalho.
 
 \section{A solução de Caminiti \emph{et al.}}
 \label{sec:caminiti}
@@ -245,12 +247,11 @@ O algoritmo para codificar uma \emph{$k$-tree} rotulada consiste em cinco passos
         \node (n8) at (19.5,0) {8};
 
         \foreach \from/\to in {n2/n9, n9/n11, n11/n2, n3/n10, n10/n3}
-          \draw (\from) edge[->,bend right] (\to);
+          \draw (\from) edge[-triangle 90,bend right] (\to);
 
         \foreach \vv in {n1, n4, n5, n6, n7, n8}
-          \draw (\vv) edge[loop] (\vv);
+          \draw (\vv) edge[loop,->,>=triangle 90] (\vv);
       \end{tikzpicture}
-      % TODO: melhorar desenho
 
       \caption{Representação gráfica da função $\phi$ computada para a \emph{$3$-tree} mostrada na figura \ref{fig:rootedktree}.}
       \label{fig:phi}

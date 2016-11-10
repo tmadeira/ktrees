@@ -5,13 +5,91 @@ Neste capítulo apresentamos o problema de aprender redes bayesianas e descrevem
 
 \section{Motivação}
 
+Redes bayesianas são modelos probabilísticos gráficos que representam distribuições de probabilidade conjunta e são usados para raciocinar em situações com incerteza.
+
+Formalmente \cite{maua}, seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\theta_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
+
+Um exemplo de rede bayesiana é mostrado na figura \ref{fig:bayes}. As arestas codificam nossa intuição sobre a forma como o mundo funciona: as performances do aluno e do supervisor são determinadas independentemente; a nota do TCC (trabalho de conclusão de curso) depende desses dois fatores; a média ponderada do aluno depende apenas da sua performance no curso; a carta de recomendação escrita pelo supervisor sobre o aluno depende da nota do TCC.
+
+\begin{figure}
+  \centering
+  \begin{tikzpicture}
+      [scale=.5,auto=left,every node/.style={draw, ellipse, inner sep = 3pt, minimum width = 0.72cm, align = center}]
+
+      \node[fill=gray!30] (or) at (1,9) {Supervisor};
+      \node[fill=gray!30] (al) at (7,9) {Aluno};
+      \node[fill=gray!30] (no) at (2,5) {Nota TCC};
+      \node[fill=gray!30] (me) at (10,5) {Média ponderada};
+      \node[fill=gray!30] (ca) at (0,1) {Carta de recomendação};
+
+      \path (or) edge[-triangle 60] (no)
+        (al) edge[-triangle 60] (no)
+        (al) edge[-triangle 60] (me)
+        (no) edge[-triangle 60] (ca);
+
+      \node[draw=none,inner sep = 0pt,above=of or]
+      {
+        \begin{tabular}{|c|c|} \hline
+          $o_0$ & $o_1$ \\ \hline
+          0,5 & 0,5 \\ \hline
+        \end{tabular}
+      };
+
+      \node[draw=none,inner sep = 0pt,above=of al]
+      {
+        \begin{tabular}{|c|c|} \hline
+          $a_0$ & $a_1$ \\ \hline
+          0,5 & 0,5 \\ \hline
+        \end{tabular}
+      };
+
+      \node[draw=none,inner sep = 0pt,below=of me]
+      {
+        \begin{tabular}{|c|c|c|} \hline
+                & $m_0$ & $m_1$ \\ \hline
+          $a_0$ & 0,8 & 0,2 \\ \hline
+          $a_1$ & 0,2 & 0,8 \\ \hline
+        \end{tabular}
+      };
+
+      \node[draw=none,inner sep = 0pt,left=of no]
+      {
+        \begin{tabular}{|c|c|c|} \hline
+                & $n_0$ & $n_1$ \\ \hline
+          $a_0,o_0$ & 0,9 & 0,1 \\ \hline
+          $a_0,o_1$ & 0,7 & 0,3 \\ \hline
+          $a_1,o_0$ & 0,5 & 0,5 \\ \hline
+          $a_1,o_1$ & 0,1 & 0,9 \\ \hline
+        \end{tabular}
+      };
+
+      \node[draw=none,inner sep = 0pt,below=of ca]
+      {
+        \begin{tabular}{|c|c|c|} \hline
+                & $c_0$ & $c_1$ \\ \hline
+          $n_0$ & 0,9 & 0,1 \\ \hline
+          $n_1$ & 0,1 & 0,9 \\ \hline
+        \end{tabular}
+      };
+  \end{tikzpicture}
+
+  \caption{Exemplo de rede bayesiana com distribuições de probabilidade condicional.}
+  \label{fig:bayes}
+\end{figure}
+
+Redes bayesianas são geralmente usadas para fazer inferências como computar a probabilidade de alguma variável depois que alguma evidência é observada. Por exemplo, uma rede bayesiana pode representar as relações de probabilidade entre doenças e sintomas. Observados alguns sintomas, a rede pode ser usada para computar a probabilidade da presença das doenças.
+
+Para dar um exemplo mais concreto, com a rede bayesiana mostrada na figura \ref{fig:bayes} pode-se modificar a crença sobre a performance do aluno ou do supervisor com base na nota do TCC.
+
+\vspace{2em}
+
 Aprender uma rede bayesiana se refere ao processo de inferir a estrutura (ou seja, o DAG) dela a partir de dados. Como mostra Chickering \cite{chickering}, este é um problema NP-completo.
 
 O aprendizado de redes bayesianas costuma servir para realizar inferências em situações com incerteza. O artigo de Nie \emph{et al.} \cite{maua} mostra que tais inferências são NP-difíceis até mesmo aproximadamente e todos os algoritmos conhecidos (exatos e comprovadamente bons) têm uma complexidade de pior caso exponencial no \emph{treewidth}.
 
 Além disso, resultados empíricos sugerem que limitar o \emph{treewidth} pode melhorar a performance dos modelos e há evidências de que limitar a \emph{treewidth} da estrutura de uma rede bayesiana não causa perdas significativas na expressividade do modelo para conjuntos de dados reais (também visto em \cite{maua}).
 
-Por isso, estamos interessados em fixar $k$ e aprender redes bayesianas cuja estrutura tem \emph{treewidth} limitada a $k$.
+Por isso, estamos interessados em fixar $k$ e aprender redes bayesianas cuja estrutura tem \emph{treewidth} limitado a $k$.
 
 \vspace{2em}
 

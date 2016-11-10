@@ -13,22 +13,6 @@ Um \textbf{grafo} é um par ordenado $G = (V, E)$. Os elementos de $V$ são cham
 
 A figura \ref{fig:grafo}(a) mostra como costuma ser representado um grafo. Os vértices são representados pelos círculos e as arestas são representadas pela ligação entre eles. Se $(u, v) \in E$, há uma linha ligando os vértices $u$ e $v$.
 
-Dado um grafo $G = (V, E)$, o número de arestas que incide num determinado vértice $v \in V$ é chamado de \textbf{grau} do vértice $v$.
-
-Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacência}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
-
-\vspace{2em}
-
-Um grafo $G = (V, E)$ é dito \textbf{dirigido} se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$, que há uma aresta de $a$ para $b$ ou que $b$ é filho de $a$.
-
-A figura \ref{fig:grafo}(b) mostra como costuma ser representado um grafo dirigido. Como o conjunto de arestas consiste em pares ordenados, elas são representadas por setas. Se $(u, v) \in E$, então a seta aponta de $u$ para $v$.
-
-\vspace{2em}
-
-Um grafo $G = (V, E)$ é dito \textbf{completo} se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
-
-Na figura \ref{fig:grafo}(c), a representação de um grafo completo com $4$ vértices.
-
 \begin{figure}
   \begin{minipage}{0.3333\textwidth}
     \centering
@@ -81,6 +65,22 @@ Na figura \ref{fig:grafo}(c), a representação de um grafo completo com $4$ vé
   }
   \label{fig:grafo}
 \end{figure}
+
+Dado um grafo $G = (V, E)$, o número de arestas que incide num determinado vértice $v \in V$ é chamado de \textbf{grau} do vértice $v$.
+
+Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacência}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
+
+\vspace{2em}
+
+Um grafo $G = (V, E)$ é dito \textbf{dirigido} se $E$ consiste em pares \emph{ordenados} de vértices. Se $(a, b) \in E$, dizemos que $a$ aponta para $b$, que há uma aresta de $a$ para $b$ ou que $b$ é filho de $a$.
+
+A figura \ref{fig:grafo}(b) mostra como costuma ser representado um grafo dirigido. Como o conjunto de arestas consiste em pares ordenados, elas são representadas por setas. Se $(u, v) \in E$, então a seta aponta de $u$ para $v$.
+
+\vspace{2em}
+
+Um grafo $G = (V, E)$ é dito \textbf{completo} se $(u, v) \in E$ para todo $u, v \in V, u \neq v$. Um grafo completo com $n$ vértices é geralmente denotado $K_n$.
+
+Na figura \ref{fig:grafo}(c), a representação de um grafo completo com $4$ vértices.
 
 \vspace{2em}
 

@@ -112,9 +112,13 @@ Tal método funciona com domínios grandes e \emph{treewidth} alto. No artigo é
 
 A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em, para cada \emph{$k$-tree} $T_k$ amostrada, construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela e com $T_k$.
 
-Como explica \cite{maua}, \emph{``$\sigma$ restringe as ordenações topológicas válidas para os vértices de $G$''} (de forma que garante que ele não tenha ciclos). Por outro lado, fazer com que $G$ seja subgrafo de $T_k$ garante que seu \emph{treewidth} não exceda $k$.
+Como explica \cite{maua}, \emph{``$\sigma$ restringe as ordenações topológicas válidas para os vértices de $G$''} de forma que garante que ele não tenha ciclos. Por outro lado, fazer com que $G$ seja subgrafo de $T_k$ garante que seu \emph{treewidth} não exceda $k$.
 
-A continuar. % TODO
+Construímos a ordem parcial $\sigma$ a partir do enraizamento da \emph{$k$-tree} num $k$-clique qualquer. Primeiro, sorteamos aleatoriamente a ordem dos vértices do $k$-clique raiz. A partir dele, visitamos os vértices da árvore na ordem da busca em largura. Cada vértice que visitamos é inserido num lugar aleatório da ordem. Determinado esse lugar, selecionamos os melhores pais para ele dentre os vértices adjacentes predecessores já visitados e atualizamos os melhores pais dos vértices adjacentes.
+
+O passo 3 do algoritmo de decodificação de \emph{Dandelion Code} em \emph{$k$-tree} apresentado na subseção \ref{subsec:decodificacao} percorre a árvore exatamente como gostaríamos para construir uma \emph{$k$-tree} de Rényi a partir de uma árvore característica, o que sugere que construamos o DAG diretamente a partir da árvore característica.
+
+O algoritmo de aprendizado fica como segue:
 
 \begin{algorithm}[Algoritmo para aprender estrutura]
   \textbf{Entrada:} número de variáveis $n$, a \emph{treewidth} desejada $k$ e uma função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
@@ -126,13 +130,12 @@ A continuar. % TODO
       \begin{enumerate}
         \item Gerar $(Q, S) \in \mathcal{A}^n_k$ conforme seção \ref{sec:geracao};
         \item Decodificar $(Q, S)$ na árvore característica $T$ usando o algoritmo da subseção \ref{subsec:decodificacao};
-        \item \emph{TODO: Descrever processo para construir DAG $G$ consistente com $T$} % TODO
+        \item Determinar aleatoriamente uma ordem pros vértices do $k$-clique raiz (ou seja, os vértices correspondentes a $\phi^{-1}(v)$ para os vértices $v \in \{n-k+1, n-k+2, \cdots, n\}$ correspondentes a raiz da \emph{$k$-tree} de Rényi) e usar a função de \emph{score} para calcular os melhores pais para cada um deles entre os vértices que os precedem;
+        \item Percorrer $T$ como no passo 3 do algoritmo \ref{subsec:decodificacao} a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores (em $\sigma$) adjacentes já visitados, assim como são atualizados os melhores pais dos vértices sucessores (em $\sigma$) adjacentes já visitados;
         \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
       \end{enumerate}
   \end{enumerate}
 \end{algorithm}
-
-A continuar. % TODO
 
 \section{Experimentos e resultados}
 

@@ -238,7 +238,88 @@
     \end{figure}
   \end{frame}
 
-  % TODO: utilidade, treewidth
+  \begin{frame}
+    \frametitle{\emph{$k$-tree} e \emph{treewidth}}
+
+    Dado um grafo $G = (V, E)$, seu \textbf{\emph{treewidth}} é um inteiro definido da seguinte forma:
+
+    \begin{itemize}
+      \item Se $G$ é um \textbf{grafo cordal}, então seu \emph{treewidth} é o tamanho do seu maior clique menos 1.
+      \item Se $G$ é um \textbf{grafo não-dirigido arbitrário}, então seu \emph{treewidth} é o mínimo entre os \emph{treewidth} de todas as suas cordalizações.
+      \item Se $G$ é um \textbf{DAG}, então seu \emph{treewidth} é o \emph{treewidth} do seu grafo moral.
+    \end{itemize}
+
+    Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$\footnote{\scriptsize Hans L. Bodlaender. Treewidth: Structure and algorithms. \emph{Structural Information and Communication Complexity}, 4474:11--25, 2007.}.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ilustração de \emph{treewidth}}
+
+    \begin{figure}
+      \begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6}
+              \draw (\from) edge[-triangle 60] (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3, n2/n5}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Um grafo acíclico dirigido $G$.
+        \textbf{(b)} Grafo moral $G'$ de $G$, obtido conectando-se todo par de vértices com um filho em comum e retirando-se a direção das arestas.
+        \textbf{(c)} Um dos grafos cordais obtidos por meio da cordalização de $G'$. O \emph{treewidth} dos três grafos mostrados na figura é $2$.
+      }
+      \label{fig:treewidth}
+    \end{figure}
+  \end{frame}
 
   \subsection{Codificação de $k$-trees}
 

@@ -1,10 +1,11 @@
 \documentclass{beamer}
+
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{graphics}
+\usepackage{hyperref}
 
 \usetheme{Copenhagen}
-
-\usepackage{graphics}
 
 \title[Geração unif. de \emph{$k$-trees} para aprendizado de redes bayesianas]{\LARGE Geração uniforme de \emph{$k$-trees} para aprendizado de redes bayesianas}
 \author[Tiago Madeira {\tt <madeira@ime.usp.br>}]{
@@ -39,7 +40,7 @@
 
     \vspace{1em}
 
-    Alguns exemplos:
+    Alguns exemplos\footnote{\scriptsize Stefan Arnborg, Andrzej Proskurowski. Linear time algorithms for NP-Hard problems restricted to partial $k$-trees. \emph{Discrete Applied Mathematics}, 23:11--24, 1989.}:
 
     \begin{itemize}
       \item Encontrar tamanho máximo dos conjuntos independentes;
@@ -67,21 +68,27 @@
     \frametitle{O que foi feito?}
 
     \begin{itemize}
-      \item Implementação de algoritmo de Caminiti \emph{et al.} para \textbf{codificar e decodificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
-      \item Implementação de algoritmo para \textbf{amostrar \emph{$k$-trees} uniformemente} a partir da codificação e testes para comprovar seu funcionamento.
-      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} (algoritmo de Nie \emph{et al.}).
+      \item Implementação do algoritmo de Caminiti \emph{et al.} (2010)\footnote{\scriptsize Severio Caminiti, Emanuele G. Fusco, Rossella Petreschi. Bijective linear time coding and decoding for $k$-trees. \emph{Theory of Computing Systems}, 46:284--300, 2010.} para \textbf{codificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
+      \item Implementação de algoritmo para \textbf{amostrar \emph{$k$-trees} uniformemente} e testes para comprovar seu funcionamento.
+      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} conforme artigo de Nie \emph{et al.} (2014)\footnote{\scriptsize Siqi Nie, Denis D. Mauá, Cassio P. de Campos, Qiang Ji. Advances in learning bayesian networks of bounded treewidth. \emph{CoRR}, abs/1406.1411, 2014.}.
       \item \textbf{Comparação entre métodos} para aprender redes bayesianas.
     \end{itemize}
   \end{frame}
 
-  % TODO: Onde encontrar o trabalho? Código, Go, GitHub, licença
+  \subsection{Onde encontrar o trabalho?}
+
+  \begin{frame}
+    \frametitle{Onde encontrar o trabalho?}
+
+    Código (desenvolvido em \emph{Go}\footnote{\scriptsize \url{https://golang.org/}}) e documentação: \url{https://github.com/tmadeira/tcc/}
+  \end{frame}
 
   \section{Geração uniforme de $k$-trees}
 
   \subsection{O que são $k$-trees?}
 
   \begin{frame}
-    \frametitle{\emph{$k$-trees}}
+    \frametitle{Primeiramente, o que são \emph{$k$-trees}?}
 
     % TODO: definição, exemplos, construção
     % TODO: utilidade, treewidth

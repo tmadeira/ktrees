@@ -290,12 +290,90 @@
 
   \section{Aprendizado de redes bayesianas}
 
-  \subsection{Redes bayesianas}
+  \subsection{O que são redes bayesianas?}
 
   \begin{frame}
-    \frametitle{Redes bayesianas}
+    \frametitle{O que são redes bayesianas?}
 
-    % TODO: definição, exemplos
+    \textbf{Redes bayesianas} são modelos probabilísticos gráficos\footnote{\scriptsize Daphne Koller, Nir Friedman. \emph{Probabilistic Graphical Models: Principles and Techniques}. The MIT Press, 2009.} que representam distribuições de probabilidade conjunta e são usados para raciocinar em situações com incerteza.
+
+    \vspace{1em}
+
+    {\footnotesize
+      Formalmente: Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\theta_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
+    }
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Exemplo de rede bayesiana}
+
+    \begin{figure}
+      \centering
+      \scalebox{0.5}{
+        \begin{tikzpicture}
+            [scale=.5,auto=left,every node/.style={draw, ellipse, inner sep = 3pt, minimum width = 0.72cm, align = center}]
+
+            \node[fill=gray!30] (or) at (1,9) {Supervisor};
+            \node[fill=gray!30] (al) at (7,9) {Aluno};
+            \node[fill=gray!30] (no) at (2,5) {Nota TCC};
+            \node[fill=gray!30] (me) at (10,5) {Média ponderada};
+            \node[fill=gray!30] (ca) at (0,1) {Carta de recomendação};
+
+            \path (or) edge[-triangle 60] (no)
+              (al) edge[-triangle 60] (no)
+              (al) edge[-triangle 60] (me)
+              (no) edge[-triangle 60] (ca);
+
+            \node[draw=none,inner sep = 0pt,above=of or]
+            {
+              \begin{tabular}{|c|c|} \hline
+                $o_0$ & $o_1$ \\ \hline
+                0,5 & 0,5 \\ \hline
+              \end{tabular}
+            };
+
+            \node[draw=none,inner sep = 0pt,above=of al]
+            {
+              \begin{tabular}{|c|c|} \hline
+                $a_0$ & $a_1$ \\ \hline
+                0,5 & 0,5 \\ \hline
+              \end{tabular}
+            };
+
+            \node[draw=none,inner sep = 0pt,below=of me]
+            {
+              \begin{tabular}{|c|c|c|} \hline
+                      & $m_0$ & $m_1$ \\ \hline
+                $a_0$ & 0,8 & 0,2 \\ \hline
+                $a_1$ & 0,2 & 0,8 \\ \hline
+              \end{tabular}
+            };
+
+            \node[draw=none,inner sep = 0pt,left=of no]
+            {
+              \begin{tabular}{|c|c|c|} \hline
+                      & $n_0$ & $n_1$ \\ \hline
+                $a_0,o_0$ & 0,9 & 0,1 \\ \hline
+                $a_0,o_1$ & 0,7 & 0,3 \\ \hline
+                $a_1,o_0$ & 0,5 & 0,5 \\ \hline
+                $a_1,o_1$ & 0,1 & 0,9 \\ \hline
+              \end{tabular}
+            };
+
+            \node[draw=none,inner sep = 0pt,below=of ca]
+            {
+              \begin{tabular}{|c|c|c|} \hline
+                      & $c_0$ & $c_1$ \\ \hline
+                $n_0$ & 0,9 & 0,1 \\ \hline
+                $n_1$ & 0,1 & 0,9 \\ \hline
+              \end{tabular}
+            };
+        \end{tikzpicture}
+      }
+
+      \caption{Exemplo de rede bayesiana com distribuições de probabilidade condicional.}
+      \label{fig:bayes}
+    \end{figure}
   \end{frame}
 
   \subsection{Motivação}

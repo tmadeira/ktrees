@@ -5,4 +5,4 @@ apresentacao:
 	pdflatex apresentacao.tex
 
 clean:
-	rm -rf apresentacao.{aux,bbl,blg,ilg,ind,log,toc,nav,snm}
+	rm -rf apresentacao.{aux,bbl,blg,ilg,ind,log,toc,nav,snm,out}

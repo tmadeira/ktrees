@@ -19,4 +19,153 @@
 
 \begin{document}
   \frame{\titlepage}
+
+  \section{Introdução}
+
+  \subsection{No que consiste o trabalho?}
+
+  \begin{frame}
+    \frametitle{No que consiste o trabalho?}
+
+    Estudo sobre amostragem uniforme de \emph{$k$-trees} e seu uso no aprendizado da estrutura de redes bayesianas com \emph{treewidth} limitado.
+  \end{frame}
+
+  \subsection{Por que estudar $k$-trees?}
+
+  \begin{frame}
+    \frametitle{Por que estudar \emph{$k$-trees}?}
+
+    Há interesse considerável em desenvolver ferramentas eficientes para manipular \emph{$k$-trees}, porque \textbf{problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}.
+
+    \vspace{1em}
+
+    Alguns exemplos:
+
+    \begin{itemize}
+      \item Encontrar tamanho máximo dos conjuntos independentes;
+      \item Computar tamanho mínimo dos conjuntos dominantes;
+      \item Calcular número cromático;
+      \item Determinar se tem um ciclo hamiltoniano.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Por que gerar $k$-trees?}
+
+  \begin{frame}
+    \frametitle{Por que gerar \emph{$k$-trees?}}
+
+    Há muitas razões, como por exemplo para testar a eficácia de algoritmos aproximados.
+
+    \vspace{1em}
+
+    O problema que desperta nosso interesse é o \textbf{aprendizado de redes bayesianas}.
+  \end{frame}
+
+  \subsection{O que foi feito?}
+
+  \begin{frame}
+    \frametitle{O que foi feito?}
+
+    \begin{itemize}
+      \item Implementação de algoritmo de Caminiti \emph{et al.} para \textbf{codificar e decodificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
+      \item Implementação de algoritmo para \textbf{amostrar \emph{$k$-trees} uniformemente} a partir da codificação e testes para comprovar seu funcionamento.
+      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} (algoritmo de Nie \emph{et al.}).
+      \item \textbf{Comparação entre métodos} para aprender redes bayesianas.
+    \end{itemize}
+  \end{frame}
+
+  % TODO: Onde encontrar o trabalho? Código, Go, GitHub, licença
+
+  \section{Geração uniforme de $k$-trees}
+
+  \subsection{O que são $k$-trees?}
+
+  \begin{frame}
+    \frametitle{\emph{$k$-trees}}
+
+    % TODO: definição, exemplos, construção
+    % TODO: utilidade, treewidth
+  \end{frame}
+
+  \subsection{Codificação de $k$-trees}
+
+  \begin{frame}
+    \frametitle{Codificação de \emph{$k$-trees}}
+
+    % TODO
+  \end{frame}
+
+  \subsection{Geração uniforme}
+
+  \begin{frame}
+    \frametitle{Geração uniforme de \emph{$k$-trees}}
+
+    % TODO: motivação, algoritmo, implementação, Go
+  \end{frame}
+
+  \subsection{Testes}
+
+  \begin{frame}
+    \frametitle{Testes}
+
+    % TODO: testes
+  \end{frame}
+
+  \section{Aprendizado de redes bayesianas}
+
+  \subsection{Redes bayesianas}
+
+  \begin{frame}
+    \frametitle{Redes bayesianas}
+
+    % TODO: definição, exemplos
+  \end{frame}
+
+  \subsection{Motivação}
+
+  \begin{frame}
+    \frametitle{Aprendizado de redes bayesianas}
+
+    % TODO: Aprendizado de redes bayesianas: descrição
+  \end{frame}
+
+  \subsection{Aprendizado por amostragem de $k$-trees}
+
+  \begin{frame}
+    \frametitle{Aprendizado por amostragem de \emph{$k$-trees}}
+
+    % TODO: descrição do algoritmo
+  \end{frame}
+
+  \subsection{Experimentos}
+
+  \begin{frame}
+    \frametitle{Experimentos}
+
+    % TODO: resultados
+  \end{frame}
+
+  \section{Considerações finais}
+
+  \subsection{Conclusões}
+
+  \begin{frame}
+    \frametitle{Conclusão}
+
+    % TODO: escrever
+  \end{frame}
+
+  \subsection{Agradecimentos}
+
+  \begin{frame}
+    \frametitle{Agradecimentos}
+
+    % TODO: escrever
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Perguntas?}
+
+    % TODO: escrever
+  \end{frame}
 \end{document}

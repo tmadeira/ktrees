@@ -2,8 +2,12 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \usepackage{graphics}
 \usepackage{hyperref}
+\usepackage{tikz}
+
+\usetikzlibrary{positioning,shapes,arrows}
 
 \usetheme{Copenhagen}
 
@@ -90,16 +94,184 @@
   \begin{frame}
     \frametitle{Primeiramente, o que são \emph{$k$-trees}?}
 
-    % TODO: definição, exemplos, construção
-    % TODO: utilidade, treewidth
+    Uma \textbf{\emph{$k$-tree}} é definida da seguinte forma recursiva\footnote{\scriptsize Frank Harary, Edgar M. Palmer. On acyclic simplicial complexes. \emph{Mathematika}, 15:115--122, 1968.}:
+
+    \begin{itemize}
+      \item Um grafo completo com $k$ vértices é uma \emph{$k$-tree}.
+      \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
+    \end{itemize}
+
+    \begin{figure}
+      \begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (1.5,6) {2};
+            \node (n3) at (4.5,6) {3};
+            \node (n4) at (2.25,4) {4};
+
+            \foreach \from/\to in {n1/n2, n1/n3, n2/n4}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (5,8) {2};
+            \node (n3) at (2.5,6) {3};
+            \node (n4) at (6,6) {4};
+            \node (n5) at (3.5,4) {5};
+
+            \foreach \from/\to in {n1/n2, n3/n1, n3/n2, n4/n1, n4/n2, n5/n3, n5/n2}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (5,8) {2};
+            \node (n3) at (7,8) {3};
+            \node (n4) at (4,6) {4};
+            \node (n5) at (5,4) {5};
+
+            \foreach \from/\to in {n1/n2, n2/n3, n1/n4, n2/n4, n3/n4, n4/n5, n3/n5}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend left=40] (n3);
+            \draw (n1) edge [bend right=40] (n5);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Uma \emph{$1$-tree} (ou seja, uma árvore comum) com $4$ vértices.
+        \textbf{(b)} Uma \emph{$2$-tree} com $5$ vértices.
+        \textbf{(c)} Uma \emph{$3$-tree} com $5$ vértices.
+      }
+      \label{fig:ktree}
+    \end{figure}
   \end{frame}
+
+  \begin{frame}
+    \frametitle{\emph{$k$-trees} enraizadas}
+
+    Uma \textbf{\emph{$k$-tree} enraizada} é uma \emph{$k$-tree} com um $k$-clique destacado $R = \{r_1, r_2, \cdots, r_k\}$ que é chamado de \textbf{raiz} da \emph{$k$-tree} enraizada.
+
+    \begin{figure}
+      \begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,9) {10};
+            \node (n2) at (2.5,7) {2};
+            \node (n1) at (1,4) {1};
+            \node (n5) at (3,2.75) {5};
+            \node (n7) at (2,1) {7};
+            \node (n9) at (4.5,9.5) {9};
+            \node (n6) at (4,5) {6};
+            \node (n4) at (6,10.5) {4};
+            \node (n3) at (8.5,6.5) {3};
+            \node (n8) at (8,4.5) {8};
+            \node (n11) at (9,9) {11};
+
+            \foreach \from/\to in {n1/n2, n1/n5, n1/n7, n1/n8, n2/n3, n2/n5, n2/n6, n2/n8, n2/n9, n2/n10, n2/n11, n3/n4, n3/n5, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n7/n8, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,8.25) {10};
+            \node[fill=gray!30] (n2) at (1.5,10.5) {2};
+            \node (n1) at (2,3.75) {1};
+            \node (n5) at (3,6) {5};
+            \node (n7) at (3.5,1.5) {7};
+            \node[fill=gray!30] (n9) at (4.5,10.5) {9};
+            \node (n6) at (6,6) {6};
+            \node (n4) at (9,4) {4};
+            \node[fill=gray!30] (n3) at (7.5,10.5) {3};
+            \node (n8) at (4.5,8.25) {8};
+            \node (n11) at (8,8.25) {11};
+
+            \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend right=20] (n8);
+            \draw (n1) edge [bend left=50] (n2);
+            \draw (n2) edge [bend left] (n3);
+            \draw (n2) edge [bend right=20] (n6);
+            \draw (n3) edge [bend left] (n4);
+            \draw (n3) edge [bend left=20] (n5);
+            \draw (n7) edge [bend right=20] (n8);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Uma \emph{$3$-tree} $T_3$ com 11 vértices.
+        \textbf{(b)} A mesma \emph{$3$-tree} ($T_3$) enraizada no $3$-clique $\{2, 3, 9\}$.
+      }
+      \label{fig:rootedktree}
+    \end{figure}
+  \end{frame}
+
+  % TODO: utilidade, treewidth
 
   \subsection{Codificação de $k$-trees}
 
   \begin{frame}
+    \frametitle{A relação entre geração e codificação}
+
+    O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} uniformemente aleatórias para gerar \emph{$k$-trees} uniformemente aleatórias.
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Codificação de \emph{$k$-trees}}
 
-    % TODO
+    \begin{itemize}
+      \item Em 1889, Cayley\footnote{\scriptsize Arthur Cayley. A theorem on trees. \emph{Quart J. Math}, 23:376--378, 1889.} demonstrou que para um conjunto de $n$ vértices existem $n^{n-2}$ árvores possíveis. Desde lá, foram criados vários códigos para árvores, como o de Prüfer\footnote{\scriptsize Heinz Prüfer. Neuer beweis eines satzes über permutationen. \emph{Archiv der Mat. und Physik}, 27:142--144, 1918.}.
+      \item Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi\footnote{\scriptsize C. Rényi, A. Rényi. The prüfer code for $k$-trees. \emph{Combinatorial Theory and its Applications}, 945--971, 1970.}. Definição: Uma \textbf{\emph{$k$-tree} de Rényi} $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $\{n-k+1, \cdots, n\}$.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{A solução de Caminiti \emph{et al.}}
+
+    \begin{itemize}
+      \item Apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Esses algoritmos, propostos por Caminiti \emph{et al.}, foram implementados neste trabalho.
+      \item O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code}\footnote{\scriptsize Ömer Eğecioğlu, J. B. Remmel. Bijections for cayley trees, spanning trees, and their q-analogues. \emph{Journal of Combinatorial Theory}, 42:15--30, 1986.}. A codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
+
+        $$
+        \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
+        $$
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{A solução de Caminiti \emph{et al.}}
+
+    % TODO: mostrar transformações
   \end{frame}
 
   \subsection{Geração uniforme}
@@ -107,7 +279,7 @@
   \begin{frame}
     \frametitle{Geração uniforme de \emph{$k$-trees}}
 
-    % TODO: motivação, algoritmo, implementação, Go
+    % TODO: algoritmo, implementação, Go
   \end{frame}
 
   \subsection{Testes}

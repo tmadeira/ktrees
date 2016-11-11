@@ -7,6 +7,8 @@
 \usepackage{hyperref}
 \usepackage{tikz}
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+
 \usetikzlibrary{positioning,shapes,arrows}
 
 \usetheme{Copenhagen}
@@ -300,7 +302,7 @@
     \vspace{1em}
 
     {\footnotesize
-      Formalmente: Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG (que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\theta_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
+      Formalmente: Seja $N = \{ 1, \cdots, n \}$ e seja $X = \{X_i : i \in N\}$ um conjunto de variáveis aleatórias $X_i$ tomando valores em conjuntos finitos $\mathcal{X}_i$. Uma \textbf{rede bayesiana} é uma tripla $(X, G, \theta)$, onde $G = (V, E)$ é um DAG (grafo acíclico dirigido, que chamamos de \textbf{estrutura} da rede bayesiana) cujos vértices correspondem a variáveis em $X$ e $\theta = \{\theta_i(x_i, x_{\pi_i})\}$ é um conjunto de parâmetros numéricos especificando valores de probabilidade condicional $\theta_i(x_i, x_{\pi_i}) = P(x_i | x_{\pi_i})$ para todo vértice $i \in V$, valor $x_i \in X_i$ e atribuição $x_{\pi_i}$ para os pais $\pi_i$ de $X_i$ (em $G$).
     }
   \end{frame}
 
@@ -381,7 +383,30 @@
   \begin{frame}
     \frametitle{Aprendizado de redes bayesianas}
 
-    % TODO: Aprendizado de redes bayesianas: descrição
+    \begin{itemize}
+      \item Aprender uma rede bayesiana se refere ao processo de inferir a sua estrutura (i.e., seu DAG) a partir de dados.
+      \item Inferência em rede bayesiana é NP-difícil até mesmo aproximadamente e todos os algoritmos conhecidos (exatos e comprovadamente bons) têm complexidade no pior caso exponencial no \emph{treewidth}.
+      \item Resultados empíricos sugerem que limitar o \emph{treewidth} pode melhorar a performance dos modelos e não causa perdas significativas na sua expressividade.
+      \item Por isso estamos interessados em fixar $k$ e aprender redes bayesianas cujo DAG tem \emph{treewidth} limitado a $k$.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[fragile=singleslide]
+    \frametitle{Aprendizado de redes bayesianas}
+
+    Função de \emph{score} $s(G)$ atribui pontuação para cada DAG $G$ e pode ser escrita como soma de funções de \emph{score} locais:
+
+    {\footnotesize
+    $$s(G) = \sum_{i \in N} s_i(X_{\pi_i}).$$
+    }
+
+    Para cada variável, sua pontuação só depende do seu conjunto de pais. Portanto, nosso problema é encontrar $G^*$ tal que
+
+    {\footnotesize
+    $$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
+    }
+
+    onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil\footnote{\scriptsize Janne H. Korhonen, Pekka Parviainen. Exact learning of bounded tree-width bayesian networks. \emph{Proceedings of the 16th International Conference on AISTATS}, 2013.}.
   \end{frame}
 
   \subsection{Aprendizado por amostragem de $k$-trees}
@@ -389,7 +414,31 @@
   \begin{frame}
     \frametitle{Aprendizado por amostragem de \emph{$k$-trees}}
 
-    % TODO: descrição do algoritmo
+    A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em, para cada \emph{$k$-tree} $T_k$ amostrada, construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela e com $T_k$.
+
+    \vspace{1em}
+
+    Construímos a ordem parcial $\sigma$ a partir do enraizamento da \emph{$k$-tree} num $k$-clique qualquer. Em particular, podemos escolher usar a raiz da \emph{$k$-tree} de Rényi que aparece durante a decodificação de um \emph{Dandelion Code} em uma \emph{$k$-tree}.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Algoritmo para aprender estrutura}
+
+    {\footnotesize
+      \textbf{Entrada:} $n$, $k$ e função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
+      \textbf{Saída:} um DAG $G^{\text{melhor}}$
+
+      \begin{enumerate}
+        \item Inicializar $G^{\text{melhor}}$ como um grafo com $s(G^{\text{melhor}}) = -\infty$.
+        \item Repetir até atingir um determinado número de iterações:
+          \begin{enumerate}
+            \item Gerar $(Q, S) \in \mathcal{A}^n_k$ e decodificar $(Q, S)$ na árvore característica $T$;
+            \item Sortear ordem pros vértices do $k$-clique raiz e usar função de \emph{score} para calcular os melhores pais para cada um deles;
+            \item Percorrer $T$ a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores adjacentes, assim como são atualizados os melhores pais dos vértices sucessores adjacentes;
+            \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
+          \end{enumerate}
+      \end{enumerate}
+    }
   \end{frame}
 
   \subsection{Experimentos}

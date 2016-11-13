@@ -326,7 +326,11 @@
   \begin{frame}
     \frametitle{A relação entre geração e codificação}
 
-    O problema de gerar \emph{$k$-trees} está intimamente relacionado ao problema de codificá-las e decodificá-las. De fato, se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} uniformemente aleatórias para gerar \emph{$k$-trees} uniformemente aleatórias.
+    O problema de \textbf{gerar} \emph{$k$-trees} está intimamente relacionado ao problema de \textbf{codificá-las e decodificá-las}.
+
+    \vspace{1em}
+
+    Se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} uniformemente aleatórias para gerar \emph{$k$-trees} uniformemente aleatórias.
   \end{frame}
 
   \begin{frame}
@@ -342,7 +346,7 @@
     \frametitle{A solução de Caminiti \emph{et al.}}
 
     \begin{itemize}
-      \item Apenas em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação. Esses algoritmos, propostos por Caminiti \emph{et al.}, foram implementados neste trabalho.
+      \item Apenas \textbf{em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação}. Esses algoritmos, propostos por Caminiti \emph{et al.}, foram implementados neste trabalho.
       \item O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code}\footnote{\scriptsize Ömer Eğecioğlu, J. B. Remmel. Bijections for cayley trees, spanning trees, and their q-analogues. \emph{Journal of Combinatorial Theory}, 42:15--30, 1986.}. A codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
 
         $$
@@ -352,9 +356,169 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{A solução de Caminiti \emph{et al.}}
+    \frametitle{Transformações de Caminiti \emph{et al.} (1/3)}
 
-    % TODO: mostrar transformações
+    \begin{figure}
+      \begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,9) {10};
+            \node (n2) at (2.5,7) {2};
+            \node (n1) at (1,4) {1};
+            \node (n5) at (3,2.75) {5};
+            \node (n7) at (2,1) {7};
+            \node (n9) at (4.5,9.5) {9};
+            \node (n6) at (4,5) {6};
+            \node (n4) at (6,10.5) {4};
+            \node (n3) at (8.5,6.5) {3};
+            \node (n8) at (8,4.5) {8};
+            \node (n11) at (9,9) {11};
+
+            \foreach \from/\to in {n1/n2, n1/n5, n1/n7, n1/n8, n2/n3, n2/n5, n2/n6, n2/n8, n2/n9, n2/n10, n2/n11, n3/n4, n3/n5, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n7/n8, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.5}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,8.25) {10};
+            \node[fill=gray!30] (n2) at (1.5,10.5) {2};
+            \node (n1) at (2,3.75) {1};
+            \node (n5) at (3,6) {5};
+            \node (n7) at (3.5,1.5) {7};
+            \node[fill=gray!30] (n9) at (4.5,10.5) {9};
+            \node (n6) at (6,6) {6};
+            \node (n4) at (9,4) {4};
+            \node[fill=gray!30] (n3) at (7.5,10.5) {3};
+            \node (n8) at (4.5,8.25) {8};
+            \node (n11) at (8,8.25) {11};
+
+            \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend right=20] (n8);
+            \draw (n1) edge [bend left=50] (n2);
+            \draw (n2) edge [bend left] (n3);
+            \draw (n2) edge [bend right=20] (n6);
+            \draw (n3) edge [bend left] (n4);
+            \draw (n3) edge [bend left=20] (n5);
+            \draw (n7) edge [bend right=20] (n8);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Uma \emph{$3$-tree} $T_3$ com 11 vértices.
+        \textbf{(b)} A mesma \emph{$3$-tree} ($T_3$) enraizada no $3$-clique $\{2, 3, 9\}$.
+      }
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Transformações de Caminiti \emph{et al.} (2/3)}
+
+    \begin{figure}
+      \begin{minipage}{0.3\textwidth}
+        \centering
+        \scalebox{0.56}{
+          \begin{tikzpicture}
+              [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+            \node (n10) at (1,9) {3};
+            \node[fill=gray!30] (n2) at (1.5,12) {9};
+            \node (n1) at (2,3) {1};
+            \node (n5) at (3,6) {5};
+            \node (n7) at (3.5,0) {7};
+            \node[fill=gray!30] (n9) at (4.5,12) {11};
+            \node (n6) at (6,6) {6};
+            \node (n4) at (9,3) {4};
+            \node[fill=gray!30] (n3) at (7.5,12) {10};
+            \node (n8) at (4.5,9) {8};
+            \node (n11) at (8,9) {2};
+
+            \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend right=20] (n8);
+            \draw (n1) edge [bend left=50] (n2);
+            \draw (n2) edge [bend left] (n3);
+            \draw (n2) edge [bend right=20] (n6);
+            \draw (n3) edge [bend left] (n4);
+            \draw (n3) edge [bend left=20] (n5);
+            \draw (n7) edge [bend right=20] (n8);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}\begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.48}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, rectangle, rounded corners = .1cm, inner sep = 0pt, minimum height = 1.25cm, minimum width = 2.25cm, align = center}]
+            \node[fill=gray!30] (n0) at (5,12) {$\{9, 10, 11\}$};
+            \node (n3) at (0.5,9) {$\{3\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n8) at (5,9) {$\{8\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n2) at (9.5,9) {$\{2\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n5) at (2,6) {$\{5\} \cup$ \\ $\{8, 9, 10\}$};
+            \node (n6) at (6.5,6) {$\{6\} \cup$ \\ $\{8, 9, 11\}$};
+            \node (n4) at (11,6) {$\{4\} \cup$ \\ $\{2, 10, 11\}$};
+            \node (n1) at (2,3) {$\{1\} \cup$ \\ $\{5, 8, 9\}$};
+            \node (n7) at (2,0) {$\{5\} \cup$ \\ $\{1, 5, 8\}$};
+
+          \foreach \from/\to in {n0/n3, n0/n8, n0/n2, n8/n5, n8/n6, n2/n4, n5/n1, n1/n7}
+            \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (d)
+      \end{minipage}\begin{minipage}{0.2\textwidth}
+        \centering
+        \scalebox{0.75}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.65cm}]
+            \node[fill=gray!30] (n0) at (5,8) {0};
+            \node (n3) at (3.5,6) {3};
+            \node (n8) at (5,6) {8};
+            \node (n2) at (6.5,6) {2};
+            \node (n5) at (3.75,4) {5};
+            \node (n6) at (5.25,4) {6};
+            \node (n4) at (6.75,4) {4};
+            \node (n1) at (4,2) {1};
+            \node (n7) at (4,0) {7};
+
+            \foreach \from/\to/\elab in {n0/n3/$\varepsilon$, n0/n8/$\varepsilon$, n0/n2/$\varepsilon$, n8/n5/3, n8/n6/2, n2/n4/1, n5/n1/3, n1/n7/3}
+              \draw (\from) -- (\to) node [draw=none, minimum width = 0.3cm, midway] {\scriptsize \elab};
+          \end{tikzpicture}
+        }
+
+        (e)
+      \end{minipage}
+
+      \caption{
+        \textbf{(c)} $R_3$, \emph{$3$-tree} de Rényi gerada por meio da re-rotulação de $T_3$.
+        \textbf{(d)} O esqueleto de $R_3$.
+        \textbf{(e)} A árvore característica de $R_3$.
+      }
+      \label{fig:transformation}
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Transformações de Caminiti \emph{et al.} (3/3)}
+
+    \emph{Dandelion Code} generalizado correspondente a $T_3$:
+
+    $$
+    \{2,3,9\},
+    [(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]
+    $$
   \end{frame}
 
   \subsection{Geração uniforme}
@@ -362,13 +526,91 @@
   \begin{frame}
     \frametitle{Geração uniforme de \emph{$k$-trees}}
 
-    % TODO: algoritmo, implementação, Go
+    Geramos \emph{$k$-trees} uniformemente por meio da geração uniforme de \emph{strings} em:
+
+    $$
+    \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
+    $$
+
+    A biblioteca que desenvolvemos\footnote{\scriptsize Implementada em \emph{Go} e disponível em \url{https://github.com/tmadeira/tcc}} tem três utilitários que rodam na linha de comando:
+
+    {\footnotesize
+      \begin{itemize}
+        \item {\tt code\_ktree} (para codificar \emph{$k$-trees})
+        \item {\tt decode\_ktree} (para decodificar \emph{Dandelion Codes})
+        \item {\tt generate\_ktree} (para gerar uma \emph{$k$-tree} uniformemente)
+      \end{itemize}
+    }
+  \end{frame}
+
+  \subsection{Testes e experimentos}
+
+  \begin{frame}
+    \frametitle{Testes}
+
+    \begin{itemize}
+      \item Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}. 96\% das linhas do código são cobertas por testes.
+      \item Para mostrar que nossa implementação gera \emph{$k$-trees} aleatórias corretamente e uniformemente, realizamos dezenas de milhares de testes com $n$ e $k$ pequenos.
+    \end{itemize}
   \end{frame}
 
   \begin{frame}
     \frametitle{Testes}
 
-    % TODO: testes
+    \textbf{Exemplo:} Com $n = 3, k = 1$ existem $3$ \emph{$k$-trees} rotuladas distintas.
+
+    \begin{figure}
+      \begin{minipage}{0.333\textwidth}
+        \centering
+        \scalebox{0.6}{
+          \begin{tikzpicture}
+              [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+            \node (n0) at (1,1) {0};
+            \node (n1) at (3,3) {1};
+            \node (n2) at (1,5) {2};
+
+            \foreach \from/\to in {n0/n1, n1/n2}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+      \end{minipage}\begin{minipage}{0.333\textwidth}
+        \centering
+        \scalebox{0.6}{
+          \begin{tikzpicture}
+              [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+            \node (n0) at (1,1) {0};
+            \node (n1) at (3,3) {1};
+            \node (n2) at (1,5) {2};
+
+            \foreach \from/\to in {n0/n1, n0/n2}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+      \end{minipage}\begin{minipage}{0.333\textwidth}
+        \centering
+        \scalebox{0.6}{
+          \begin{tikzpicture}
+              [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+            \node (n0) at (1,1) {0};
+            \node (n1) at (3,3) {1};
+            \node (n2) at (1,5) {2};
+
+            \foreach \from/\to in {n0/n2, n1/n2}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+      \end{minipage}
+
+      \caption{Representação das três \emph{$1$-trees} rotuladas distintas com $n = 3$ vértices.}
+    \end{figure}
+
+    Ao executar 10 mil gerações com $n=3$ e $k=1$ esperamos que as três $1$-trees (árvores) apareçam com frequência similar (aprox. 3333). As frequências que obtivemos:
+
+    \begin{itemize}
+      \item 3320
+      \item 3335
+      \item 3345
+    \end{itemize}
   \end{frame}
 
   \section{Aprendizado de redes bayesianas}
@@ -513,7 +755,7 @@
         \item Inicializar $G^{\text{melhor}}$ como um grafo com $s(G^{\text{melhor}}) = -\infty$.
         \item Repetir até atingir um determinado número de iterações:
           \begin{enumerate}
-            \item Gerar $(Q, S) \in \mathcal{A}^n_k$ e decodificar $(Q, S)$ na árvore característica $T$;
+            \item Gerar $(Q, S) \in \mathcal{A}^n_k$ e decodificar na árvore característica $T$;
             \item Sortear ordem pros vértices do $k$-clique raiz e usar função de \emph{score} para calcular os melhores pais para cada um deles;
             \item Percorrer $T$ a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores adjacentes, assim como são atualizados os melhores pais dos vértices sucessores adjacentes;
             \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.

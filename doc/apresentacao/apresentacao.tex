@@ -46,7 +46,7 @@
 
     \vspace{1em}
 
-    Alguns exemplos\footnote{\scriptsize Stefan Arnborg, Andrzej Proskurowski. Linear time algorithms for NP-Hard problems restricted to partial $k$-trees. \emph{Discrete Applied Mathematics}, 23:11--24, 1989.}:
+    Alguns exemplos\footnote{\scriptsize ARNBORG S., PROSKUROWSKI A. Linear time algorithms for NP-Hard problems restricted to partial $k$-trees. \emph{Discrete Applied Mathematics}, 23:11--24, 1989.}:
 
     \begin{itemize}
       \item Encontrar tamanho máximo dos conjuntos independentes;
@@ -74,9 +74,9 @@
     \frametitle{O que foi feito?}
 
     \begin{itemize}
-      \item Implementação do algoritmo de Caminiti \emph{et al.} (2010)\footnote{\scriptsize Saverio Caminiti, Emanuele G. Fusco, Rossella Petreschi. Bijective linear time coding and decoding for $k$-trees. \emph{Theory of Computing Systems}, 46:284--300, 2010.} para \textbf{codificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
+      \item Implementação do algoritmo de Caminiti \emph{et al.} (2010)\footnote{\scriptsize CAMINITI S., FUSCO E. G., PETRESCHI R. Bijective linear time coding and decoding for $k$-trees. \emph{Theory of Computing Systems}, 46:284--300, 2010.} para \textbf{codificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
       \item Implementação de algoritmo para \textbf{amostrar \emph{$k$-trees} uniformemente} e testes para comprovar seu funcionamento.
-      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} conforme artigo de Nie \emph{et al.} (2014)\footnote{\scriptsize Siqi Nie, Denis D. Mauá, Cassio P. de Campos, Qiang Ji. Advances in learning bayesian networks of bounded treewidth. \emph{CoRR}, abs/1406.1411, 2014.}.
+      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} conforme artigo de Nie \emph{et al.} (2014)\footnote{\scriptsize NIE S., MAUÁ D. D., CAMPOS C. P., JI Q. Advances in learning bayesian networks of bounded treewidth. \emph{CoRR}, abs/1406.1411, 2014.}.
       \item \textbf{Comparação entre métodos} para aprender redes bayesianas.
     \end{itemize}
   \end{frame}
@@ -96,7 +96,7 @@
   \begin{frame}
     \frametitle{Primeiramente, o que são \emph{$k$-trees}?}
 
-    Uma \textbf{\emph{$k$-tree}} é definida da seguinte forma recursiva\footnote{\scriptsize Frank Harary, Edgar M. Palmer. On acyclic simplicial complexes. \emph{Mathematika}, 15:115--122, 1968.}:
+    Uma \textbf{\emph{$k$-tree}} é definida da seguinte forma recursiva\footnote{\scriptsize HARARY F., PALMER E. M. On acyclic simplicial complexes. \emph{Mathematika}, 15:115--122, 1968.}:
 
     \begin{itemize}
       \item Um grafo completo com $k$ vértices é uma \emph{$k$-tree}.
@@ -249,7 +249,7 @@
       \item Se $G$ é um \textbf{DAG}, então seu \emph{treewidth} é o \emph{treewidth} do seu grafo moral.
     \end{itemize}
 
-    Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$\footnote{\scriptsize Hans L. Bodlaender. Treewidth: Structure and algorithms. \emph{Structural Information and Communication Complexity}, 4474:11--25, 2007.}.
+    Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$\footnote{\scriptsize BODLAENDER, H. L. Treewidth: Structure and algorithms. \emph{Structural Information and Communication Complexity}, 4474:11--25, 2007.}.
   \end{frame}
 
   \begin{frame}
@@ -337,8 +337,8 @@
     \frametitle{Codificação de \emph{$k$-trees}}
 
     \begin{itemize}
-      \item Em 1889, Cayley\footnote{\scriptsize Arthur Cayley. A theorem on trees. \emph{Quart J. Math}, 23:376--378, 1889.} demonstrou que para um conjunto de $n$ vértices existem $n^{n-2}$ árvores possíveis. Desde lá, foram criados vários códigos para árvores, como o de Prüfer\footnote{\scriptsize Heinz Prüfer. Neuer beweis eines satzes über permutationen. \emph{Archiv der Mat. und Physik}, 27:142--144, 1918.}.
-      \item Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi\footnote{\scriptsize C. Rényi, A. Rényi. The prüfer code for $k$-trees. \emph{Combinatorial Theory and its Applications}, 945--971, 1970.}. Definição: Uma \textbf{\emph{$k$-tree} de Rényi} $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $\{n-k+1, \cdots, n\}$.
+      \item Em 1889, Cayley\footnote{\scriptsize CAYLEY, A. A theorem on trees. \emph{Quart J. Math}, 23:376--378, 1889.} demonstrou que para um conjunto de $n$ vértices existem $n^{n-2}$ árvores possíveis. Desde lá, foram criados vários códigos para árvores, como o de Prüfer\footnote{\scriptsize PRÜFER, H. Neuer beweis eines satzes über permutationen. \emph{Archiv der Mat. und Physik}, 27:142--144, 1918.}.
+      \item Em 1970, Rényi e Rényi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi\footnote{\scriptsize RÉNYI, C., RÉNYI. A. The prüfer code for $k$-trees. \emph{Combinatorial Theory and its Applications}, 945--971, 1970.}. Definição: Uma \textbf{\emph{$k$-tree} de Rényi} $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $\{n-k+1, \cdots, n\}$.
     \end{itemize}
   \end{frame}
 
@@ -347,7 +347,7 @@
 
     \begin{itemize}
       \item Apenas \textbf{em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação}. Esses algoritmos, propostos por Caminiti \emph{et al.}, foram implementados neste trabalho.
-      \item O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code}\footnote{\scriptsize Ömer Eğecioğlu, J. B. Remmel. Bijections for cayley trees, spanning trees, and their q-analogues. \emph{Journal of Combinatorial Theory}, 42:15--30, 1986.}. A codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
+      \item O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code}\footnote{\scriptsize EĞECIOĞLU Ö., REMMEL J. B. Bijections for cayley trees, spanning trees, and their q-analogues. \emph{Journal of Combinatorial Theory}, 42:15--30, 1986.}. A codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
 
         $$
         \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
@@ -549,7 +549,7 @@
     \frametitle{Testes}
 
     \begin{itemize}
-      \item Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}. 96\% das linhas do código são cobertas por testes.
+      \item Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}. 96\% das linhas do código são cobertas por testes\footnote{\scriptsize O relatório de cobertura da ferramenta \emph{Coveralls} pode ser visto em: \url{https://coveralls.io/github/tmadeira/tcc?branch=master}}.
       \item Para mostrar que nossa implementação gera \emph{$k$-trees} aleatórias corretamente e uniformemente, realizamos dezenas de milhares de testes com $n$ e $k$ pequenos.
     \end{itemize}
   \end{frame}
@@ -620,7 +620,7 @@
   \begin{frame}
     \frametitle{O que são redes bayesianas?}
 
-    \textbf{Redes bayesianas} são modelos probabilísticos gráficos\footnote{\scriptsize Daphne Koller, Nir Friedman. \emph{Probabilistic Graphical Models: Principles and Techniques}. The MIT Press, 2009.} que representam distribuições de probabilidade conjunta e são usados para raciocinar em situações com incerteza.
+    \textbf{Redes bayesianas} são modelos probabilísticos gráficos\footnote{\scriptsize KOLLER D., FRIEDMAN N. \emph{Probabilistic Graphical Models: Principles and Techniques}. The MIT Press, 2009.} que representam distribuições de probabilidade conjunta e são usados para raciocinar em situações com incerteza.
 
     \vspace{1em}
 
@@ -729,7 +729,7 @@
     $$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
     }
 
-    onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil\footnote{\scriptsize Janne H. Korhonen, Pekka Parviainen. Exact learning of bounded tree-width bayesian networks. \emph{Proceedings of the 16th International Conference on AISTATS}, 2013.}.
+    onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil\footnote{\scriptsize KORHONEN J. H., PARVIAINEN P. Exact learning of bounded tree-width bayesian networks. \emph{Proceedings of the 16th International Conference on AISTATS}, 2013.}.
   \end{frame}
 
   \subsection{Aprendizado por amostragem de $k$-trees}
@@ -772,23 +772,38 @@
     % TODO: resultados
   \end{frame}
 
-  \section{Considerações finais}
+  \section{Conclusão}
 
-  \subsection{Conclusões}
-
-  \begin{frame}
-    \frametitle{Conclusão}
-
-    % TODO: escrever
-  \end{frame}
-
-  \subsection{Agradecimentos}
+  \subsection{Considerações finais}
 
   \begin{frame}
-    \frametitle{Agradecimentos}
+    \frametitle{Considerações finais (1/2)}
 
-    % TODO: escrever
+    \begin{itemize}
+      \item \textbf{Principal produto do trabalho:} biblioteca para codificação e geração uniforme de \emph{$k$-trees} em tempo linear. Experimentos no aprendizado de redes bayesianas mostram como pode ser usada na prática. O método é eficiente e funciona com grandes domínios e limite alto de \emph{treewidth}.
+      \item Muitos dos \textbf{conceitos estudados são recentes e pouco explorados}. Os dois principais artigos (Caminiti \emph{et al.} e Nie \emph{et al.}) foram publicados respec. em 2010 e 2014. O segundo ressalta que simultaneamente ao seu desenvolvimento foram publicados independentemente outros trabalhos intimamente relacionados.
+    \end{itemize}
   \end{frame}
+
+  \begin{frame}
+    \frametitle{Considerações finais (2/2)}
+
+    \begin{itemize}
+      \item Extensão interessante deste trabalho seria estudar a \textbf{geração de DAGs de \emph{treewidth} limitado de maneira uniforme}. A geração uniforme de \emph{$k$-trees} não resolve esse problema.
+      \item Há \textbf{outras amostragens (não uniformes)} que podem ser testadas e comparadas em trabalhos futuros. Outro artigo de Nie \emph{et al.} (2015)\footnote{\scriptsize NIE S., CAMPOS C. P., JI Q. \emph{Learning Bounded Treewidth Bayesian Networks via Sampling}, 387--396. Springer International Publishing, Cham, 2015.} sugere um \emph{Distance Preferable Sampling}.
+      \item Embora nova, a linguagem \emph{Go} se mostrou satisfatória. Acreditamos que suas convenções facilitem o \textbf{reaproveitamento futuro do código desenvolvido}.
+    \end{itemize}
+  \end{frame}
+
+%  \subsection{Agradecimentos}
+%
+%  \begin{frame}
+%    \frametitle{Agradecimentos}
+%
+% TODO: escrever
+%  \end{frame}
+
+  \subsection{Perguntas?}
 
   \begin{frame}
     \frametitle{Perguntas?}

@@ -21,7 +21,7 @@ Em 1889, Cayley \cite{cayley} demonstrou que para um conjunto de $n$ vértices d
 
 Um dos mais conhecidos é o código de Prüfer \cite{prufer}, que surgiu em 1918 e é bijetivo, associando cada árvore (rotulada) de $n$ vértices a uma lista distinta de comprimento $n-2$ no alfabeto dos rótulos da árvore.
 
-Codificar uma árvore usando o código de Prüfer é trivial: basta remover iterativamente as folhas da árvore até que apenas dois vértices sobrem, escolhendo sempre a folha de memor rótulo. Quando uma folha é removida, adiciona-se ao código o rótulo do seu vizinho.
+Codificar uma árvore usando o código de Prüfer é trivial: basta remover iterativamente as folhas da árvore até que apenas dois vértices sobrem, escolhendo sempre a folha de menor rótulo. Quando uma folha é removida, adiciona-se ao código o rótulo do seu vizinho.
 
 A figura \ref{fig:prufer} exemplifica a codificação de Prüfer mostrando uma árvore cujo o código resultante do algoritmo é $\{4, 4, 4, 5\}$.
 
@@ -46,7 +46,7 @@ A figura \ref{fig:prufer} exemplifica a codificação de Prüfer mostrando uma �
 
 \vspace{2em}
 
-Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro décadas. Em 1970, Rényi e Renýi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi e que são definidas como segue:
+Há estudos sobre a codificação de \emph{$k$-trees} há pelo menos quatro décadas. Em 1970, Rényi e Rényi apresentaram uma codificação redundante (ou seja, não bijetiva) para um subconjunto de \emph{$k$-trees} rotuladas que chamamos de \emph{$k$-trees} de Rényi e que são definidas como segue:
 
 \begin{definition}[\emph{$k$-tree} de Rényi]
   \cite{renyi} Uma \emph{$k$-tree} de Rényi $R_k$ é uma \emph{$k$-tree} enraizada com $n$ vértices rotulados em $[1, n]$ e raiz $R = \{n-k+1, n-k+2, \cdots, n\}$.

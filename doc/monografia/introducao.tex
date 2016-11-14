@@ -22,15 +22,15 @@ O aprendizado de redes bayesianas pode ser visto como o problema de encontrar um
 
 Gerar um DAG aleatoriamente e calcular seu \emph{treewidth} é um problema difícil. Porém, Nie \emph{et al.} \cite{maua} sugere um método aproximado para aprender redes bayesianas com \emph{treewidth} limitado que é baseado em amostrar \emph{$k$-trees} e encontrar DAGs cujo grafo moral é um subgrafo dessas \emph{$k$-trees}.
 
-A partir dessa motivação, este trabalho de conclusão de curso consistiu em estudar os conceitos de teoria dos grafos relacionados a \emph{$k$-trees} e implementar um algoritmo para gerar \emph{$k$-trees} de forma uniforme que possam ser usadas no aprendizado de redes bayesianas.
+A partir dessa motivação, este trabalho de conclusão de curso consistiu em estudar os conceitos de teoria dos grafos relacionados a \emph{$k$-trees} e implementar um algoritmo para gerar \emph{$k$-trees} de forma uniforme que possa ser usado no aprendizado de redes bayesianas.
 
-Estudamos e implementamos o algoritmo desenvolvido por Caminiti \emph{et al.} \cite{caminiti} para codificar e decodificar \emph{$k$-trees}. Com base nele, geramos \emph{$k$-trees} uniformemente e usamos as \emph{$k$-trees} geradas para aprender a estrutura de redes bayesianas usando o algoritmo de Nie \emph{et al.} \cite{maua}.
+Estudamos e implementamos o algoritmo desenvolvido por Caminiti \emph{et al.} \cite{caminiti} para codificar e decodificar \emph{$k$-trees}. Com base nele, amostramos \emph{$k$-trees} uniformemente e usamos as \emph{$k$-trees} amostradas para aprender a estrutura de redes bayesianas usando o algoritmo de Nie \emph{et al.} \cite{maua}.
 
 \section{Código desenvolvido}
 
 As implementações deste trabalho foram realizadas na linguagem \emph{Go}\footnote{\emph{The Go Programming Language:} \url{https://golang.org/}}. \emph{Go} é uma linguagem de código aberto criada em 2007 e apoiada pelo \emph{Google}. Ela é compilada e usa tipagem estática como o C, mas possui recursos avançados como \emph{garbage collection} e bom suporte a programação concorrente.
 
-Escolhemos \emph{Go} porque ela oferece um bom balanço entre a agilidade de escrita de código e a eficiência computacional; tem sistemas de pacotes ({\tt go get}), testes ({\tt go test}) e documentação (\emph{GoDoc}\footnote{\emph{GoDoc:} \url{https://godoc.org/}}) padronizados facilitando que os códigos sejam testados e reutilizados; e ajuda a gerar código limpo e padronizado: identação, espaçamento e outros detalhes de estilo são automatizados pela ferramenta {\tt gofmt}, que vem com ela.
+Escolhemos \emph{Go} porque ela oferece um bom balanço entre a agilidade de escrita de código e a eficiência computacional; tem sistemas de pacotes ({\tt go get}), testes ({\tt go test}) e documentação (\emph{GoDoc}\footnote{\emph{GoDoc:} \url{https://godoc.org/}}) padronizados facilitando que os códigos sejam testados e reutilizados; e ajuda a gerar código limpo e padronizado: indentação, espaçamento e outros detalhes de estilo são automatizados pela ferramenta {\tt gofmt}, que vem com ela.
 
 Todo o código desenvolvido neste trabalho está num repositório público no \emph{GitHub}\footnote{\emph{GitHub:} \url{https://github.com/}} cujo endereço é \url{https://github.com/tmadeira/tcc/}.
 

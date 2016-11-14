@@ -68,7 +68,7 @@ A figura \ref{fig:grafo}(a) mostra como costuma ser representado um grafo. Os v�
 
 Dado um grafo $G = (V, E)$, o número de arestas que incide num determinado vértice $v \in V$ é chamado de \textbf{grau} do vértice $v$.
 
-Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacência}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
+Há diferentes estruturas de dados que podem ser usadas para representar um grafo na memória do computador. Uma das mais comuns, que usamos nas implementações deste trabalho, é a \textbf{lista de adjacências}. Suponha, sem perda de generalidade, que os vértices de um grafo $G$ sejam representados por inteiros de $0$ a $|V|-1$. Então, a representação desse grafo consiste em um vetor de listas {\tt Adj}. A lista {\tt Adj[i]} contém os vértices adjacentes ao vértice de rótulo $i$ (para todo $i \in [0, |V|)$).
 
 \vspace{2em}
 
@@ -112,7 +112,7 @@ Um grafo $G = (V, E)$ é chamado de \textbf{DAG} (do inglês \emph{directed acyc
 
 Dizemos que um ciclo tem uma \textbf{corda} se dois vértices no ciclo são conectados por uma aresta que não está no ciclo. Um \textbf{grafo cordal} é um grafo no qual todos os ciclos com pelo menos $4$ vértices têm uma corda. Qualquer grafo pode ser transformado num grafo cordal adicionando-se arestas num processo chamado de \textbf{cordalização}.
 
-A figura \ref{fig:cordalizacao} mostra um grafo e dois grafos cordais que podem ser obtidos por meio da sua cordalizaçao.
+A figura \ref{fig:cordalizacao} mostra um grafo e dois grafos cordais que podem ser obtidos por meio da sua cordalização.
 
 \begin{figure}
   \begin{minipage}{0.3333\textwidth}

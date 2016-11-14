@@ -141,12 +141,12 @@ O algoritmo de aprendizado fica como segue:
 
 O algoritmo descrito na seção \ref{sec:aprendizado} foi implementado por João de Santana Brito Junior\footnote{Aluno de mestrado orientado pelo Prof. Dr. Denis Deratani Mauá. E-mail: \href{mailto:joaojr@ime.usp.br}{joaojr@ime.usp.br}} e seu código, que faz uso da biblioteca para gerar \emph{$k$-trees} que foi desenvolvida no capítulo \ref{cap:geracao}, está disponível em \url{https://github.com/britojr/bn}.
 
-Usamos essa implementação para testar o aprendizado por amostragem uniforme de \emph{$k$-trees} com cinco conjuntos de dados reais contendo de 64 a 1556 variáveis. A tabela \ref{tab:conjuntos} descreve a característica de cada um deles.
+Usamos essa implementação para testar o aprendizado por amostragem uniforme de \emph{$k$-trees} com cinco conjuntos de dados reais contendo de 64 a 1556 variáveis. A tabela \ref{tab:conjuntos} descreve as características de cada um deles.
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{|l|c|c|} \hline
-    & $n$ & $N$ \\ \hline
+  \begin{tabular}{l c c} \hline
+    \emph{Dataset} & $n$ & $N$ \\ \hline
     kdd & 64 & 234954 \\
     tretail & 135 & 29387 \\
     cr52 & 889 & 9100 \\
@@ -181,17 +181,18 @@ A tabela \ref{tab:comparacao} mostra a média dos \emph{scores} normalizados obt
 
 \begin{table}[h]
   \centering
-  \footnotesize
 
-  \begin{tabular}{|l|c|c|c|c|c|c|} \hline
-    & \multicolumn{2}{c|}{$k = 4$} & \multicolumn{2}{c|}{$k = 10$} & \multicolumn{2}{c|}{Perez e Mauá} \\ \hline
-    & Máx. & Média & Máx. & Média & Máx. & Média \\ \hline
-    kdd & 0,0755 & 0,0691 $\pm$ 0,0022 & 0,1037 & 0,1007 $\pm$ 0,0016 & 0,1468 & 0,1447 $\pm$ 0,0007 \\
-    tretail & 0,0188 & 0,0156 $\pm$ 0,0019 & & & 0,0447 & 0,0444 $\pm$ 0,0002 \\
-    cr52 & 0,0203 & 0,0171 $\pm$ 0,0011 & & & 0,1617 & 0,1598 $\pm$ 0,0010 \\
-    bbc & 0,0059 & 0,0054 $\pm$ 0,0002 & & & 0,0777 & 0,0770 $\pm$ 0,0004 \\
-    ad & 0,0448 & 0,0400 $\pm$ 0,0023 & & & 0,7114 & 0,7089 $\pm$ 0,0013 \\ \hline
-  \end{tabular}
+  {\footnotesize
+    \begin{tabular}{l c c c c c c} \hline
+      & \multicolumn{2}{c}{$k = 4$} & \multicolumn{2}{c}{$k = 10$} & \multicolumn{2}{c}{Perez e Mauá} \\ \hline
+      \emph{Dataset} & Máx. & Média & Máx. & Média & Máx. & Média \\ \hline
+      kdd & 0,0755 & 0,0691 $\pm$ 0,0022 & 0,1037 & 0,1007 $\pm$ 0,0016 & 0,1468 & 0,1447 $\pm$ 0,0007 \\
+      tretail & 0,0188 & 0,0156 $\pm$ 0,0019 & 0,0289 & 0,0249 $\pm$ 0,0017 & 0,0447 & 0,0444 $\pm$ 0,0002 \\
+      cr52 & 0,0203 & 0,0171 $\pm$ 0,0011 & & & 0,1617 & 0,1598 $\pm$ 0,0010 \\
+      bbc & 0,0059 & 0,0054 $\pm$ 0,0002 & & & 0,0777 & 0,0770 $\pm$ 0,0004 \\
+      ad & 0,0448 & 0,0400 $\pm$ 0,0023 & & & 0,7114 & 0,7089 $\pm$ 0,0013 \\ \hline
+    \end{tabular}
+  }
 
   \caption{Performance do aprendizado de redes bayesianas por amostragem de \emph{$k$-trees} e comparação dele com os resultados obtidos por Perez e Mauá.}
   \label{tab:comparacao}

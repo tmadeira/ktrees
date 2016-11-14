@@ -546,16 +546,16 @@
   \subsection{Testes e experimentos}
 
   \begin{frame}
-    \frametitle{Testes}
+    \frametitle{Testes (1/2)}
 
     \begin{itemize}
-      \item Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}. 96\% das linhas do código são cobertas por testes\footnote{\scriptsize O relatório de cobertura da ferramenta \emph{Coveralls} pode ser visto em: \url{https://coveralls.io/github/tmadeira/tcc?branch=master}}.
-      \item Para mostrar que nossa implementação gera \emph{$k$-trees} aleatórias corretamente e uniformemente, realizamos dezenas de milhares de testes com $n$ e $k$ pequenos.
+      \item Todos os pacotes desenvolvidos neste trabalho possuem testes unitários que podem ser executados usando o utilitário {\tt go test}. \textbf{96\% das linhas do código são cobertas por testes}\footnote{\scriptsize O relatório de cobertura da ferramenta \emph{Coveralls} pode ser visto em: \url{https://coveralls.io/github/tmadeira/tcc?branch=master}}.
+      \item Para mostrar que nossa implementação gera \emph{$k$-trees} aleatórias \textbf{corretamente e uniformemente}, realizamos dezenas de milhares de testes com $n$ e $k$ pequenos.
     \end{itemize}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Testes}
+    \frametitle{Testes (2/2)}
 
     \textbf{Exemplo:} Com $n = 3, k = 1$ existem $3$ \emph{$k$-trees} rotuladas distintas.
 
@@ -704,18 +704,18 @@
   \subsection{Motivação}
 
   \begin{frame}
-    \frametitle{Aprendizado de redes bayesianas}
+    \frametitle{Aprendizado de redes bayesianas (1/2)}
 
     \begin{itemize}
-      \item Aprender uma rede bayesiana se refere ao processo de inferir a sua estrutura (i.e., seu DAG) a partir de dados.
-      \item Inferência em rede bayesiana é NP-difícil até mesmo aproximadamente e todos os algoritmos conhecidos (exatos e comprovadamente bons) têm complexidade no pior caso exponencial no \emph{treewidth}.
-      \item Resultados empíricos sugerem que limitar o \emph{treewidth} pode melhorar a performance dos modelos e não causa perdas significativas na sua expressividade.
-      \item Por isso estamos interessados em fixar $k$ e aprender redes bayesianas cujo DAG tem \emph{treewidth} limitado a $k$.
+      \item Aprender uma rede bayesiana se refere ao processo de \textbf{produzir a sua estrutura} (i.e., seu DAG) a partir de dados.
+      \item \textbf{Inferência em rede bayesiana é NP-difícil até mesmo aproximadamente} e todos os algoritmos conhecidos (exatos e comprovadamente bons) têm complexidade no pior caso exponencial no \emph{treewidth}.
+      \item Resultados empíricos sugerem que \textbf{limitar o \emph{treewidth} pode melhorar a performance} dos modelos e não causa perdas significativas na sua expressividade.
+      \item Por isso estamos interessados em fixar $k$ e aprender redes bayesianas cujo \textbf{DAG tem \emph{treewidth} limitado a $k$}.
     \end{itemize}
   \end{frame}
 
   \begin{frame}[fragile=singleslide]
-    \frametitle{Aprendizado de redes bayesianas}
+    \frametitle{Aprendizado de redes bayesianas (2/2)}
 
     Função de \emph{score} $s(G)$ atribui pontuação para cada DAG $G$ e pode ser escrita como soma de funções de \emph{score} locais:
 

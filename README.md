@@ -1,8 +1,12 @@
-Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso.
+Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso, juntamente à sua documentação.
 
 **Tema:** geração uniforme de *k-trees* para aprendizado de redes bayesianas  
 **Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
-**Mais informações:** [site do projeto](https://www.linux.ime.usp.br/~tmadeira/mac0499/)
+**Mais informações:**
+
+- [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf) (em desenvolvimento)
+- [Apresentação](https://github.com/tmadeira/tcc/raw/master/doc/apresentacao/apresentacao.pdf) (em desenvolvimento)
+- [Pôster](https://github.com/tmadeira/tcc/raw/master/doc/poster/poster.pdf) (em desenvolvimento)
 
 [![GoDoc](https://godoc.org/github.com/tmadeira/tcc?status.svg)](https://godoc.org/github.com/tmadeira/tcc)
 [![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)
@@ -107,8 +111,3 @@ n k
 ```
 
 A saída será uma *k-tree* com *n* vértices no formato de entrada esperado pelo utilitário **code-ktree**.
-
-## Documentação ##
-
-A monografia (em desenvolvimento) pode ser lida em `doc/monografia/monografia.pdf`.
-

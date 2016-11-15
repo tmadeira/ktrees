@@ -1,0 +1,390 @@
+\documentclass{beamer}
+
+\usepackage[orientation=portrait,size=a2,scale=1.15]{beamerposter}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphics}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{tikz}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usetikzlibrary{positioning,shapes,arrows}
+\linespread{1.1}
+
+\usetheme{Copenhagen}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}{}
+\setbeamertemplate{navigation symbols}{}
+
+\title{\huge Geração uniforme de \emph{$k$-trees} para aprendizado de redes bayesianas}
+\author{\textbf{Tiago Madeira} {\footnotesize (supervisor: Prof. Dr. Denis Deratani Mauá)}}
+\date{Novembro de 2016}
+
+\begin{document}
+\begin{frame}
+\begin{center}
+  {\Huge Geração uniforme de \emph{$k$-trees} para aprendizado de redes bayesianas}
+
+  \vspace{0.5em}
+
+  {\large \textbf{Tiago Madeira}} {\small (Supervisor: Prof. Dr. Denis Deratani Mauá)}
+
+  \vspace{0.3em}
+
+  Trabalho de Formatura Supervisionado do Bacharelado em Ciência da Computação no Instituto de Matemática e Estatística (IME), Universidade de São Paulo (USP)
+\end{center}
+
+\begin{columns}[t]
+\begin{column}{.5\textwidth}
+  \begin{block}{Por que estudar \emph{$k$-trees}?}
+    \textbf{Muitos problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}. Exemplos \cite{arnborg}:
+
+    \begin{itemize}
+      \item Encontrar tamanho máximo dos conjuntos independentes;
+      \item Calcular número cromático;
+      \item Determinar se tem um ciclo hamiltoniano.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Por que gerar \emph{$k$-trees?}}
+    Há muitas razões, como por exemplo para testar a eficácia de algoritmos aproximados. O problema que desperta nosso interesse é o \textbf{aprendizado de redes bayesianas}.
+  \end{block}
+
+  \begin{block}{O que foi feito?}
+    \begin{itemize}
+      \item Implementação do algoritmo de Caminiti \emph{et al.} (2010) \cite{caminiti} para \textbf{codificar \emph{$k$-trees} de forma bijetiva em tempo linear}.
+      \item Implementação de algoritmo para \textbf{amostrar \emph{$k$-trees} uniformemente} e testes para comprovar seu funcionamento.
+      \item Estudo sobre \textbf{aprendizado de redes bayesianas com \emph{treewidth} limitado} por meio da amostragem uniforme de \emph{$k$-trees} conforme artigo de Nie \emph{et al.} (2014) \cite{maua}.
+      \item \textbf{Comparação deste método} para aprender redes bayesianas com o estado da arte.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{O que são \emph{$k$-trees}?}
+    Uma \textbf{\emph{$k$-tree}} é definida da seguinte forma recursiva \cite{harary}:
+
+    \begin{itemize}
+      \item Um grafo completo com $k$ vértices é uma \emph{$k$-tree}.
+      \item Se $T_k' = (V, E)$ é uma \emph{$k$-tree}, $K \subseteq V$ é um $k$-clique e $v \not \in V$, então $T_k = (V \cup \{v\}, E \cup \{(v,x) \ | \  x \in K\})$ é uma \emph{$k$-tree}.
+    \end{itemize}
+
+    \begin{figure}
+      \begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{1.0}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (1.5,6) {2};
+            \node (n3) at (4.5,6) {3};
+            \node (n4) at (2.25,4) {4};
+
+            \foreach \from/\to in {n1/n2, n1/n3, n2/n4}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{1.0}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (5,8) {2};
+            \node (n3) at (2.5,6) {3};
+            \node (n4) at (6,6) {4};
+            \node (n5) at (3.5,4) {5};
+
+            \foreach \from/\to in {n1/n2, n3/n1, n3/n2, n4/n1, n4/n2, n5/n3, n5/n2}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{1.0}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (3,8) {1};
+            \node (n2) at (5,8) {2};
+            \node (n3) at (7,8) {3};
+            \node (n4) at (4,6) {4};
+            \node (n5) at (5,4) {5};
+
+            \foreach \from/\to in {n1/n2, n2/n3, n1/n4, n2/n4, n3/n4, n4/n5, n3/n5}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend left=40] (n3);
+            \draw (n1) edge [bend right=40] (n5);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Uma \emph{$1$-tree} (ou seja, uma árvore comum) com $4$ vértices.
+        \textbf{(b)} Uma \emph{$2$-tree} com $5$ vértices.
+        \textbf{(c)} Uma \emph{$3$-tree} com $5$ vértices.
+      }
+      \label{fig:ktree}
+    \end{figure}
+  \end{block}
+
+  \begin{block}{Relação entre geração e codificação}
+    O problema de \textbf{gerar} \emph{$k$-trees} está intimamente relacionado ao problema de \textbf{codificá-las e decodificá-las}: Se há uma codificação bijetiva que associa \emph{$k$-trees} a \emph{strings}, basta gerar \emph{strings} uniformemente aleatórias para gerar \emph{$k$-trees} uniformemente aleatórias.
+  \end{block}
+
+  \begin{block}{Codificação de \emph{$k$-trees}}
+    Apenas \textbf{em 2008 surgiu um código bijetivo para \emph{$k$-trees} com algoritmos lineares de codificação e decodificação}. Esses algoritmos, propostos por Caminiti \emph{et al.}, foram implementados neste trabalho. O código é formado por uma permutação de tamanho $k$ e uma generalização do \emph{Dandelion Code} \cite{egecioglu}. A codificação das \emph{$k$-trees} associa elementos em $\mathcal{T}^n_k$ (conjunto das \emph{$k$-trees} com $n$ vértices) com elementos em:
+
+    $$
+    \mathcal{A}^n_k = { [1,n] \choose k } \times (\{ ( 0, \varepsilon ) \} \cup ([1,n-k] \times [1,k]))^{n-k-2}
+    $$
+
+    \textbf{O processo consiste numa série de transformações:}
+
+    \begin{figure}
+      \begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.8}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,9) {10};
+            \node (n2) at (2.5,7) {2};
+            \node (n1) at (1,4) {1};
+            \node (n5) at (3,2.75) {5};
+            \node (n7) at (2,1) {7};
+            \node (n9) at (4.5,9.5) {9};
+            \node (n6) at (4,5) {6};
+            \node (n4) at (6,10.5) {4};
+            \node (n3) at (8.5,6.5) {3};
+            \node (n8) at (8,4.5) {8};
+            \node (n11) at (9,9) {11};
+
+            \foreach \from/\to in {n1/n2, n1/n5, n1/n7, n1/n8, n2/n3, n2/n5, n2/n6, n2/n8, n2/n9, n2/n10, n2/n11, n3/n4, n3/n5, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n7/n8, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.8}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n10) at (1,8.25) {10};
+            \node[fill=gray!30] (n2) at (1.5,10.5) {2};
+            \node (n1) at (2,3.75) {1};
+            \node (n5) at (3,6) {5};
+            \node (n7) at (3.5,1.5) {7};
+            \node[fill=gray!30] (n9) at (4.5,10.5) {9};
+            \node (n6) at (6,6) {6};
+            \node (n4) at (9,4) {4};
+            \node[fill=gray!30] (n3) at (7.5,10.5) {3};
+            \node (n8) at (4.5,8.25) {8};
+            \node (n11) at (8,8.25) {11};
+
+            \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend right=20] (n8);
+            \draw (n1) edge [bend left=50] (n2);
+            \draw (n2) edge [bend left] (n3);
+            \draw (n2) edge [bend right=20] (n6);
+            \draw (n3) edge [bend left] (n4);
+            \draw (n3) edge [bend left=20] (n5);
+            \draw (n7) edge [bend right=20] (n8);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}
+
+      \begin{minipage}{0.3\textwidth}
+        \centering
+        \scalebox{0.75}{
+          \begin{tikzpicture}
+              [scale=.5,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.7cm}]
+            \node (n10) at (1,9) {3};
+            \node[fill=gray!30] (n2) at (1.5,12) {9};
+            \node (n1) at (2,3) {1};
+            \node (n5) at (3,6) {5};
+            \node (n7) at (3.5,0) {7};
+            \node[fill=gray!30] (n9) at (4.5,12) {11};
+            \node (n6) at (6,6) {6};
+            \node (n4) at (9,3) {4};
+            \node[fill=gray!30] (n3) at (7.5,12) {10};
+            \node (n8) at (4.5,9) {8};
+            \node (n11) at (8,9) {2};
+
+            \foreach \from/\to in {n1/n5, n1/n7, n2/n5, n2/n8, n2/n9, n2/n10, n2/n11, n3/n8, n3/n9, n3/n10, n3/n11, n4/n9, n4/n11, n5/n7, n5/n8, n6/n8, n6/n9, n8/n9, n9/n10, n9/n11}
+              \draw (\from) edge (\to);
+
+            \draw (n1) edge [bend right=20] (n8);
+            \draw (n1) edge [bend left=50] (n2);
+            \draw (n2) edge [bend left] (n3);
+            \draw (n2) edge [bend right=20] (n6);
+            \draw (n3) edge [bend left] (n4);
+            \draw (n3) edge [bend left=20] (n5);
+            \draw (n7) edge [bend right=20] (n8);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}\begin{minipage}{0.5\textwidth}
+        \centering
+        \scalebox{0.64}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, rectangle, rounded corners = .1cm, inner sep = 0pt, minimum height = 1.25cm, minimum width = 2.25cm, align = center}]
+            \node[fill=gray!30] (n0) at (5,12) {$\{9, 10, 11\}$};
+            \node (n3) at (0.5,9) {$\{3\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n8) at (5,9) {$\{8\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n2) at (9.5,9) {$\{2\} \cup$ \\ $\{9, 10, 11\}$};
+            \node (n5) at (2,6) {$\{5\} \cup$ \\ $\{8, 9, 10\}$};
+            \node (n6) at (6.5,6) {$\{6\} \cup$ \\ $\{8, 9, 11\}$};
+            \node (n4) at (11,6) {$\{4\} \cup$ \\ $\{2, 10, 11\}$};
+            \node (n1) at (2,3) {$\{1\} \cup$ \\ $\{5, 8, 9\}$};
+            \node (n7) at (2,0) {$\{5\} \cup$ \\ $\{1, 5, 8\}$};
+
+          \foreach \from/\to in {n0/n3, n0/n8, n0/n2, n8/n5, n8/n6, n2/n4, n5/n1, n1/n7}
+            \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (d)
+      \end{minipage}\begin{minipage}{0.2\textwidth}
+        \centering
+        \scalebox{1.0}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.65cm}]
+            \node[fill=gray!30] (n0) at (5,8) {0};
+            \node (n3) at (3.5,6) {3};
+            \node (n8) at (5,6) {8};
+            \node (n2) at (6.5,6) {2};
+            \node (n5) at (3.75,4) {5};
+            \node (n6) at (5.25,4) {6};
+            \node (n4) at (6.75,4) {4};
+            \node (n1) at (4,2) {1};
+            \node (n7) at (4,0) {7};
+
+            \foreach \from/\to/\elab in {n0/n3/$\varepsilon$, n0/n8/$\varepsilon$, n0/n2/$\varepsilon$, n8/n5/3, n8/n6/2, n2/n4/1, n5/n1/3, n1/n7/3}
+              \draw (\from) -- (\to) node [draw=none, minimum width = 0.3cm, midway] {\scriptsize \elab};
+          \end{tikzpicture}
+        }
+
+        (e)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Uma \emph{$3$-tree} $T_3$ com 11 vértices.
+        \textbf{(b)} A mesma \emph{$3$-tree} ($T_3$) enraizada no $3$-clique $\{2, 3, 9\}$.
+        \textbf{(c)} $R_3$, \emph{$3$-tree} de Rényi gerada por meio da re-rotulação de $T_3$.
+        \textbf{(d)} O esqueleto de $R_3$.
+        \textbf{(e)} A árvore característica de $R_3$.
+      }
+      \label{fig:transformation}
+    \end{figure}
+
+    \emph{Dandelion Code} generalizado correspondente a $T_3$, computado a partir da árvore característica de $R_3$: $\{2,3,9\}, [(0, \varepsilon), (2, 0), (8, 2), (8, 1), (1, 2), (5, 2)]$.
+  \end{block}
+
+  \begin{block}{Geração uniforme de \emph{$k$-trees}}
+    Geramos \emph{$k$-trees} uniformemente por meio da geração uniforme de \emph{strings} em $\mathcal{A}^n_k$. A biblioteca que desenvolvemos foi implementada em \emph{Go} e tem três utilitários que rodam na linha de comando:
+
+    {\footnotesize
+      \begin{itemize}
+        \item {\tt code\_ktree} (para codificar \emph{$k$-trees})
+        \item {\tt decode\_ktree} (para decodificar \emph{Dandelion Codes})
+        \item {\tt generate\_ktree} (para gerar uma \emph{$k$-tree} uniformemente)
+      \end{itemize}
+    }
+  \end{block}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+  \begin{block}{Aprendizado de redes bayesianas}
+    \begin{itemize}
+      \item Aprender uma rede bayesiana se refere ao processo de \textbf{produzir a sua estrutura} (i.e., seu DAG) a partir de dados.
+      \item \textbf{Inferência em rede bayesiana é NP-difícil até mesmo aproximadamente} e todos os algoritmos conhecidos têm complexidade no pior caso exponencial no \emph{treewidth}.
+      \item Resultados empíricos sugerem que \textbf{limitar o \emph{treewidth} pode melhorar a performance} dos modelos e não causa perdas significativas na sua expressividade.
+      \item Por isso estamos interessados em fixar $k$ e aprender redes bayesianas cujo \textbf{DAG tem \emph{treewidth} limitado a $k$}.
+      \item \textbf{Função de \emph{score}} $s(G)$ atribui pontuação para cada DAG $G$ e pode ser escrita como soma de funções de \emph{score} locais: $s(G) = \sum_{i \in N} s_i(X_{\pi_i})$.
+      \item Para cada variável, sua \textbf{pontuação só depende do seu conjunto de pais}. Portanto, nosso problema é encontrar $G^*$ tal que $G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i)$ onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil \cite{korhonen}.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Aprendizado por amostragem de \emph{$k$-trees}}
+    A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em, para cada \emph{$k$-tree} $T_k$ amostrada, construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela e com $T_k$. Construímos a ordem parcial $\sigma$ a partir do enraizamento da \emph{$k$-tree} num $k$-clique qualquer. Em particular, podemos escolher usar a raiz da \emph{$k$-tree} de Rényi que aparece durante a decodificação de um \emph{Dandelion Code} em uma \emph{$k$-tree}.
+  \end{block}
+
+  \begin{block}{Algoritmo para aprender estrutura}
+    \textbf{Entrada:} $n$, $k$ e função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
+    \textbf{Saída:} um DAG $G^{\text{melhor}}$
+
+    \begin{enumerate}
+      \item Inicializar $G^{\text{melhor}}$ como um grafo com $s(G^{\text{melhor}}) = -\infty$.
+      \item Repetir até atingir um determinado número de iterações:
+        \begin{enumerate}
+          \item Gerar $(Q, S) \in \mathcal{A}^n_k$ e decodificar na árvore característica $T$;
+          \item Sortear ordem pros vértices do $k$-clique raiz e usar função de \emph{score} para calcular os melhores pais para cada um deles;
+          \item Percorrer $T$ a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores adjacentes, assim como são atualizados os melhores pais dos vértices sucessores adjacentes;
+          \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
+        \end{enumerate}
+    \end{enumerate}
+  \end{block}
+
+  \begin{block}{Experimentos}
+    \begin{itemize}
+      \item Algoritmo foi \textbf{implementado por João de Santana Brito Junior}, aluno de mestrado do Prof. Denis. Faz uso da biblioteca desenvolvida neste trabalho para amostrar \emph{$k$-trees}.
+      \item Usamos implementação para testar aprendizado por amostragem uniforme de \emph{$k$-trees} com \textbf{cinco conjuntos de dados reais} contendo de 64 a 1556 variáveis.
+      \item \textbf{Comparamos resultados} com os obtidos por Perez e Mauá \cite{perez} para o \emph{Acyclic Selection Order-Based Search (ASOBS)} com \emph{Best First-Based initialization heuristic (BFT)}, abordagem com resultados comparáveis ao estado da arte.
+    \end{itemize}
+
+    \begin{table}
+      \centering
+
+      {\small
+        \begin{tabular}{l c c c c c c} \hline
+          & \multicolumn{2}{c}{$k = 4$} & \multicolumn{2}{c}{$k = 10$} & \multicolumn{2}{c}{Perez e Mauá} \\ \hline
+          \emph{Dataset} & Máx. & Média & Máx. & Média & Máx. & Média \\ \hline
+          kdd ($n = 64$) & 0,0755 & 0,0691 $\pm$ 0,0022 & 0,1037 & 0,1007 $\pm$ 0,0016 & 0,1468 & 0,1447 $\pm$ 0,0007 \\
+          tretail ($n = 135$) & 0,0188 & 0,0156 $\pm$ 0,0019 & 0,0289 & 0,0249 $\pm$ 0,0017 & 0,0447 & 0,0444 $\pm$ 0,0002 \\
+          cr52 ($n = 889$) & 0,0203 & 0,0171 $\pm$ 0,0011 & 0,0439 & 0,0333 $\pm$ 0,0028 & 0,1617 & 0,1598 $\pm$ 0,0010 \\
+          bbc ($n = 1058$) & 0,0059 & 0,0054 $\pm$ 0,0002 & 0,0128 & 0,0102 $\pm$ 0,0005 & 0,0777 & 0,0770 $\pm$ 0,0004 \\
+          ad ($n = 1556$) & 0,0448 & 0,0400 $\pm$ 0,0023 & 0,0905 & 0,0781 $\pm$ 0,0045 & 0,7114 & 0,7089 $\pm$ 0,0013 \\ \hline
+        \end{tabular}
+      }
+
+      \caption{Performance do aprendizado de redes bayesianas por amostragem de \emph{$k$-trees} e comparação dele com os resultados obtidos por Perez e Mauá.}
+      \label{tab:comparacao}
+    \end{table}
+  \end{block}
+
+  \begin{block}{Considerações finais}
+    \begin{itemize}
+      \item \textbf{Principal produto do trabalho:} biblioteca para codificação e geração uniforme de \emph{$k$-trees} em tempo linear. Experimentos no aprendizado de redes bayesianas mostram como pode ser usada na prática. Método é eficiente e funciona com grandes domínios e \emph{treewidth} alto.
+      \item Muitos dos \textbf{conceitos estudados são recentes e pouco explorados}. Os dois principais artigos (Caminiti \emph{et al.} e Nie \emph{et al.}) foram publicados respec. em 2010 e 2014. Outros trabalhos intimamente relacionados foram publicados nos últimos anos.
+      \item Extensão interessante deste trabalho seria estudar a \textbf{geração de DAGs de \emph{treewidth} limitado de maneira uniforme}. A geração uniforme de \emph{$k$-trees} não resolve esse problema.
+      \item Há \textbf{outras amostragens (não uniformes)} que podem ser testadas e comparadas em trabalhos futuros. Outro artigo de Nie \emph{et al.} (2015) \cite{nie} sugere um \emph{Distance Preferable Sampling}.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Mais informações}
+    Este pôster, a monografia e os códigos desenvolvidos estão disponíveis em \url{https://github.com/tmadeira/tcc/}
+  \end{block}
+
+  \begin{block}{Referências}
+    {\scriptsize
+    \bibliographystyle{plain}
+    \bibliography{../monografia/referencias}
+    }
+  \end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\end{document}

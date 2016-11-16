@@ -42,7 +42,7 @@
   \begin{frame}
     \frametitle{Por que estudar \emph{$k$-trees}?}
 
-    Há interesse considerável em desenvolver ferramentas eficientes para manipular \emph{$k$-trees}, porque \textbf{problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}.
+    Há interesse considerável em desenvolver ferramentas eficientes para manipular \emph{$k$-trees}, porque alguns \textbf{problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}.
 
     \vspace{1em}
 
@@ -65,7 +65,7 @@
 
     \vspace{1em}
 
-    O problema que desperta nosso interesse é o \textbf{aprendizado de redes bayesianas}.
+    O problema que desperta nosso interesse é o \textbf{aprendizado de redes bayesianas} tratáveis, que consiste em escolher um DAG $G$ que maximize uma função de \emph{score} $s(G)$ sujeito à restrição $\text{treewidth}(G) \leq k$ dados $s$ e $k$.
   \end{frame}
 
   \subsection{O que foi feito?}
@@ -235,89 +235,6 @@
         \textbf{(b)} A mesma \emph{$3$-tree} ($T_3$) enraizada no $3$-clique $\{2, 3, 9\}$.
       }
       \label{fig:rootedktree}
-    \end{figure}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{\emph{$k$-tree} e \emph{treewidth}}
-
-    Dado um grafo $G = (V, E)$, seu \textbf{\emph{treewidth}} é um inteiro definido da seguinte forma:
-
-    \begin{itemize}
-      \item Se $G$ é um \textbf{grafo cordal}, então seu \emph{treewidth} é o tamanho do seu maior clique menos 1.
-      \item Se $G$ é um \textbf{grafo não-dirigido arbitrário}, então seu \emph{treewidth} é o mínimo entre os \emph{treewidth} de todas as suas cordalizações.
-      \item Se $G$ é um \textbf{DAG}, então seu \emph{treewidth} é o \emph{treewidth} do seu grafo moral.
-    \end{itemize}
-
-    Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$\footnote{\scriptsize BODLAENDER, H. L. Treewidth: Structure and algorithms. \emph{Structural Information and Communication Complexity}, 4474:11--25, 2007.}.
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{Ilustração de \emph{treewidth}}
-
-    \begin{figure}
-      \begin{minipage}{0.3333\textwidth}
-        \centering
-        \scalebox{0.7}{
-          \begin{tikzpicture}
-              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
-            \node (n1) at (1,1) {1};
-            \node (n2) at (1,4) {2};
-            \node (n3) at (1,7) {3};
-            \node (n4) at (4,7) {4};
-            \node (n5) at (4,4) {5};
-            \node (n6) at (4,1) {6};
-
-            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6}
-              \draw (\from) edge[-triangle 60] (\to);
-          \end{tikzpicture}
-        }
-
-        (a)
-      \end{minipage}\begin{minipage}{0.3333\textwidth}
-        \centering
-        \scalebox{0.7}{
-          \begin{tikzpicture}
-              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
-            \node (n1) at (1,1) {1};
-            \node (n2) at (1,4) {2};
-            \node (n3) at (1,7) {3};
-            \node (n4) at (4,7) {4};
-            \node (n5) at (4,4) {5};
-            \node (n6) at (4,1) {6};
-
-            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3}
-              \draw (\from) edge (\to);
-          \end{tikzpicture}
-        }
-
-        (b)
-      \end{minipage}\begin{minipage}{0.3333\textwidth}
-        \centering
-        \scalebox{0.7}{
-          \begin{tikzpicture}
-              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
-            \node (n1) at (1,1) {1};
-            \node (n2) at (1,4) {2};
-            \node (n3) at (1,7) {3};
-            \node (n4) at (4,7) {4};
-            \node (n5) at (4,4) {5};
-            \node (n6) at (4,1) {6};
-
-            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3, n2/n5}
-              \draw (\from) edge (\to);
-          \end{tikzpicture}
-        }
-
-        (c)
-      \end{minipage}
-
-      \caption{
-        \textbf{(a)} Um grafo acíclico dirigido $G$.
-        \textbf{(b)} Grafo moral $G'$ de $G$, obtido conectando-se todo par de vértices com um filho em comum e retirando-se a direção das arestas.
-        \textbf{(c)} Um dos grafos cordais obtidos por meio da cordalização de $G'$. O \emph{treewidth} dos três grafos mostrados na figura é $2$.
-      }
-      \label{fig:treewidth}
     \end{figure}
   \end{frame}
 
@@ -704,6 +621,89 @@
   \subsection{Motivação}
 
   \begin{frame}
+    \frametitle{\emph{$k$-tree} e \emph{treewidth}}
+
+    Dado um grafo $G = (V, E)$, seu \textbf{\emph{treewidth}} é um inteiro definido da seguinte forma:
+
+    \begin{itemize}
+      \item Se $G$ é um \textbf{grafo cordal}, então seu \emph{treewidth} é o tamanho do seu maior clique menos 1.
+      \item Se $G$ é um \textbf{grafo não-dirigido arbitrário}, então seu \emph{treewidth} é o mínimo entre os \emph{treewidth} de todas as suas cordalizações.
+      \item Se $G$ é um \textbf{DAG}, então seu \emph{treewidth} é o \emph{treewidth} do seu grafo moral.
+    \end{itemize}
+
+    Um subgrafo de uma \emph{$k$-tree} é chamado de \textbf{\emph{partial $k$-tree}}. Um grafo é uma \emph{partial $k$-tree} se e só se ele tem \emph{treewidth} menor ou igual a $k$\footnote{\scriptsize BODLAENDER, H. L. Treewidth: Structure and algorithms. \emph{Structural Information and Communication Complexity}, 4474:11--25, 2007.}.
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Ilustração de \emph{treewidth}}
+
+    \begin{figure}
+      \begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6}
+              \draw (\from) edge[-triangle 60] (\to);
+          \end{tikzpicture}
+        }
+
+        (a)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (b)
+      \end{minipage}\begin{minipage}{0.3333\textwidth}
+        \centering
+        \scalebox{0.7}{
+          \begin{tikzpicture}
+              [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
+            \node (n1) at (1,1) {1};
+            \node (n2) at (1,4) {2};
+            \node (n3) at (1,7) {3};
+            \node (n4) at (4,7) {4};
+            \node (n5) at (4,4) {5};
+            \node (n6) at (4,1) {6};
+
+            \foreach \from/\to in {n1/n2, n1/n6, n2/n4, n3/n4, n4/n5, n5/n6, n1/n5, n2/n3, n2/n5}
+              \draw (\from) edge (\to);
+          \end{tikzpicture}
+        }
+
+        (c)
+      \end{minipage}
+
+      \caption{
+        \textbf{(a)} Um grafo acíclico dirigido $G$.
+        \textbf{(b)} Grafo moral $G'$ de $G$, obtido conectando-se todo par de vértices com um filho em comum e retirando-se a direção das arestas.
+        \textbf{(c)} Um dos grafos cordais obtidos por meio da cordalização de $G'$. O \emph{treewidth} dos três grafos mostrados na figura é $2$.
+      }
+      \label{fig:treewidth}
+    \end{figure}
+  \end{frame}
+
+  \begin{frame}
     \frametitle{Aprendizado de redes bayesianas (1/2)}
 
     \begin{itemize}
@@ -726,7 +726,7 @@
     Para cada variável, sua pontuação só depende do seu conjunto de pais. Portanto, nosso problema é encontrar $G^*$ tal que
 
     {\footnotesize
-    $$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
+    $$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(X_{\pi_i}),$$
     }
 
     onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil\footnote{\scriptsize KORHONEN J. H., PARVIAINEN P. Exact learning of bounded tree-width bayesian networks. \emph{Proceedings of the 16th International Conference on AISTATS}, 2013.}.
@@ -747,7 +747,7 @@
   \begin{frame}
     \frametitle{Algoritmo para aprender estrutura}
 
-    {\footnotesize
+    {
       \textbf{Entrada:} $n$, $k$ e função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
       \textbf{Saída:} um DAG $G^{\text{melhor}}$
 
@@ -755,10 +755,9 @@
         \item Inicializar $G^{\text{melhor}}$ como um grafo com $s(G^{\text{melhor}}) = -\infty$.
         \item Repetir até atingir um determinado número de iterações:
           \begin{enumerate}
-            \item Gerar $(Q, S) \in \mathcal{A}^n_k$ e decodificar na árvore característica $T$;
-            \item Sortear ordem pros vértices do $k$-clique raiz e usar função de \emph{score} para calcular os melhores pais para cada um deles;
-            \item Percorrer $T$ a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores adjacentes, assim como são atualizados os melhores pais dos vértices sucessores adjacentes;
-            \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
+            \item Gerar uniformemente uma \emph{$k$-tree} $T_k$
+            \item Encontrar um DAG $G$ cuja moralização é $T_k$ e maximize $s(G)$
+            \item Se $\left(\sum_{i \in [0,n)} s_i(X_{\pi^G_{i}})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
           \end{enumerate}
       \end{enumerate}
     }

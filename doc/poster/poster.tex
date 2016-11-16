@@ -1,6 +1,6 @@
 \documentclass{beamer}
 
-\usepackage[orientation=portrait,size=a2,scale=1.15]{beamerposter}
+\usepackage[orientation=portrait,size=a2,scale=1.24]{beamerposter}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
@@ -12,15 +12,15 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \usetikzlibrary{positioning,shapes,arrows}
-\linespread{1.1}
+\linespread{1.05}
 
 \usetheme{Copenhagen}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{footline}{}
 \setbeamertemplate{navigation symbols}{}
 
-\title{\huge Geração uniforme de \emph{$k$-trees} para aprendizado de redes bayesianas}
-\author{\textbf{Tiago Madeira} {\footnotesize (supervisor: Prof. Dr. Denis Deratani Mauá)}}
+\title{Geração uniforme de \emph{$k$-trees} para aprendizado de redes bayesianas}
+\author{Tiago Madeira (supervisor: Prof. Dr. Denis Deratani Mauá)}
 \date{Novembro de 2016}
 
 \begin{document}
@@ -30,23 +30,19 @@
 
   \vspace{0.5em}
 
-  {\large \textbf{Tiago Madeira}} {\small (Supervisor: Prof. Dr. Denis Deratani Mauá)}
+  {\sc {\Large \textbf{Tiago Madeira}} {\small (Supervisor: Prof. Dr. Denis Deratani Mauá)}}
 
-  \vspace{0.3em}
+  \vspace{0.2em}
 
-  Trabalho de Formatura Supervisionado do Bacharelado em Ciência da Computação no Instituto de Matemática e Estatística (IME), Universidade de São Paulo (USP)
+  {\small Trabalho de Formatura Supervisionado do Bacharelado em Ciência da Computação no Instituto de Matemática e Estatística (IME), Universidade de São Paulo (USP)}
 \end{center}
+
+\vspace*{-0.8cm}
 
 \begin{columns}[t]
 \begin{column}{.5\textwidth}
   \begin{block}{Por que estudar \emph{$k$-trees}?}
-    \textbf{Muitos problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}. Exemplos \cite{arnborg}:
-
-    \begin{itemize}
-      \item Encontrar tamanho máximo dos conjuntos independentes;
-      \item Calcular número cromático;
-      \item Determinar se tem um ciclo hamiltoniano.
-    \end{itemize}
+    \textbf{Muitos problemas NP-difíceis são resolvidos em tempo polinomial} em \emph{$k$-trees} e subgrafos de \emph{$k$-trees}. \textbf{Exemplos} \cite{arnborg}: encontrar tamanho máximo dos conjuntos independentes, calcular número cromático, determinar se tem um ciclo hamiltoniano.
   \end{block}
 
   \begin{block}{Por que gerar \emph{$k$-trees?}}
@@ -73,7 +69,7 @@
     \begin{figure}
       \begin{minipage}{0.3333\textwidth}
         \centering
-        \scalebox{1.0}{
+        \scalebox{1.1}{
           \begin{tikzpicture}
               [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
             \node (n1) at (3,8) {1};
@@ -89,7 +85,7 @@
         (a)
       \end{minipage}\begin{minipage}{0.3333\textwidth}
         \centering
-        \scalebox{1.0}{
+        \scalebox{1.1}{
           \begin{tikzpicture}
               [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
             \node (n1) at (3,8) {1};
@@ -106,7 +102,7 @@
         (b)
       \end{minipage}\begin{minipage}{0.3333\textwidth}
         \centering
-        \scalebox{1.0}{
+        \scalebox{1.1}{
           \begin{tikzpicture}
               [scale=.6,auto=left,every node/.style={draw, circle, inner sep = 0pt, minimum width = 0.72cm}]
             \node (n1) at (3,8) {1};
@@ -310,21 +306,20 @@
   \begin{block}{Aprendizado de redes bayesianas}
     \begin{itemize}
       \item Aprender uma rede bayesiana se refere ao processo de \textbf{produzir a sua estrutura} (i.e., seu DAG) a partir de dados.
-      \item \textbf{Inferência em rede bayesiana é NP-difícil até mesmo aproximadamente} e todos os algoritmos conhecidos têm complexidade no pior caso exponencial no \emph{treewidth}.
+      \item \textbf{Inferência em rede bayesiana é NP-difícil mesmo aproximadamente} e todos os algoritmos conhecidos têm complexidade no pior caso exponencial no \emph{treewidth}.
       \item Resultados empíricos sugerem que \textbf{limitar o \emph{treewidth} pode melhorar a performance} dos modelos e não causa perdas significativas na sua expressividade.
       \item Por isso estamos interessados em fixar $k$ e aprender redes bayesianas cujo \textbf{DAG tem \emph{treewidth} limitado a $k$}.
       \item \textbf{Função de \emph{score}} $s(G)$ atribui pontuação para cada DAG $G$ e pode ser escrita como soma de funções de \emph{score} locais: $s(G) = \sum_{i \in N} s_i(X_{\pi_i})$.
-      \item Para cada variável, sua \textbf{pontuação só depende do seu conjunto de pais}. Portanto, nosso problema é encontrar $G^*$ tal que $G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i)$ onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maior que $k$. Esse problema é NP-difícil \cite{korhonen}.
+      \item Para cada variável, sua \textbf{pontuação só depende do seu conjunto de pais}. Nosso problema é encontrar $G^*$ tal que $G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i)$ onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} $\leq k$. Esse problema é NP-difícil \cite{korhonen}.
     \end{itemize}
   \end{block}
 
   \begin{block}{Aprendizado por amostragem de \emph{$k$-trees}}
-    A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em, para cada \emph{$k$-tree} $T_k$ amostrada, construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela e com $T_k$. Construímos a ordem parcial $\sigma$ a partir do enraizamento da \emph{$k$-tree} num $k$-clique qualquer. Em particular, podemos escolher usar a raiz da \emph{$k$-tree} de Rényi que aparece durante a decodificação de um \emph{Dandelion Code} em uma \emph{$k$-tree}.
+    A ideia para aprender um DAG por meio da amostragem de \emph{$k$-trees} baseia-se em, para cada \emph{$k$-tree} $T_k$ amostrada, construir uma ordem parcial $\sigma$ dos vértices e fazer com que o DAG $G$ seja consistente com ela e com $T_k$. Construímos a ordem parcial $\sigma$ a partir do enraizamento da \emph{$k$-tree} num $k$-clique qualquer.
   \end{block}
 
   \begin{block}{Algoritmo para aprender estrutura}
-    \textbf{Entrada:} $n$, $k$ e função de \emph{score} $s_i$ para cada $i \in [0, n)$\\
-    \textbf{Saída:} um DAG $G^{\text{melhor}}$
+    \textbf{ENTRADA:} $n$, $k$ e função de \emph{score} $s_i$ para cada $i \in [0, n)$. \hfill \textbf{SAÍDA:} um DAG $G^{\text{melhor}}$.
 
     \begin{enumerate}
       \item Inicializar $G^{\text{melhor}}$ como um grafo com $s(G^{\text{melhor}}) = -\infty$.
@@ -367,10 +362,10 @@
 
   \begin{block}{Considerações finais}
     \begin{itemize}
-      \item \textbf{Principal produto do trabalho:} biblioteca para codificação e geração uniforme de \emph{$k$-trees} em tempo linear. Experimentos no aprendizado de redes bayesianas mostram como pode ser usada na prática. Método é eficiente e funciona com grandes domínios e \emph{treewidth} alto.
+      \item \textbf{Principal produto do trabalho:} biblioteca para codificação e geração uniforme de \emph{$k$-trees} em tempo linear. Experimentos no aprendizado de redes bayesianas mostram como pode ser usada na prática. Método funciona com $n$ e $k$ altos.
       \item Muitos dos \textbf{conceitos estudados são recentes e pouco explorados}. Os dois principais artigos (Caminiti \emph{et al.} e Nie \emph{et al.}) foram publicados respec. em 2010 e 2014. Outros trabalhos intimamente relacionados foram publicados nos últimos anos.
-      \item Extensão interessante deste trabalho seria estudar a \textbf{geração de DAGs de \emph{treewidth} limitado de maneira uniforme}. A geração uniforme de \emph{$k$-trees} não resolve esse problema.
-      \item Há \textbf{outras amostragens (não uniformes)} que podem ser testadas e comparadas em trabalhos futuros. Outro artigo de Nie \emph{et al.} (2015) \cite{nie} sugere um \emph{Distance Preferable Sampling}.
+      \item Extensão interessante seria estudar a \textbf{geração de DAGs de \emph{treewidth} limitado de maneira uniforme}. A geração uniforme de \emph{$k$-trees} não resolve esse problema.
+      \item Há \textbf{outras amostragens (não uniformes)} que podem ser testadas e comparadas no futuro. Artigo de Nie \emph{et al.} (2015) \cite{nie} sugere um \emph{Distance Preferable Sampling}.
     \end{itemize}
   \end{block}
 

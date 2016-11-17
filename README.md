@@ -6,7 +6,7 @@ Este repositório contém os códigos desenvolvidos para o meu trabalho de concl
 
 - [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf) (em desenvolvimento)
 - [Apresentação](https://github.com/tmadeira/tcc/raw/master/doc/apresentacao/apresentacao.pdf) (em desenvolvimento)
-- [Pôster](https://github.com/tmadeira/tcc/raw/master/doc/poster/poster.pdf) (em desenvolvimento)
+- [Pôster](https://github.com/tmadeira/tcc/raw/master/doc/poster/poster.pdf)
 
 [![GoDoc](https://godoc.org/github.com/tmadeira/tcc?status.svg)](https://godoc.org/github.com/tmadeira/tcc)
 [![Build Status](https://travis-ci.org/tmadeira/tcc.svg?branch=master)](https://travis-ci.org/tmadeira/tcc)

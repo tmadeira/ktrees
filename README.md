@@ -1,11 +1,11 @@
 Este repositório contém os códigos desenvolvidos para o meu trabalho de conclusão de curso, juntamente à sua documentação.
 
 **Tema:** geração uniforme de *k-trees* para aprendizado de redes bayesianas  
-**Supervisor:** [Prof. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
+**Supervisor:** [Prof. Dr. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
 **Mais informações:**
 
-- [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf) (em desenvolvimento)
-- [Apresentação](https://github.com/tmadeira/tcc/raw/master/doc/apresentacao/apresentacao.pdf) (em desenvolvimento)
+- [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf) (sujeita a ajustes finais)
+- [Apresentação](https://github.com/tmadeira/tcc/raw/master/doc/apresentacao/apresentacao.pdf)
 - [Pôster](https://github.com/tmadeira/tcc/raw/master/doc/poster/poster.pdf)
 
 [![GoDoc](https://godoc.org/github.com/tmadeira/tcc?status.svg)](https://godoc.org/github.com/tmadeira/tcc)

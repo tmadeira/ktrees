@@ -99,7 +99,7 @@ $$s(G) = \sum_{i \in N} s_i(X_{\pi_i}).$$
 
 Para cada variável, sua pontuação só depende do seu conjunto de pais. Ou seja, nosso problema é encontrar $G^*$ tal que
 
-$$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(\pi_i),$$
+$$G^* = \argmax_{G \in \mathcal{G}_{n,k}} \sum_{i \in N} s_i(X_{\pi_i}),$$
 
 onde $\mathcal{G}_{n,k}$ é o conjunto de todos os DAGs de \emph{treewidth} não maiores que $k$.
 
@@ -132,7 +132,7 @@ O algoritmo de aprendizado fica como segue:
         \item Decodificar $(Q, S)$ na árvore característica $T$ usando o algoritmo da subseção \ref{subsec:decodificacao};
         \item Determinar uniformemente uma ordem pros vértices do $k$-clique raiz (ou seja, os vértices correspondentes a $\phi^{-1}(v)$ para os vértices $v \in \{n-k+1, n-k+2, \cdots, n\}$ correspondentes a raiz da \emph{$k$-tree} de Rényi) e usar a função de \emph{score} para calcular os melhores pais para cada um deles entre os vértices que os precedem;
         \item Percorrer $T$ como no passo 3 do algoritmo \ref{subsec:decodificacao} a partir dos vértices ligados ao $k$-clique raiz: para cada $v$, é sorteado um lugar para ele em $\sigma$ e selecionado seu melhor conjunto de pais dentre os vértices predecessores (em $\sigma$) adjacentes já visitados, assim como são atualizados os melhores pais dos vértices sucessores (em $\sigma$) adjacentes já visitados;
-        \item Se $\left(\sum_{i \in [0,n)} s_i(\pi^G_{i})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
+        \item Se $\left(\sum_{i \in [0,n)} s_i(X_{\pi^G_{i}})\right) = s(G) > s(G^{\text{melhor}})$, atualiza $G^{\text{melhor}} = G$.
       \end{enumerate}
   \end{enumerate}
 \end{algorithm}
@@ -160,22 +160,7 @@ Usamos essa implementação para testar o aprendizado por amostragem uniforme de
 
 Rodamos cada experimento 30 vezes num computador com processador Intel Core i5 2.6GHz e 8GB RAM.
 
-% TODO: A tabela \ref{tab:tempos} mostra quanto tempo levou em média o aprendizado com diferentes parâmetros $k$ e 1000 iterações.
-%
-%\begin{table}
-%  \centering
-%  \begin{tabular}{|c|c|c|c|} \hline
-%    & $k = 4$ & $k = 8$ & $k = 10$ \\ \hline
-%    kdd & & & \\
-%    tretail & & & \\
-%    cr52 & & & \\
-%    bbc & & & \\
-%    ad & & & \\ \hline
-%  \end{tabular}
-%
-%  \caption{Descrição da tabela}
-%  \label{tab:tempos}
-%\end{table}
+\vspace{1em}
 
 A tabela \ref{tab:comparacao} mostra a média dos \emph{scores} normalizados obtidos nos nossos experimentos e os compara com os resultados obtidos no artigo de Perez e Mauá \cite{perez} para o \emph{Acyclic Selection Order-Based Search (ASOBS)} com \emph{Best First-Based initialization heuristic (BFT)}, uma abordagem de aprendizado que tem resultados comparáveis ao estado da arte para domínios grandes.
 
@@ -198,4 +183,8 @@ A tabela \ref{tab:comparacao} mostra a média dos \emph{scores} normalizados obt
   \label{tab:comparacao}
 \end{table}
 
-\emph{A analisar.} % TODO
+Embora à primeira vista a comparação pareça ruim para o método por amostragem de \emph{$k$-trees}, é preciso observar que o método desenvolvido neste trabalho aprende redes \textbf{tratáveis} (i.e., com \emph{treewidth} limitado) enquanto o \emph{ASOBS} não limita esse parâmetro.
+
+A diferença de \emph{score} normalizado entre $k = 4$ e $k = 10$ indica que quanto mais aumentamos o \emph{treewidth} mais próximos chegamos ao resultado de Perez e Mauá. Nas redes com menos variáveis, nos aproximamos mais rápido desse valor, como mostra o resultado com o conjunto de dados \emph{kdd}.
+
+A diferença entre a média e o valor máximo fornece uma ideia da dificuldade do problema. Quando média e máximo são próximos, pode-se supôr que o problema é fácil no sentido de que gerar arbitrariamente uma \emph{$k$-tree} e encontrar um DAG compatível gera uma solução razoável. Esse não parece ser o caso dos nossos experimentos com o conjunto de dados \emph{ad}, no qual o máximo está bem distante da média até mesmo quando o desvio padrão é levado em conta.

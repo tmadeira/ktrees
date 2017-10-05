@@ -4,7 +4,7 @@ Este repositório contém os códigos desenvolvidos para o meu trabalho de concl
 **Supervisor:** [Prof. Dr. Denis Deratani Mauá](http://www.ime.usp.br/~ddm/)  
 **Mais informações:**
 
-- [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf) (sujeita a ajustes finais)
+- [Monografia](https://github.com/tmadeira/tcc/raw/master/doc/monografia/monografia.pdf)
 - [Apresentação](https://github.com/tmadeira/tcc/raw/master/doc/apresentacao/apresentacao.pdf)
 - [Pôster](https://github.com/tmadeira/tcc/raw/master/doc/poster/poster.pdf)
 

@@ -23,7 +23,7 @@ func TestCodeFig2C(t *testing.T) {
 	got := Code(characteristic, 1)
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("Code(Fig. 2c) = %v; want %v", characteristic, got, want)
+		t.Errorf("Code(Fig. 2c) = %v; want %v", got, want)
 	}
 }
 
@@ -43,7 +43,7 @@ func TestDecodeFig2C(t *testing.T) {
 	got := Decode(code, 1)
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("Decode(Fig. 2c) = %v; want %v", code, got, want)
+		t.Errorf("Decode(Fig. 2c) = %v; want %v", got, want)
 	}
 }
 
@@ -63,7 +63,7 @@ func CodeFig3(t *testing.T) {
 	got := Code(char, 1)
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("Code(Fig. 3) = %v; want %v", char, got, want)
+		t.Errorf("Code(Fig. 3) = %v; want %v", got, want)
 	}
 }
 
@@ -83,6 +83,6 @@ func TestDecodeFig3(t *testing.T) {
 	got := Decode(code, 1)
 
 	if !reflect.DeepEqual(got, want) {
-		t.Errorf("Decode(Fig. 3) = %v; want %v", code, got, want)
+		t.Errorf("Decode(Fig. 3) = %v; want %v", got, want)
 	}
 }
